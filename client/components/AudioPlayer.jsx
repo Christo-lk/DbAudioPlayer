@@ -9,6 +9,8 @@ export default function AudioPlayer ({ tracks }) {
   console.log(isPlaying)
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
+  console.log('audio.current:', audio.current)
+  console.log('audio:', audio)
 
   // handles play and stop playing
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function AudioPlayer ({ tracks }) {
   }, [isPlaying])
 
   useEffect(() => {
-
+    audio.current = new Audio(audioSrc)
   }, [trackIndex])
 
   function toNext () {
