@@ -15,14 +15,35 @@ export default function AudioPlayer ({ tracks }) {
     isPlaying ? audio.current.play() : audio.current.pause()
   }, [isPlaying])
 
+  useEffect(() => {
+
+  }, [trackIndex])
+
+  function toNext () {
+    if (trackIndex < tracks.length - 1) {
+      setTrackIndex(trackIndex + 1)
+    } else {
+      setTrackIndex(0)
+    }
+  }
+
+  function toPrev () {
+    if (trackIndex - 1 < 0) {
+      setTrackIndex(tracks.length - 1)
+    } else {
+      setTrackIndex(trackIndex - 1)
+    }
+  }
+
   return (
     <>
       <div>
         <img src={image} className="w-32"/>
         <h2>{title}</h2>
         <h2>{artist}</h2>
-
+        <button onClick={() => toPrev()}>Prev</button>
         {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
+        <button onClick={() => toNext()} >Next</button>
 
       </div>
     </>
