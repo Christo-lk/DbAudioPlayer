@@ -16,9 +16,7 @@ export default function AudioPlayer ({ tracks }) {
   const { duration } = audio.current
 
   console.log('audio.current:', audio.current)
-  console.log('audio.current.time:', audio.current.currentTime)
-  console.log('audio.duration:', duration)
-  console.log('audio preload:', audio.preload)
+  console.log('progress', progress)
 
   // handles play and stop playing
   useEffect(() => {
@@ -26,8 +24,9 @@ export default function AudioPlayer ({ tracks }) {
   }, [isPlaying])
 
   useEffect(() => {
+    audio.current.pause()
     audio.current = new Audio(audioSrc)
-    // audio.preload = 'metadata'
+    // audio.current.play()
   }, [trackIndex])
 
   // changes to next track
@@ -48,9 +47,10 @@ export default function AudioPlayer ({ tracks }) {
   }
 
   function onScrub (e) {
-    setProgress(e)
-    audio.current.currentTime = progress
+    setProgress(audio.current.currentTime)
   }
+
+  setInterval(() => setProgress(audio.current.currentTime), 1000)
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function AudioPlayer ({ tracks }) {
           {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
-        <input type="range" min='0' preload="metadata" max={duration || `${duration}`} step='1' value={progress} onChange={(e) => onScrub(e.target.value) } />
+        <input type="range" min='0' max={duration || `${duration}`} step='1' value={`${progress}`} onChange={(e) => onScrub(e) } />
       </div>
     </>
   )
