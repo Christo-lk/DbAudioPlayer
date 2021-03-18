@@ -39,13 +39,16 @@ export default function AudioPlayer ({ tracks }) {
 
   return (
     <>
-      <div>
+      <div className="flex flex-col">
         <img src={image} className="w-32"/>
         <h2>{title}</h2>
         <h2>{artist}</h2>
-        <button onClick={() => toPrev()}>Prev</button>
-        {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
-        <button onClick={() => toNext()} >Next</button>
+        <div className="">
+          <button onClick={() => toPrev()}>Prev</button>
+          {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
+          <button onClick={() => toNext()} >Next</button>
+        </div>
+        <input type="range" value=/>
       </div>
     </>
   )
