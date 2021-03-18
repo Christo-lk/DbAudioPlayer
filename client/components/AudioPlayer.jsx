@@ -4,6 +4,7 @@ export default function AudioPlayer ({ tracks }) {
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [isReady, setIsReady] = useState(false)
 
   const { title, artist, audioSrc, image } = tracks[trackIndex]
 
@@ -13,10 +14,9 @@ export default function AudioPlayer ({ tracks }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
+  
   // handles play and stop playing
   useEffect(() => {
-    // isPlaying ? (audio.current.play(),): audio.current.pause()
-
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
@@ -25,10 +25,17 @@ export default function AudioPlayer ({ tracks }) {
     }
   }, [isPlaying])
 
+  // ON TRACK CHANGE
   useEffect(() => {
     audio.current.pause()
     audio.current = new Audio(audioSrc)
-    // audio.current.play()
+
+    if (isReady) {
+      audio.current.play()
+      startProgressBar()
+    } else {
+      setIsReady(true)
+    }
   }, [trackIndex])
 
   // changes to next track
