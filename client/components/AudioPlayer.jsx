@@ -70,7 +70,6 @@ export default function AudioPlayer ({ tracks }) {
     <>
       <div className="flex flex-col">
         <img src={image} className="w-48 rounded-full"/>
-
         <div className="flex flex-col justify-center my-1">
           <h2 className="mx-auto">{title}</h2>
           <h2 className="mx-auto italic text-sm">{artist}</h2>
@@ -83,7 +82,7 @@ export default function AudioPlayer ({ tracks }) {
         </div>
 
         <input
-          className="my-4"
+          className="my-3"
           type="range"
           min='0'
           max={duration || `${duration}`}
