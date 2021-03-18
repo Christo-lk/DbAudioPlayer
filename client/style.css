@@ -4,6 +4,7 @@
 
 html{
   height: 100%;
+  font-family: 'Poppins', sans-serif;
 }
 
 .box{
@@ -20,4 +21,8 @@ button{
 
 ul, li{
   list-style-type: none;
+}
+
+h1{
+  @apply text-4xl font-bold
 }

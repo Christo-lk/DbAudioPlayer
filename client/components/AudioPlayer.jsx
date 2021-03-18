@@ -14,7 +14,6 @@ export default function AudioPlayer ({ tracks }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
-  
   // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
@@ -70,7 +69,7 @@ export default function AudioPlayer ({ tracks }) {
   return (
     <>
       <div className="flex flex-col">
-        <img src={image} className="w-32"/>
+          <img src={image} className="w-48 rounded-full"/>
         <h2>{title}</h2>
         <h2>{artist}</h2>
         <div className="">
