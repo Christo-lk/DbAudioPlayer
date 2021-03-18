@@ -3,14 +3,22 @@ import React, { useState, useRef, useEffect } from 'react'
 export default function AudioPlayer ({ tracks }) {
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [progress, setProgress] = useState(0)
 
   const { title, artist, audioSrc, image } = tracks[trackIndex]
 
   console.log(isPlaying)
+
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
+
+  // destructure song duration out of the 'current' property
+  const { duration } = audio.current
+
   console.log('audio.current:', audio.current)
-  console.log('audio:', audio)
+  console.log('audio.current.time:', audio.current.currentTime)
+  console.log('audio.duration:', duration)
+  console.log('audio preload:', audio.preload)
 
   // handles play and stop playing
   useEffect(() => {
@@ -19,8 +27,10 @@ export default function AudioPlayer ({ tracks }) {
 
   useEffect(() => {
     audio.current = new Audio(audioSrc)
+    // audio.preload = 'metadata'
   }, [trackIndex])
 
+  // changes to next track
   function toNext () {
     if (trackIndex < tracks.length - 1) {
       setTrackIndex(trackIndex + 1)
@@ -28,13 +38,18 @@ export default function AudioPlayer ({ tracks }) {
       setTrackIndex(0)
     }
   }
-
+  // changes to previous track
   function toPrev () {
     if (trackIndex - 1 < 0) {
       setTrackIndex(tracks.length - 1)
     } else {
       setTrackIndex(trackIndex - 1)
     }
+  }
+
+  function onScrub (e) {
+    setProgress(e)
+    audio.current.currentTime = progress
   }
 
   return (
@@ -48,7 +63,7 @@ export default function AudioPlayer ({ tracks }) {
           {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
-        <input type="range" value=/>
+        <input type="range" min='0' preload="metadata" max={duration || `${duration}`} step='1' value={progress} onChange={(e) => onScrub(e.target.value) } />
       </div>
     </>
   )
