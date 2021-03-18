@@ -83,6 +83,7 @@ export default function AudioPlayer ({ tracks }) {
         </div>
 
         <input
+          className="my-4"
           type="range"
           min='0'
           max={duration || `${duration}`}
