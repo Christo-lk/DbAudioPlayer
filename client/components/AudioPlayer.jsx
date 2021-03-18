@@ -7,20 +7,22 @@ export default function AudioPlayer ({ tracks }) {
 
   const { title, artist, audioSrc, image } = tracks[trackIndex]
 
-  console.log(isPlaying)
-
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
 
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
-  console.log('audio.current:', audio.current)
-  console.log('progress', progress)
-
   // handles play and stop playing
   useEffect(() => {
-    isPlaying ? audio.current.play() : audio.current.pause()
+    // isPlaying ? (audio.current.play(),): audio.current.pause()
+
+    if (isPlaying) {
+      audio.current.play()
+      startProgressBar()
+    } else {
+      audio.current.pause()
+    }
   }, [isPlaying])
 
   useEffect(() => {
@@ -46,11 +48,17 @@ export default function AudioPlayer ({ tracks }) {
     }
   }
 
-  function onScrub (e) {
-    setProgress(audio.current.currentTime)
+  // moves song progressbar
+  function startProgressBar () {
+    setInterval(() => {
+      setProgress(audio.current.currentTime)
+    }, 1000)
   }
 
-  setInterval(() => setProgress(audio.current.currentTime), 1000)
+  function onScrub (e) {
+    audio.current.currentTime = e
+    setProgress(e)
+  }
 
   return (
     <>
@@ -63,7 +71,16 @@ export default function AudioPlayer ({ tracks }) {
           {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
-        <input type="range" min='0' max={duration || `${duration}`} step='1' value={`${progress}`} onChange={(e) => onScrub(e) } />
+        <input
+          type="range"
+          min='0'
+          max={duration || `${duration}`}
+          step='1'
+          value={`${progress}`}
+          onChange={(e) => onScrub(e.currentTarget.value)}
+          // onMouseUp={}
+          // onKeyUp={}
+        />
       </div>
     </>
   )
