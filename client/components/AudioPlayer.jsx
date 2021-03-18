@@ -46,7 +46,6 @@ export default function AudioPlayer ({ tracks }) {
         <button onClick={() => toPrev()}>Prev</button>
         {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
         <button onClick={() => toNext()} >Next</button>
-
       </div>
     </>
   )

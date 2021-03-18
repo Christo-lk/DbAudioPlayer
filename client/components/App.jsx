@@ -1,5 +1,6 @@
 import React from 'react'
 import AudioPlayer from './AudioPlayer'
+import TrackList from './TrackList'
 
 const App = () => {
   // Dummy Props
@@ -28,8 +29,12 @@ const App = () => {
 
   return (
     <>
-      <h1 className="text-red-500">React development has begun!</h1>
-      <AudioPlayer tracks ={tracks}/>
+      <div className="w-full bg-yellow-100">
+        <div className="mx-auto bg-blue-100 wfit flex">
+          <AudioPlayer tracks ={tracks}/>
+          <TrackList tracks={tracks}/>
+        </div>
+      </div>
     </>
   )
 }
