@@ -48,11 +48,12 @@ const App = () => {
         <h1 className="mx-auto">DB Audio Player</h1>
 
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
-          { isLoaded &&
-            <>
+          { isLoaded
+            ? <>
               <AudioPlayer tracks={tracks1} />
               <TrackList tracks={tracks1}/>
             </>
+            : <h1 className= "my-auto">loading...</h1>
 
           }
 

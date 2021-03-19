@@ -10,16 +10,6 @@ export default function AudioPlayer ({ tracks }) {
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
-  // useState(() => {
-  //   getSongs()
-  //     .then(result => {
-  //       setTracks(result)
-  //       console.log('onMount:', result)
-  //       return null
-  //     })
-  //     .catch(err => console.log(err))
-  // }, [])
-
   // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
