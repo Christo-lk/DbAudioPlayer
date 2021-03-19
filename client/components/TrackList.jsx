@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function TrackList ({ tracks }) {
+  console.log('tracklist props:', tracks)
   return (
     <>
       <div className="ml-10 px-3 border-2 border-gray-200 rounded-md overflow-auto">

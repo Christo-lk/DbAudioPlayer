@@ -1,18 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react'
 
+import { getSongs } from '../api/songsApi'
+
 export default function AudioPlayer ({ tracks }) {
+  const [tracks1, setTracks] = useState([])
+
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
-  const { title, artist, audioSrc, image } = tracks[trackIndex]
-
-  // Defines audio source
-  const audio = useRef(new Audio(audioSrc))
-
-  // destructure song duration out of the 'current' property
-  const { duration } = audio.current
+  useState(() => {
+    getSongs()
+      .then(result => {
+        setTracks(result)
+        console.log('onMount:', result)
+        return null
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   // handles play and stop playing
   useEffect(() => {
@@ -36,6 +42,14 @@ export default function AudioPlayer ({ tracks }) {
       setIsReady(true)
     }
   }, [trackIndex])
+
+  const { title, artist, audioSrc, image } = tracks[trackIndex]
+
+  // Defines audio source
+  const audio = useRef(new Audio(audioSrc))
+
+  // destructure song duration out of the 'current' property
+  const { duration } = audio.current
 
   // changes to next track
   function toNext () {
