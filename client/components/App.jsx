@@ -27,16 +27,19 @@ const App = () => {
   ]
 
   const [tracks1, setTracks] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useState(() => {
     getSongs()
       .then(result => {
         setTracks(result)
+        setIsLoaded(true)
         return null
       })
       .catch(err => console.log(err))
   }, [])
 
+  console.log(isLoaded)
   console.log(tracks1)
 
   return (
@@ -45,8 +48,14 @@ const App = () => {
         <h1 className="mx-auto">DB Audio Player</h1>
 
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
-          <AudioPlayer tracks={tracks} />
-          <TrackList tracks={tracks}/>
+          { isLoaded &&
+            <>
+              <AudioPlayer tracks={tracks1} />
+              <TrackList tracks={tracks1}/>
+            </>
+
+          }
+
         </div>
       </div>
     </>

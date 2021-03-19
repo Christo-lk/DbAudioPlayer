@@ -3,22 +3,22 @@ import React, { useState, useRef, useEffect } from 'react'
 import { getSongs } from '../api/songsApi'
 
 export default function AudioPlayer ({ tracks }) {
-  const [tracks1, setTracks] = useState([])
+  // const [tracks1, setTracks] = useState([])
 
   const [trackIndex, setTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
-  useState(() => {
-    getSongs()
-      .then(result => {
-        setTracks(result)
-        console.log('onMount:', result)
-        return null
-      })
-      .catch(err => console.log(err))
-  }, [])
+  // useState(() => {
+  //   getSongs()
+  //     .then(result => {
+  //       setTracks(result)
+  //       console.log('onMount:', result)
+  //       return null
+  //     })
+  //     .catch(err => console.log(err))
+  // }, [])
 
   // handles play and stop playing
   useEffect(() => {
