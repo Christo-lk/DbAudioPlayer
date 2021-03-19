@@ -9,12 +9,14 @@ export default function AudioPlayer ({ tracks }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
+  const [animation, setAnimation] = useState('')
 
   // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
+      setAnimation('rotation 2s infinite linear')
     } else {
       audio.current.pause()
     }
@@ -73,7 +75,7 @@ export default function AudioPlayer ({ tracks }) {
   return (
     <>
       <div className="flex flex-col">
-        <img src={image} className="w-48 rounded-full"/>
+        <img src={image} className={isPlaying ? 'w-48 rounded-full rotate' : 'w-48 rounded-full' }/>
         <div className="flex flex-col justify-center my-1">
           <h2 className="mx-auto">{title}</h2>
           <h2 className="mx-auto italic text-sm">{artist}</h2>
