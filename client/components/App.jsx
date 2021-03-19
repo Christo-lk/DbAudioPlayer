@@ -1,31 +1,10 @@
 import React, { useState } from 'react'
 import AudioPlayer from './AudioPlayer'
-import TrackList from './TrackList'
+import RightPanel from './RightPanel'
 
 import { getSongs } from '../api/songsApi'
 
 const App = () => {
-  // Dummy Props
-  const tracks = [{
-    title: 'We Are The People',
-    artist: 'Empire Of The Sun',
-    audioSrc: '/tracks/EmpireOfTheSun.mp3',
-    image: './coverArt/empireOfTheSun.png'
-  },
-  {
-    title: 'Temper Temper',
-    artist: 'Lime Cordiale',
-    audioSrc: '/tracks/limeCordiale.mp3',
-    image: './coverArt/limeCordiale.jpg'
-  },
-  {
-    title: 'When Am I Gonna Lose You',
-    artist: 'Local Natives',
-    audioSrc: '/tracks/localNatives.mp3',
-    image: './coverArt/localNatives.jpg'
-  }
-  ]
-
   const [tracks1, setTracks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -39,9 +18,6 @@ const App = () => {
       .catch(err => console.log(err))
   }, [])
 
-  console.log(isLoaded)
-  console.log(tracks1)
-
   return (
     <>
       <div className="w-full bg-yellow-100 flex flex-col justify-center">
@@ -51,7 +27,7 @@ const App = () => {
           { isLoaded
             ? <>
               <AudioPlayer tracks={tracks1} />
-              <TrackList tracks={tracks1}/>
+              <RightPanel tracks={tracks1}/>
             </>
             : <h1 className= "my-auto">loading...</h1>
 
