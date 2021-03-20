@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <>
-      <div className="w-full bg-yellow-100 flex flex-col justify-center">
+      <div className="w-full  flex flex-col justify-center">
         <h1 className="mx-auto">DB Audio Player</h1>
 
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
