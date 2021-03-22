@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-export default function TrackList2 ({ tracks }) {
+import { connect } from 'react-redux'
+
+function TrackList2 ({ tracks }) {
   return (
     <>
       {tracks.map(track =>
@@ -12,3 +14,11 @@ export default function TrackList2 ({ tracks }) {
     </>
   )
 }
+
+function mapStateToProps (state) {
+  return {
+    tracks: state.tracks
+  }
+}
+
+export default connect(mapStateToProps)(TrackList2)

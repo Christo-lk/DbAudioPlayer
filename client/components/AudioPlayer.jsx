@@ -1,12 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 import { getSongs } from '../api/songsApi'
+import { connect } from 'react-redux'
+import store from '../redux/store'
 
-export default function AudioPlayer ({ tracks }) {
+// action creators
+import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
+
+function AudioPlayer ({ tracks, isPlaying }) {
   // const [tracks1, setTracks] = useState([])
 
   const [trackIndex, setTrackIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
+  // const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
@@ -73,7 +78,7 @@ export default function AudioPlayer ({ tracks }) {
   return (
     <>
       <div className="flex flex-col">
-        <img src={image} className="w-48 rounded-full"/>
+        <img src={image} className={isPlaying ? 'w-48 rounded-full rotate' : 'w-48 rounded-full' }/>
         <div className="flex flex-col justify-center my-1">
           <h2 className="mx-auto">{title}</h2>
           <h2 className="mx-auto italic text-sm">{artist}</h2>
@@ -81,7 +86,7 @@ export default function AudioPlayer ({ tracks }) {
 
         <div className="">
           <button onClick={() => toPrev()}>Prev</button>
-          {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
+          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> pause</button> : <button onClick={() => store.dispatch(setIsPlaying())}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
 
@@ -100,3 +105,12 @@ export default function AudioPlayer ({ tracks }) {
     </>
   )
 }
+
+function mapStateToProps (state) {
+  return {
+    tracks: state.tracks,
+    isPlaying: state.isPlaying
+  }
+}
+
+export default connect(mapStateToProps)(AudioPlayer)
