@@ -8,10 +8,8 @@ import store from '../redux/store'
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 
 function AudioPlayer ({ tracks, isPlaying }) {
-  // const [tracks1, setTracks] = useState([])
 
   const [trackIndex, setTrackIndex] = useState(0)
-  // const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
