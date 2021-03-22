@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 
 import { getSongs } from '../api/songsApi'
+import { connect } from 'react-redux'
 
-
-export default function AudioPlayer ({ tracks }) {
+function AudioPlayer ({ tracks }) {
   // const [tracks1, setTracks] = useState([])
 
   const [trackIndex, setTrackIndex] = useState(0)
@@ -101,3 +101,11 @@ export default function AudioPlayer ({ tracks }) {
     </>
   )
 }
+
+function mapStateToProps (state) {
+  return {
+    tracks: state.tracks
+  }
+}
+
+export default connect(mapStateToProps)(AudioPlayer)

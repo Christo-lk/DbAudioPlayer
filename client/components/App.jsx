@@ -31,8 +31,8 @@ const App = () => {
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
           { isLoaded
             ? <>
-              <AudioPlayer tracks={tracks1} />
-              <RightPanel tracks={tracks1}/>
+              <AudioPlayer />
+              <RightPanel />
             </>
             : <h1 className= "my-auto">loading...</h1>
 

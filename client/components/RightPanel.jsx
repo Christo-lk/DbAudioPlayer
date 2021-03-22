@@ -24,7 +24,7 @@ export default function RightPanel ({ tracks }) {
           <h2 className="text-xl font-semibold">{showForm ? 'Add Song' : 'Songs:'}</h2>
           <button className="text-3xl" onClick={() => clickHandler()}> +</button>
         </div>
-        { showForm ? <AddSongForm/> : <TrackList2 tracks={tracks}/>}
+        { showForm ? <AddSongForm/> : <TrackList2 />}
       </div>
     </>
   )
