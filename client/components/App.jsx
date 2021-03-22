@@ -4,6 +4,9 @@ import RightPanel from './RightPanel'
 
 import { getSongs } from '../api/songsApi'
 
+import { loadTracks } from '../redux/actions/tracks'
+import store from '../redux/store'
+
 const App = () => {
   const [tracks1, setTracks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
@@ -12,6 +15,8 @@ const App = () => {
     getSongs()
       .then(result => {
         setTracks(result)
+        store.dispatch(loadTracks(result))
+        console.log('result:', result)
         setIsLoaded(true)
         return null
       })

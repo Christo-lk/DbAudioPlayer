@@ -7,5 +7,5 @@ const store = createStore(rootReducer,
 )
 
 export default store
-export const dispatch = store.dispatch
-export const getState = store.getState
+// export const dispatch = store.dispatch
+// export const getState = store.getState

@@ -1,7 +1,16 @@
-const reducer = (state = '', action) => {
+const initialState = {
+  color: ''
+}
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'TEST':
-      return 'it Works'
+    case 'GREEN':
+      return 
+      {
+
+        color: 'GREEN'
+      }
+
     default: return state
   }
 }

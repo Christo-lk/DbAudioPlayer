@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 
 import { getSongs } from '../api/songsApi'
 
+
 export default function AudioPlayer ({ tracks }) {
   // const [tracks1, setTracks] = useState([])
 
@@ -9,14 +10,12 @@ export default function AudioPlayer ({ tracks }) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
-  const [animation, setAnimation] = useState('')
 
   // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
-      setAnimation('rotation 2s infinite linear')
     } else {
       audio.current.pause()
     }
