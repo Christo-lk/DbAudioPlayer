@@ -2,12 +2,16 @@ import React, { useState, useRef, useEffect } from 'react'
 
 import { getSongs } from '../api/songsApi'
 import { connect } from 'react-redux'
+import store from '../redux/store'
 
-function AudioPlayer ({ tracks }) {
+// action creators
+import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
+
+function AudioPlayer ({ tracks, isPlaying }) {
   // const [tracks1, setTracks] = useState([])
 
   const [trackIndex, setTrackIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
+  // const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
@@ -82,7 +86,7 @@ function AudioPlayer ({ tracks }) {
 
         <div className="">
           <button onClick={() => toPrev()}>Prev</button>
-          {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
+          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> pause</button> : <button onClick={() => store.dispatch(setIsPlaying())}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
 
@@ -104,7 +108,8 @@ function AudioPlayer ({ tracks }) {
 
 function mapStateToProps (state) {
   return {
-    tracks: state.tracks
+    tracks: state.tracks,
+    isPlaying: state.isPlaying
   }
 }
 

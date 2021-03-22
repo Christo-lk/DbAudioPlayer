@@ -30,4 +30,4 @@ export default function RightPanel ({ tracks }) {
   )
 }
 
-// connect()RightPanel()
+
