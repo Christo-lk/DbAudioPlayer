@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 
-import testReducer from './reducers/testReducer'
 import isPlaying from './reducers/isPlaying'
 import tracks from './reducers/tracks'
+import selectedTrack from './reducers/selectedTrack'
 
 const rootReducer = combineReducers({
   // list reducers here
-  isPlaying: isPlaying,
-  tracks: tracks
+  isPlaying,
+  tracks,
+  selectedTrack
 
 })
 
