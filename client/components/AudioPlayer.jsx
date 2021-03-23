@@ -1,13 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import { getSongs } from '../api/songsApi'
 import { connect } from 'react-redux'
 import store from '../redux/store'
 
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 
+// database API calls
+import { getIndSong } from '../api/songsApi'
+import { getSong } from '../api/songsApi'
+
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
+  console.log('trackslength:', tracks.length)
+
   const [trackIndex, setTrackIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
@@ -24,19 +29,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
       audio.current.pause()
     }
   }, [isPlaying])
-
-  // ON TRACK CHANGE
-  // useEffect(() => {
-  //   audio.current.pause()
-  //   audio.current = new Audio(audioSrc)
-
-  //   if (isReady) {
-  //     audio.current.play()
-  //     startProgressBar()
-  //   } else {
-  //     setIsReady(true)
-  //   }
-  // }, [trackIndex])
 
   // REDUX ON TRACK CHANGE
   useEffect(() => {
@@ -65,6 +57,10 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
+    store.dispatch({
+      action: 'TO_NEXT_TRACK',
+      id: selectedTrack.id
+    })
     // if (trackIndex < tracks.length - 1) {
     //   setTrackIndex(trackIndex + 1)
     // } else {
