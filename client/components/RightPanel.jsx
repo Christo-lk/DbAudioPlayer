@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react'
 import AddSongForm from './AddSongForm'
 import TrackList2 from './TrackList2'
 
-import { isPlaying } from '../redux/actions/isPlaying'
 import store from '../redux/store'
-import { connect } from 'superagent'
 
 export default function RightPanel ({ tracks }) {
   const [showForm, setShowForm] = useState(false)
 
   function clickHandler () {
     setShowForm(true)
-    // store.dispatch({type:'IS_PLAYING'})
-    store.dispatch(isPlaying())
   }
 
   console.log(showForm)
