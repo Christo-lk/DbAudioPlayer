@@ -12,8 +12,11 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
+  const [currentTrack, setCurrentTrack] = useState(selectedTrack.title)
+
   // handles play and stop playing
   useEffect(() => {
+    console.log('isPLayingUseEffect')
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
@@ -35,8 +38,24 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   //   }
   // }, [trackIndex])
 
+  // REDUX ON TRACK CHANGE
+  useEffect(() => {
+    console.log('useState selected track')
+    audio.current.pause()
+    audio.current = new Audio(audioSrc)
+
+    if (isPlaying) {
+      audio.current.play()
+    } else {
+      return null
+    }
+  }, [selectedTrack])
+
   // const { title, artist, audioSrc, image } = tracks[trackIndex]
   const { title, artist, audioSrc, image } = selectedTrack
+
+  // console.log(audioSrc)
+  // console.log('selectedTrack:', selectedTrack)
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
