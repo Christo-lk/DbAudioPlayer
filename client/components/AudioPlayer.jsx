@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import { getSongs } from '../api/songsApi'
+import { getIndSong } from '../api/songsApi'
 import { connect } from 'react-redux'
 import store from '../redux/store'
 
@@ -24,19 +24,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
       audio.current.pause()
     }
   }, [isPlaying])
-
-  // ON TRACK CHANGE
-  // useEffect(() => {
-  //   audio.current.pause()
-  //   audio.current = new Audio(audioSrc)
-
-  //   if (isReady) {
-  //     audio.current.play()
-  //     startProgressBar()
-  //   } else {
-  //     setIsReady(true)
-  //   }
-  // }, [trackIndex])
 
   // REDUX ON TRACK CHANGE
   useEffect(() => {
@@ -65,6 +52,8 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
+    getIndSong(3)
+      .then(res => console.log(res))
     // if (trackIndex < tracks.length - 1) {
     //   setTrackIndex(trackIndex + 1)
     // } else {

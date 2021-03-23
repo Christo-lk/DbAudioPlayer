@@ -4,3 +4,8 @@ export function getSongs () {
   return request.get('/api/v1/getsongs')
     .then(res => res.body)
 }
+
+export function getIndSong (id) {
+  return request.get(`/api/v1/getindsong/${id}`)
+    .then(res => res.body)
+}
