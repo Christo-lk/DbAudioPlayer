@@ -7,8 +7,7 @@ import store from '../redux/store'
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 
-function AudioPlayer ({ tracks, isPlaying }) {
-
+function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [trackIndex, setTrackIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
@@ -24,19 +23,20 @@ function AudioPlayer ({ tracks, isPlaying }) {
   }, [isPlaying])
 
   // ON TRACK CHANGE
-  useEffect(() => {
-    audio.current.pause()
-    audio.current = new Audio(audioSrc)
+  // useEffect(() => {
+  //   audio.current.pause()
+  //   audio.current = new Audio(audioSrc)
 
-    if (isReady) {
-      audio.current.play()
-      startProgressBar()
-    } else {
-      setIsReady(true)
-    }
-  }, [trackIndex])
+  //   if (isReady) {
+  //     audio.current.play()
+  //     startProgressBar()
+  //   } else {
+  //     setIsReady(true)
+  //   }
+  // }, [trackIndex])
 
-  const { title, artist, audioSrc, image } = tracks[trackIndex]
+  // const { title, artist, audioSrc, image } = tracks[trackIndex]
+  const { title, artist, audioSrc, image } = selectedTrack
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
@@ -46,19 +46,19 @@ function AudioPlayer ({ tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    if (trackIndex < tracks.length - 1) {
-      setTrackIndex(trackIndex + 1)
-    } else {
-      setTrackIndex(0)
-    }
+    // if (trackIndex < tracks.length - 1) {
+    //   setTrackIndex(trackIndex + 1)
+    // } else {
+    //   setTrackIndex(0)
+    // }
   }
   // changes to previous track
   function toPrev () {
-    if (trackIndex - 1 < 0) {
-      setTrackIndex(tracks.length - 1)
-    } else {
-      setTrackIndex(trackIndex - 1)
-    }
+    // if (trackIndex - 1 < 0) {
+    //   setTrackIndex(tracks.length - 1)
+    // } else {
+    //   setTrackIndex(trackIndex - 1)
+    // }
   }
 
   // moves song progressbar
@@ -107,7 +107,8 @@ function AudioPlayer ({ tracks, isPlaying }) {
 function mapStateToProps (state) {
   return {
     tracks: state.tracks,
-    isPlaying: state.isPlaying
+    isPlaying: state.isPlaying,
+    selectedTrack: state.selectedTrack
   }
 }
 

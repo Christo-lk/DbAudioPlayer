@@ -3,6 +3,9 @@ export default function selectedTrack (state = {}, action) {
     case 'SELECTED_TRACK':
       return action.track
 
+    case 'SET_SELECTED_TRACK':
+      return action.track
+
     default :
       return state
   }

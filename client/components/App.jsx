@@ -4,8 +4,10 @@ import RightPanel from './RightPanel'
 
 import { getSongs } from '../api/songsApi'
 
-import { loadTracks } from '../redux/actions/tracks'
 import store from '../redux/store'
+// Redux actions
+import { loadTracks } from '../redux/actions/tracks'
+import { setSelectedTrack } from '../redux/actions/selectedTrack'
 
 const App = () => {
   const [tracks1, setTracks] = useState([])
@@ -16,6 +18,7 @@ const App = () => {
       .then(result => {
         setTracks(result)
         store.dispatch(loadTracks(result))
+        store.dispatch(setSelectedTrack(result[1]))
         console.log('result:', result)
         setIsLoaded(true)
         return null
