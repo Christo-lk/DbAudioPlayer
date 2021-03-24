@@ -52,8 +52,18 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    getIndSong(3)
-      .then(res => console.log(res))
+    const songId = selectedTrack.id + 1
+
+    getIndSong(songId)
+      .then(indSong => {
+        store.dispatch({
+          type: 'SET_SELECTED_TRACK',
+          track: indSong
+        })
+        return null
+      })
+      .catch(err => console.log(err))
+
     // if (trackIndex < tracks.length - 1) {
     //   setTrackIndex(trackIndex + 1)
     // } else {
