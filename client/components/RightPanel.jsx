@@ -11,8 +11,6 @@ export default function RightPanel ({ tracks }) {
     setShowForm(true)
   }
 
-  console.log(showForm)
-
   return (
     <>
       <div className="ml-10 px-3 border-2 border-black rounded-md overflow-auto">

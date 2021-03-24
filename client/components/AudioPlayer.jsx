@@ -16,7 +16,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // handles play and stop playing
   useEffect(() => {
-    console.log('isPLayingUseEffect')
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
@@ -50,6 +49,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
+  console.log('trackId:', id)
   // changes to next track
   function toNext () {
     const songId = id + 1
@@ -75,21 +75,36 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
         })
         .catch(err => console.log(err))
     }
-
-    // if (id < tracks.length - 1) {
-    //   setTrackIndex(trackIndex + 1)
-    // } else {
-    //   setTrackIndex(0)
-    // }
   }
 
   // changes to previous track
   function toPrev () {
-    // if (trackIndex - 1 < 0) {
-    //   setTrackIndex(tracks.length - 1)
-    // } else {
-    //   setTrackIndex(trackIndex - 1)
-    // }
+    const songId = id - 1
+
+    // const fullLength = tracks.length
+    console.log('songId', songId)
+
+    if (id > 1) {
+      getIndSong(songId)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
+    } else {
+      getIndSong(selectedTrack.id)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   // moves song progressbar
