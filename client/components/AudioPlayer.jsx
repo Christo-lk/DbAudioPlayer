@@ -4,6 +4,12 @@ import { getIndSong } from '../api/songsApi'
 import { connect } from 'react-redux'
 import store from '../redux/store'
 
+// SVG icons
+import Play from '../icons/play.svg'
+import Pause from '../icons/pause.svg'
+import Prev from '../icons/prev.svg'
+import Next from '../icons/next.svg'
+
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 
@@ -128,10 +134,10 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
           <h2 className="mx-auto italic text-sm">{artist}</h2>
         </div>
 
-        <div className="">
-          <button onClick={() => toPrev()}>Prev</button>
-          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> pause</button> : <button onClick={() => store.dispatch(setIsPlaying())}> play </button>}
-          <button onClick={() => toNext()} >Next</button>
+        <div className="flex justify-between px-6">
+          <button onClick={() => toPrev()}> <img className="svg" src={Prev}/> </button>
+          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> <img className="svg" src={Pause}/> </button> : <button onClick={() => store.dispatch(setIsPlaying())}> <img className="svg" src={Play}/> </button>}
+          <button onClick={() => toNext()}> <img className="svg" src={Next}/> </button>
         </div>
 
         <input
