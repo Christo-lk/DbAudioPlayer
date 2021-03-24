@@ -39,7 +39,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   }, [selectedTrack])
 
   // const { title, artist, audioSrc, image } = tracks[trackIndex]
-  const { title, artist, audioSrc, image } = selectedTrack
+  const { id, title, artist, audioSrc, image } = selectedTrack
 
   // console.log(audioSrc)
   // console.log('selectedTrack:', selectedTrack)
@@ -52,24 +52,37 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    const songId = selectedTrack.id + 1
+    const songId = id + 1
 
-    getIndSong(songId)
-      .then(indSong => {
-        store.dispatch({
-          type: 'SET_SELECTED_TRACK',
-          track: indSong
+    if (id < tracks.length) {
+      getIndSong(songId)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
         })
-        return null
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
+    } else {
+      getIndSong(1)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
+    }
 
-    // if (trackIndex < tracks.length - 1) {
+    // if (id < tracks.length - 1) {
     //   setTrackIndex(trackIndex + 1)
     // } else {
     //   setTrackIndex(0)
     // }
   }
+
   // changes to previous track
   function toPrev () {
     // if (trackIndex - 1 < 0) {

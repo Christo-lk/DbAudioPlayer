@@ -16,7 +16,7 @@ const App = () => {
     getSongs()
       .then(result => {
         store.dispatch(loadTracks(result))
-        store.dispatch(setSelectedTrack(result[1]))
+        store.dispatch(setSelectedTrack(result[0]))
         setIsLoaded(true)
         return null
       })
