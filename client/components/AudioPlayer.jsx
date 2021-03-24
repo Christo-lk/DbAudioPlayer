@@ -127,8 +127,8 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   return (
     <>
-      <div className="flex flex-col">
-        <img src={image} className={isPlaying ? 'w-48 rounded-full rotate' : 'w-48 rounded-full' }/>
+      <div className="flex flex-col w-52">
+        <img src={image} className={isPlaying ? 'm-auto w-48 rounded-full rotate' : 'm-auto w-48 rounded-full' }/>
         <div className="flex flex-col justify-center my-1">
           <h2 className="mx-auto">{title}</h2>
           <h2 className="mx-auto italic text-sm">{artist}</h2>
