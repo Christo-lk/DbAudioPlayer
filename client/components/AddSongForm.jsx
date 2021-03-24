@@ -9,7 +9,7 @@ export default function AddSongForm () {
   })
 
   return (
-    <>
+    <div className="w-62">
       <form className="flex flex-col" onChange={() => {}}>
         <label htmlFor='title'>title</label>
         <input type='text' id='title'/>
@@ -18,6 +18,6 @@ export default function AddSongForm () {
         <input type="file" id="upload" />
         <button onClick={() => setShowForm(false)}>add Song</button>
       </form>
-    </>
+    </div>
   )
 }

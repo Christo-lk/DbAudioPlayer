@@ -13,7 +13,7 @@ export default function RightPanel ({ tracks }) {
 
   return (
     <>
-      <div className="ml-10 px-3 border-2 border-black rounded-md overflow-auto">
+      <div className="w-62 ml-10 px-3 border-2 border-black rounded-md overflow-auto">
         <div className="h-10 flex">
           <h2 className="text-xl font-semibold">{showForm ? 'Add Song' : 'Songs:'}</h2>
           <button className="text-3xl" onClick={() => clickHandler()}> +</button>
