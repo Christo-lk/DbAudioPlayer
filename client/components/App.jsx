@@ -4,14 +4,19 @@ import RightPanel from './RightPanel'
 
 import { getSongs } from '../api/songsApi'
 
+import store from '../redux/store'
+// Redux actions
+import { loadTracks } from '../redux/actions/tracks'
+import { setSelectedTrack } from '../redux/actions/selectedTrack'
+
 const App = () => {
-  const [tracks1, setTracks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
   useState(() => {
     getSongs()
       .then(result => {
-        setTracks(result)
+        store.dispatch(loadTracks(result))
+        store.dispatch(setSelectedTrack(result[0]))
         setIsLoaded(true)
         return null
       })
@@ -26,8 +31,8 @@ const App = () => {
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
           { isLoaded
             ? <>
-              <AudioPlayer tracks={tracks1} />
-              <RightPanel tracks={tracks1}/>
+              <AudioPlayer />
+              <RightPanel />
             </>
             : <h1 className= "my-auto">loading...</h1>
 

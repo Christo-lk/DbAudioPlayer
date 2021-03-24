@@ -1,41 +1,47 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import { getSongs } from '../api/songsApi'
+import { getIndSong } from '../api/songsApi'
+import { connect } from 'react-redux'
+import store from '../redux/store'
 
-export default function AudioPlayer ({ tracks }) {
-  // const [tracks1, setTracks] = useState([])
+// action creators
+import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 
+function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [trackIndex, setTrackIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
-  const [animation, setAnimation] = useState('')
+
+  const [currentTrack, setCurrentTrack] = useState(selectedTrack.title)
 
   // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
       startProgressBar()
-      setAnimation('rotation 2s infinite linear')
     } else {
       audio.current.pause()
     }
   }, [isPlaying])
 
-  // ON TRACK CHANGE
+  // REDUX ON TRACK CHANGE
   useEffect(() => {
+    console.log('useState selected track')
     audio.current.pause()
     audio.current = new Audio(audioSrc)
 
-    if (isReady) {
+    if (isPlaying) {
       audio.current.play()
-      startProgressBar()
     } else {
-      setIsReady(true)
+      return null
     }
-  }, [trackIndex])
+  }, [selectedTrack])
 
-  const { title, artist, audioSrc, image } = tracks[trackIndex]
+  // const { title, artist, audioSrc, image } = tracks[trackIndex]
+  const { id, title, artist, audioSrc, image } = selectedTrack
+
+  // console.log(audioSrc)
+  // console.log('selectedTrack:', selectedTrack)
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
@@ -43,20 +49,61 @@ export default function AudioPlayer ({ tracks }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
+  console.log('trackId:', id)
   // changes to next track
   function toNext () {
-    if (trackIndex < tracks.length - 1) {
-      setTrackIndex(trackIndex + 1)
+    const songId = id + 1
+
+    if (id < tracks.length) {
+      getIndSong(songId)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
     } else {
-      setTrackIndex(0)
+      getIndSong(1)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
     }
   }
+
   // changes to previous track
   function toPrev () {
-    if (trackIndex - 1 < 0) {
-      setTrackIndex(tracks.length - 1)
+    const songId = id - 1
+
+    // const fullLength = tracks.length
+    console.log('songId', songId)
+
+    if (id > 1) {
+      getIndSong(songId)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
     } else {
-      setTrackIndex(trackIndex - 1)
+      getIndSong(selectedTrack.id)
+        .then(indSong => {
+          store.dispatch({
+            type: 'SET_SELECTED_TRACK',
+            track: indSong
+          })
+          return null
+        })
+        .catch(err => console.log(err))
     }
   }
 
@@ -83,7 +130,7 @@ export default function AudioPlayer ({ tracks }) {
 
         <div className="">
           <button onClick={() => toPrev()}>Prev</button>
-          {isPlaying ? <button onClick={() => setIsPlaying(false)}> pause</button> : <button onClick={() => setIsPlaying(true)}> play </button>}
+          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> pause</button> : <button onClick={() => store.dispatch(setIsPlaying())}> play </button>}
           <button onClick={() => toNext()} >Next</button>
         </div>
 
@@ -102,3 +149,13 @@ export default function AudioPlayer ({ tracks }) {
     </>
   )
 }
+
+function mapStateToProps (state) {
+  return {
+    tracks: state.tracks,
+    isPlaying: state.isPlaying,
+    selectedTrack: state.selectedTrack
+  }
+}
+
+export default connect(mapStateToProps)(AudioPlayer)
