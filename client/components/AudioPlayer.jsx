@@ -42,11 +42,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
     }
   }, [selectedTrack])
 
-  // const { title, artist, audioSrc, image } = tracks[trackIndex]
   const { id, title, artist, audioSrc, image } = selectedTrack
-
-  // console.log(audioSrc)
-  // console.log('selectedTrack:', selectedTrack)
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))

@@ -9,3 +9,9 @@ export function getIndSong (id) {
   return request.get(`/api/v1/getindsong/${id}`)
     .then(res => res.body)
 }
+
+export function addSong (song) {
+  return request.post('/api/v1/addsong')
+    .send(song)
+    .then(res => res.body)
+}

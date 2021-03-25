@@ -16,8 +16,6 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
     }
   }, [selectedTrack])
 
-  console.log('isSelected on IndTrack', isSelected)
-
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
   }

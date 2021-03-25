@@ -3,11 +3,23 @@ import { connect } from 'react-redux'
 
 // redux action
 import { setShowForm } from '../redux/actions/showForm'
+import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import store from '../redux/store'
+
+import { addSong } from '../api/songsApi'
 
 function AddSongForm ({ showForm }) {
   function clickHandler () {
+    const song = {
+      title: 'itworksbaubebeebe',
+      artist: 'christo',
+      image: './test',
+      audioSrc: './test'
+    }
+
     store.dispatch(setShowForm(false))
+    addSong(song)
+    store.dispatch(setRefreshTracks(true))
   }
 
   return (

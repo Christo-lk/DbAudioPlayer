@@ -28,17 +28,14 @@ router.get('/getindsong/:id', (req, res) => {
 
 // ADD SONG
 router.post('/addsong', (req, res) => {
-  const song = {
-    title: 'test',
-    artist: 'christo',
-    image: './test',
-    audioSrc: './test'
-  }
-
+  const song = req.body
   db.addSong(song)
-    .then(result => {
-      res.status(201).json(result)
+    .then(indSong => {
+      res.status(201).json({ result: 'success!' })
       return null
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ result: 'failed to add song' })
+    })
 })

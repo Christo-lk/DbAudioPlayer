@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AudioPlayer from './AudioPlayer'
 import RightPanel from './RightPanel'
 
@@ -8,10 +8,13 @@ import store from '../redux/store'
 // Redux actions
 import { loadTracks } from '../redux/actions/tracks'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
+import { connect } from 'react-redux'
+import { setRefreshTracks } from '../redux/actions/refreshTracks'
 
-const App = () => {
+function App ({ refreshTracks }) {
   const [isLoaded, setIsLoaded] = useState(false)
 
+  // LOADS ALL TRACKS ON COMPONENT MOUNT
   useState(() => {
     getSongs()
       .then(result => {
@@ -22,6 +25,24 @@ const App = () => {
       })
       .catch(err => console.log(err))
   }, [])
+
+  // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
+
+  useEffect(() => {
+    console.log('refreshtracks use state triggered')
+
+    if (refreshTracks) {
+      getSongs()
+        .then(result => {
+          store.dispatch(loadTracks(result))
+          store.dispatch(setRefreshTracks(false))
+          return null
+        })
+        .catch(err => console.log(err))
+    } else {
+      return null
+    }
+  }, [refreshTracks])
 
   return (
     <>
@@ -44,4 +65,10 @@ const App = () => {
   )
 }
 
-export default App
+function mapStateToProps (state) {
+  return {
+    refreshTracks: state.refreshTracks
+  }
+}
+
+export default connect(mapStateToProps)(App)
