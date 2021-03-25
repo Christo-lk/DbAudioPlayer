@@ -9,6 +9,11 @@ import store from '../redux/store'
 import { addSong } from '../api/songsApi'
 
 function AddSongForm ({ showForm }) {
+  const [form, setForm] = useState({
+    title: '',
+    artist: ''
+  })
+
   function clickHandler () {
     const song = {
       title: 'itworksbaubebeebe',

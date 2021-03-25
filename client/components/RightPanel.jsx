@@ -12,8 +12,8 @@ function RightPanel ({ showForm }) {
 
   return (
     <>
-      <div className="w-62 ml-10 px-3 border-2 border-black rounded-md overflow-auto">
-        <div className="h-10 flex items-center">
+      <div className="w-62 h-80 ml-10 px-3 border-2 border-black rounded-md overflow-auto">
+        <div className="h-10 flex items-center sticky top-0 bg-blue-100">
           <h2 className="text-xl font-semibold">{showForm ? 'Add Song' : 'Songs:'}</h2>
           <button className="text-xl w-5 h-5 bg-blue-300 flex justify-center items-center rounded-md mx-1 hover:bg-blue-400" onClick={() => store.dispatch(setShowForm(true))}> +</button>
         </div>
