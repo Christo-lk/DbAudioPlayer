@@ -23,7 +23,7 @@ function TrackList2 ({ tracks }) {
 
 function mapStateToProps (state) {
   return {
-    tracks: state.tracks
+    tracks: state.tracks,
   }
 }
 

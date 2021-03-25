@@ -3,20 +3,20 @@ import AddSongForm from './AddSongForm'
 import TrackList2 from './TrackList2'
 
 import store from '../redux/store'
+import { connect } from 'react-redux'
 
-export default function RightPanel ({ tracks }) {
-  const [showForm, setShowForm] = useState(false)
+// redux action
+import { setShowForm } from '../redux/actions/showForm'
 
-  function clickHandler () {
-    setShowForm(true)
-  }
+function RightPanel ({ showForm }) {
+  console.log('showformcalue: ', showForm)
 
   return (
     <>
       <div className="w-62 ml-10 px-3 border-2 border-black rounded-md overflow-auto">
         <div className="h-10 flex">
           <h2 className="text-xl font-semibold">{showForm ? 'Add Song' : 'Songs:'}</h2>
-          <button className="text-3xl" onClick={() => clickHandler()}> +</button>
+          <button className="text-3xl" onClick={() => store.dispatch(setShowForm(true))}> +</button>
         </div>
         { showForm ? <AddSongForm/> : <TrackList2 />}
       </div>
@@ -24,4 +24,10 @@ export default function RightPanel ({ tracks }) {
   )
 }
 
+function mapStateToProps (state) {
+  return {
+    showForm: state.showForm
+  }
+}
 
+export default connect(mapStateToProps)(RightPanel)

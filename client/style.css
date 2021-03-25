@@ -11,9 +11,9 @@ html{
   @apply w-72 h-72 bg-blue-500
 }
 
-/* button{
+.button{
   @apply bg-blue-300 rounded-md mx-1 px-2
-} */
+}
 
 .wfit{
   width: fit-content;
@@ -42,4 +42,8 @@ h1{
 
 .svg{
   @apply w-8
+}
+
+.w-fit{
+  width: fit-content
 }
