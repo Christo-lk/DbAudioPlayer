@@ -32,7 +32,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // REDUX ON TRACK CHANGE
   useEffect(() => {
-    console.log('useState selected track')
     audio.current.pause()
     audio.current = new Audio(audioSrc)
 
@@ -55,7 +54,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
-  console.log('trackId:', id)
   // changes to next track
   function toNext () {
     const songId = id + 1

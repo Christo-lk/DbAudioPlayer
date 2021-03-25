@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 import { setShowForm } from '../redux/actions/showForm'
 
 function RightPanel ({ showForm }) {
-  console.log('showformcalue: ', showForm)
 
   return (
     <>
