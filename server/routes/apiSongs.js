@@ -4,6 +4,18 @@ const db = require('../db/dbSongs')
 
 const router = express.Router()
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../server/public/tracks')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+
+const upload = multer({ storage: storage })
+
 module.exports = router
 
 // RETURN ALL SONGS
@@ -39,3 +51,9 @@ router.post('/addsong', (req, res) => {
       res.status(500).json({ result: 'failed to add song' })
     })
 })
+
+// router.post('/uploadfile', upload.single('myFile'), (req, res) => {
+//   const file = req.file
+
+//   res.send(file)
+// })

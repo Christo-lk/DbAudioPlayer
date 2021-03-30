@@ -11,32 +11,65 @@ import { addSong } from '../api/songsApi'
 function AddSongForm ({ showForm }) {
   const [form, setForm] = useState({
     title: '',
-    artist: ''
+    artist: '',
+    // audioSrc: `/public/${title}`,
+    image: null
   })
 
-  function clickHandler () {
+  const [title, setTitle] = useState('')
+  const [artist, setArtist] = useState('')
+
+  // console.log('artist: ', artist)
+  // console.log('title: ', title)
+
+  function handleChange (e) {
+    const { name, value } = e.target
+
+    console.log(name)
+    setForm({
+      ...form,
+      [name]: value,
+      audioSrc: `/public/${value}`
+
+    })
+  }
+
+  function newOnSubmit (event) {
+    event.preventDefault()
+    store.dispatch(setShowForm(false))
+    addSong(form)
+    store.dispatch(setRefreshTracks(true))
+
+
+    console.log('submitted form: ', form)
+  }
+
+  function onSubmit () {
     const song = {
-      title: 'itworksbaubebeebe',
-      artist: 'christo',
-      image: './test',
+      title: title,
+      artist: artist,
+      image: null,
       audioSrc: './test'
     }
 
-    store.dispatch(setShowForm(false))
-    addSong(song)
-    store.dispatch(setRefreshTracks(true))
+    console.log('submit song: ', song)
+    // console.log('form: ', form)
+
   }
 
   return (
     <div className="w-62">
-      <form className="flex flex-col" onChange={() => {}}>
-        <label htmlFor='title'>title</label>
-        <input type='text' id='title'/>
-        <label htmlFor='artist'>artist</label>
-        <input type="text" id='artist'/>
-        <input type="file" id="upload" />
-        <button className="button w-fit" onClick={() => clickHandler() }>add Song</button>
+      <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
+        <label htmlFor='title'>Title</label>
+        <input type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
+        <label htmlFor='artist'>Artist</label>
+        <input type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
+        <label htmlFor="song">Upload Song</label>
+        <input type="file" id="song" />
+        <button className="button w-fit my-3">add Song</button>
+
       </form>
+
     </div>
   )
 }

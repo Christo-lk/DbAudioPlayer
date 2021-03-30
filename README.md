@@ -8,8 +8,13 @@ https://www.flaticon.com/packs/multimedia-player-control-3?word=play
 
 TO DO: 
 
-- add overflow auto to tracklist div
--fix vertical height of left panel when track title text wraps
-- implement authentication
--write db tests
-- style addSongForm
+[x] add overflow auto to tracklist div
+[] user can upload a song 
+[] fix vertical height of left panel when track title text wraps
+[] implement authentication
+[] write db tests
+[] style addSongForm
+[] implement cat artwork 
+[] deploy website 
+
+

@@ -29,8 +29,6 @@ function App ({ refreshTracks }) {
   // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
 
   useEffect(() => {
-    console.log('refreshtracks use state triggered')
-
     if (refreshTracks) {
       getSongs()
         .then(result => {
