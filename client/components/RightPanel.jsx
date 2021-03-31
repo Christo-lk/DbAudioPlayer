@@ -11,7 +11,6 @@ import { setShowCatPic } from '../redux/actions/setShowCatPic'
 
 function RightPanel ({ showForm, showCatPic }) {
   function catPicClick () {
-    console.log('click!')
     if (showCatPic) {
       store.dispatch(setShowCatPic(false))
     } else {

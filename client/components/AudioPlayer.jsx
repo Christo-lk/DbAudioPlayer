@@ -82,9 +82,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   function toPrev () {
     const songId = id - 1
 
-    // const fullLength = tracks.length
-    console.log('songId', songId)
-
     if (id > 1) {
       getIndSong(songId)
         .then(indSong => {
