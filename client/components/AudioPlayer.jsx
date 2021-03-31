@@ -123,11 +123,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   return (
     <>
       <div className="flex flex-col w-52">
-        {/* <img src={image} className={isPlaying ? 'm-auto w-48 rounded-full rotate' : 'm-auto w-48 rounded-full' }/>
-        <div className="flex flex-col justify-center my-1">
-          <h2 className="mx-auto">{title}</h2>
-          <h2 className="mx-auto italic text-sm">{artist}</h2>
-        </div> */}
         <TrackArtwork/>
 
         <div className="flex justify-between px-6">
@@ -144,8 +139,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
           step='1'
           value={`${progress}`}
           onChange={(e) => onScrub(e.currentTarget.value)}
-          // onMouseUp={}
-          // onKeyUp={}
         />
       </div>
     </>

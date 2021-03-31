@@ -5,6 +5,7 @@ import tracks from './reducers/tracks'
 import selectedTrack from './reducers/selectedTrack'
 import showForm from './reducers/showForm'
 import refreshTracks from './reducers/refreshTracks'
+import showCatPic from './reducers/showCatPic'
 
 const rootReducer = combineReducers({
   // list reducers here
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   tracks,
   selectedTrack,
   showForm,
-  refreshTracks
+  refreshTracks,
+  showCatPic,
 
 })
 
