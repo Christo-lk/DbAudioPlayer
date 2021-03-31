@@ -7,8 +7,18 @@ import { connect } from 'react-redux'
 
 // redux action
 import { setShowForm } from '../redux/actions/showForm'
+import { setShowCatPic } from '../redux/actions/setShowCatPic'
 
-function RightPanel ({ showForm }) {
+function RightPanel ({ showForm, showCatPic }) {
+  function catPicClick () {
+    console.log('click!')
+    if (showCatPic) {
+      store.dispatch(setShowCatPic(false))
+    } else {
+      store.dispatch(setShowCatPic(true))
+    }
+  }
+
   return (
     <div className="flex flex-col w-62 ml-10">
       <div className="h-80 px-3 border-2 border-black rounded-md overflow-auto">
@@ -20,7 +30,7 @@ function RightPanel ({ showForm }) {
       </div>
       <div className="px-3 my-2">
         <label htmlFor="catPicButton">cat pic album art?</label>
-        <button name="catPicbutton" className="button">Yes Please</button>
+        <button name="catPicbutton" className="button" onClick={() => catPicClick()}> {showCatPic ? 'Change it back!' : 'Yes Please!'}</button>
       </div>
     </div>
   )
@@ -28,7 +38,8 @@ function RightPanel ({ showForm }) {
 
 function mapStateToProps (state) {
   return {
-    showForm: state.showForm
+    showForm: state.showForm,
+    showCatPic: state.showCatPic
   }
 }
 
