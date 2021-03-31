@@ -5,16 +5,18 @@ const db = require('../db/dbSongs')
 const router = express.Router()
 
 const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '../server/public/tracks')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
+const upload = multer({ dest: '../public' })
 
-const upload = multer({ storage: storage })
+// const storage = multer.diskStorage({
+//   destination: '../server/public/tracks'
+// },
+// {
+//   filename: function (req, file, cb) {
+//     cb(null, file.fieldname + '-' + Date.now())
+//   }
+// })
+
+// const upload = multer({ storage: storage })
 
 module.exports = router
 
@@ -52,8 +54,10 @@ router.post('/addsong', (req, res) => {
     })
 })
 
-// router.post('/uploadfile', upload.single('myFile'), (req, res) => {
-//   const file = req.file
+router.post('/uploadfile', upload.single('file'), (req, res) => {
+  // const file = req.file
 
-//   res.send(file)
-// })
+  console.log(req.file)
+
+  res.send(req.file)
+})

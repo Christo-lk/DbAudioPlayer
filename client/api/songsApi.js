@@ -15,3 +15,9 @@ export function addSong (song) {
     .send(song)
     .then(res => res.body)
 }
+
+export function uploadFile (song) {
+  return request.post('/api/v1/uploadfile')
+    .send(song)
+    .then(() => console.log('i tried'))
+}
