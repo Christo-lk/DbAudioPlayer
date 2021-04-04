@@ -4,6 +4,7 @@ import RightPanel from './RightPanel'
 
 import { getSongs } from '../api/songsApi'
 
+
 import store from '../redux/store'
 // Redux actions
 import { loadTracks } from '../redux/actions/tracks'
@@ -45,7 +46,7 @@ function App ({ refreshTracks }) {
   return (
     <>
       <div className="w-full  flex flex-col justify-center">
-        <h1 className="mx-auto">DB Audio Player</h1>
+        <h1 className="mx-auto my-3">DB Audio Player</h1>
 
         <div className="mx-auto p-10 rounded-md bg-blue-100 wfit flex">
           { isLoaded

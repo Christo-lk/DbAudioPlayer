@@ -44,6 +44,10 @@ h1{
   @apply w-8
 }
 
+.playButton{
+  @apply w-11 opacity-80 hover:opacity-100
+}
+
 .w-fit{
   width: fit-content
 }

@@ -12,6 +12,7 @@ import Next from '../icons/next.svg'
 
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
+import TrackArtwork from './TrackArtwork'
 
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [trackIndex, setTrackIndex] = useState(0)
@@ -81,9 +82,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   function toPrev () {
     const songId = id - 1
 
-    // const fullLength = tracks.length
-    console.log('songId', songId)
-
     if (id > 1) {
       getIndSong(songId)
         .then(indSong => {
@@ -122,16 +120,12 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   return (
     <>
       <div className="flex flex-col w-52">
-        <img src={image} className={isPlaying ? 'm-auto w-48 rounded-full rotate' : 'm-auto w-48 rounded-full' }/>
-        <div className="flex flex-col justify-center my-1">
-          <h2 className="mx-auto">{title}</h2>
-          <h2 className="mx-auto italic text-sm">{artist}</h2>
-        </div>
+        <TrackArtwork/>
 
         <div className="flex justify-between px-6">
-          <button onClick={() => toPrev()}> <img className="svg" src={Prev}/> </button>
-          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> <img className="svg" src={Pause}/> </button> : <button onClick={() => store.dispatch(setIsPlaying())}> <img className="svg" src={Play}/> </button>}
-          <button onClick={() => toNext()}> <img className="svg" src={Next}/> </button>
+          <button onClick={() => toPrev()}> <img className="svg opacity-60 hover:opacity-80" src={Prev}/> </button>
+          {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> <img className="playButton" src={Pause}/> </button> : <button onClick={() => store.dispatch(setIsPlaying())}> <img className="playButton" src={Play}/> </button>}
+          <button onClick={() => toNext()}> <img className="svg opacity-60 hover:opacity-80" src={Next}/> </button>
         </div>
 
         <input
@@ -142,8 +136,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
           step='1'
           value={`${progress}`}
           onChange={(e) => onScrub(e.currentTarget.value)}
-          // onMouseUp={}
-          // onKeyUp={}
         />
       </div>
     </>
