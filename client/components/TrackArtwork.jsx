@@ -8,6 +8,7 @@ function TrackArtwork (props) {
   const { isPlaying, showCatPic } = props
 
   const [catPic, setCatPic] = useState('')
+  const [catPicLoaded, setCatPicLoaded] = useState(false)
 
   useEffect(() => {
     request.get('https://aws.random.cat/meow')
@@ -15,6 +16,7 @@ function TrackArtwork (props) {
         console.log(res.body)
         const { file } = res.body
         setCatPic(file)
+        setCatPicLoaded(true)
         return null
       })
       .catch(err => console.log(err))
@@ -25,9 +27,19 @@ function TrackArtwork (props) {
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
 
+  function imgClassSelector () {
+    if (isPlaying) {
+      return 'm-auto h-48 w-48 rounded-full rotate'
+    } else {
+      return 'm-auto h-48 w-48 rounded-full'
+    }
+  }
+
+  // isPlaying ? 'm-auto h-48 w-48 rounded-full rotate' : 'm-auto h-48 w-48 rounded-full'
+
   return (
     <>
-      <img src={imageSrc} className={isPlaying ? 'm-auto h-48 w-48 rounded-full rotate' : 'm-auto h-48 w-48 rounded-full' }/>
+      <img src={imageSrc} className={imgClassSelector()}/>
       <div className="flex flex-col justify-center my-1">
         <h2 className="mx-auto">{title}</h2>
         <h2 className="mx-auto italic text-sm">{artist}</h2>
