@@ -11,8 +11,8 @@ html{
   @apply w-72 h-72 bg-blue-500
 }
 
-button{
-  @apply bg-blue-300 rounded-md mx-1 px-2
+.button{
+  @apply bg-blue-300 rounded-md mx-1 
 }
 
 .wfit{
@@ -38,4 +38,16 @@ h1{
   to {
     transform: rotate(359deg);
   }
+}
+
+.svg{
+  @apply w-8
+}
+
+.playButton{
+  @apply w-11 opacity-80 hover:opacity-100
+}
+
+.w-fit{
+  width: fit-content
 }

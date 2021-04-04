@@ -1,28 +1,20 @@
-# A starter webpack project for React
+This is an Audio Player I am using as a playground to practise and play with some fun tech. 
 
-This is a starter project that uses webpack to transpile and bundle ES6 React code. To use, consider these steps:
+I am using 
+React, Redux, Express, Superagent, Mysqlite3, Knex
 
-* Fork this repo
-* Rename your repo according to the app you're building
+link to multimedia icons: 
+https://www.flaticon.com/packs/multimedia-player-control-3?word=play
 
-```sh
-git clone https://github.com/[your-account]/[your-app].git
-cd [your-app] && npm i
-```
+TO DO: 
 
-To start the development server with a watcher that rebuilds your code, run `npm run dev`. The assets built by webpack are placed in `server/public`. This folder is defined as a static folder in an Express.js server that can be started with `npm run server`.
+[x] add overflow auto to tracklist div
+[] user can upload a song 
+[] fix vertical height of left panel when track title text wraps
+[] implement authentication
+[] write db tests
+[] style addSongForm
+[] implement cat artwork 
+[] deploy website 
 
-Additional components should be placed in `client/components`.
-
-## Separate client/server
-
-The boilerplate is also set up to host the client using `webpack-dev-server` with hot module reloading etc. To use this method, in one terminal run:
-```sh
-npm run client
-```
-and in the other:
-```sh
-npm run server
-```
-The client will be available on http://localhost:8080 and the server on http://localhost:3000. Note that you will still need to manage CORS between the two, as they are on different ports.
 

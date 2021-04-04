@@ -3,7 +3,8 @@ const db = connection
 
 module.exports = {
   getSongs,
-  getIndSong
+  getIndSong,
+  addSong
 }
 
 function getSongs () {
@@ -13,4 +14,9 @@ function getSongs () {
 function getIndSong (id) {
   return db('songs')
     .where('id', id).first()
+}
+
+function addSong (song) {
+  return db('songs')
+    .insert(song)
 }
