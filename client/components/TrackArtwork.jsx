@@ -29,13 +29,11 @@ function TrackArtwork (props) {
 
   function imgClassSelector () {
     if (isPlaying) {
-      return 'm-auto h-48 w-48 rounded-full rotate'
+      return 'm-auto h-48 w-48 rounded-full rotate shadow-inner'
     } else {
       return 'm-auto h-48 w-48 rounded-full'
     }
   }
-
-  // isPlaying ? 'm-auto h-48 w-48 rounded-full rotate' : 'm-auto h-48 w-48 rounded-full'
 
   return (
     <>
