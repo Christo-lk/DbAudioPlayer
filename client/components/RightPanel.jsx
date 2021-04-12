@@ -21,7 +21,7 @@ function RightPanel ({ showForm, showCatPic }) {
   return (
     <div className="flex flex-col w-72 ml-10 shadow-inner bg-gray-100 rounded-md">
       <div className="h-80 rounded-md overflow-auto relative">
-        <div className="h-16 flex items-center flex-row sticky top-0 bg-gradient-to-b from-gray-300 p-3  ">
+        <div className="h-16 flex items-center flex-row sticky top-0 bg-gradient-to-b from-gray-300 to-gray-100 p-3  ">
           <h2 className="text-2xl font-semibold">{showForm ? 'Add Song' : 'Songs:'}</h2>
           <button className="ml-3 text-xl w-5 h-5 bg-blue-300 flex justify-center items-center rounded-md mx-1 hover:bg-blue-400" onClick={() => store.dispatch(setShowForm(true))}> +</button>
         </div>

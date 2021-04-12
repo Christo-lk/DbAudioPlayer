@@ -61,17 +61,17 @@ function AddSongForm ({ showForm }) {
     <div className="px-3">
       <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
         <div className="formItem">
-          <label htmlFor='title'>Title</label>
-          <input type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
+          <label htmlFor='title'>Title:</label>
+          <input className="h-7 rounded-sm" type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
         </div>
         <div className="formItem">
-          <label htmlFor='artist'>Artist</label>
-          <input type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
+          <label htmlFor='artist'>Artist:</label>
+          <input className="h-7 rounded-sm" type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
         </div>
         <div className="formItem">
-          <label htmlFor="song">Upload Song</label>
+          <label htmlFor="song">Upload Song:</label>
           <input type="file" id="song" />
-          <button className="button w-fit my-3">add Song</button>
+          <button className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
         </div>
 
       </form>
