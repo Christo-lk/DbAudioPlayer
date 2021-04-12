@@ -58,24 +58,33 @@ function AddSongForm ({ showForm }) {
   }
 
   return (
-    <>
-      {/* <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
-        <label htmlFor='title'>Title</label>
-        <input type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
-        <label htmlFor='artist'>Artist</label>
-        <input type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
-        <button className="button w-fit my-3">add Song</button>
-      </form> */}
+    <div className="px-3">
+      <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
+        <div className="formItem">
+          <label htmlFor='title'>Title</label>
+          <input type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
+        </div>
+        <div className="formItem">
+          <label htmlFor='artist'>Artist</label>
+          <input type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
+        </div>
+        <div className="formItem">
+          <label htmlFor="song">Upload Song</label>
+          <input type="file" id="song" />
+          <button className="button w-fit my-3">add Song</button>
+        </div>
 
-      <form encType="multipart/form-data" onSubmit={(e) => submitFile(e)}>
+      </form>
+
+      {/* <form encType="multipart/form-data" onSubmit={(e) => submitFile(e)}>
         <label htmlFor="song">Upload Song</label>
         <input type="file" id="song" onChange={e => {
           setFile(e.target.files[0])
         }} />
         <button className="button w-fit my-3">add real Song</button>
-      </form>
+      </form> */}
 
-    </>
+    </div>
   )
 }
 

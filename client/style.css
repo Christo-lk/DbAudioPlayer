@@ -72,3 +72,7 @@ h1{
 .w-fit{
   width: fit-content
 }
+
+.formItem{
+  @apply flex flex-col my-1
+}
