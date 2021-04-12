@@ -22,10 +22,12 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
 
   return (
     <>
-      <div onClick={() => clickHandler(track)} className={isSelected ? 'my-1 p-1 rounded-md bg-gray-100 border-2 border-blue-600 hover:bg-blue-200' : 'my-1 p-1 rounded-md bg-gray-100 hover:bg-blue-200' }>
-
-        <li key={id}>{title}</li>
-        <li className="text-sm italic" key={artist}>{artist}</li>
+      <div onClick={() => clickHandler(track)} className='flex h-12 my-1 rounded-md bg-gray-100 hover:bg-blue-200' >
+        <div className={isSelected ? 'visible h-12 rounded-l-md mr-1 w-1 bg-blue-600' : ' invisible h-12 rounded-l-md mr-1 w-1 bg-blue-600' }></div>
+        <div>
+          <li key={id}>{title}</li>
+          <li className="text-sm italic" key={artist}>{artist}</li>
+        </div>
       </div>
     </>
   )
