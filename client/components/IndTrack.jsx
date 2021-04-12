@@ -43,7 +43,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
       <div onClick={() => clickHandler(track)} className={indTrackBackground()} >
         <div className={indTrackDiv()}></div>
         <div>
-          <li key={id}>{title}</li>
+          <li className="" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
       </div>
