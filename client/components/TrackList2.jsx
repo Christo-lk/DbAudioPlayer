@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
 import { connect } from 'react-redux'
-import store from '../redux/store'
 import IndTrack from './IndTrack'
 
 function TrackList2 ({ tracks, selectedTrackId }) {
-  const [isSelected, setIsSelected] = useState(false)
-
   return (
     <>
       {tracks.map(track =>

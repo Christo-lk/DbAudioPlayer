@@ -20,12 +20,32 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
     store.dispatch(setSelectedTrack(track))
   }
 
+  // returns CSS for the background of the currently selected track
+  function indTrackBackground () {
+    if (isSelected) {
+      return 'flex ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r from-gray-200 hover:from-blue-50'
+    } else {
+      return 'flex ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r hover:from-blue-50'
+    }
+  }
+
+  // returns CSS for conditionally rendered div on currently selected track
+  function indTrackDiv () {
+    if (isSelected) {
+      return 'visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
+    } else {
+      return 'invisible h-12 rounded-l-md mr-1 w-1'
+    }
+  }
+
   return (
     <>
-      <div onClick={() => clickHandler(track)} className={isSelected ? 'my-1 p-1 rounded-md bg-gray-100 border-2 border-blue-600 hover:bg-blue-200' : 'my-1 p-1 rounded-md bg-gray-100 hover:bg-blue-200' }>
-
-        <li key={id}>{title}</li>
-        <li className="text-sm italic" key={artist}>{artist}</li>
+      <div onClick={() => clickHandler(track)} className={indTrackBackground()} >
+        <div className={indTrackDiv()}></div>
+        <div>
+          <li className="" key={id}>{title}</li>
+          <li className="text-sm italic" key={artist}>{artist}</li>
+        </div>
       </div>
     </>
   )
