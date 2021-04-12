@@ -58,7 +58,7 @@ function AddSongForm ({ showForm }) {
   }
 
   return (
-    <div className="w-62">
+    <>
       {/* <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
         <label htmlFor='title'>Title</label>
         <input type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
@@ -75,7 +75,7 @@ function AddSongForm ({ showForm }) {
         <button className="button w-fit my-3">add real Song</button>
       </form>
 
-    </div>
+    </>
   )
 }
 
