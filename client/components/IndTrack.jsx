@@ -9,6 +9,9 @@ import { setRefreshTracks } from '../redux/actions/refreshTracks'
 // Api Calls
 import { deleteSong } from '../api/songsApi'
 
+// SVG ICON
+import Delete from '../icons/delete.svg'
+
 function IndTrack ({ track, title, artist, id, selectedTrack }) {
   const [isSelected, setIsSelected] = useState(false)
 
@@ -37,18 +40,18 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
   // returns CSS for the background of the currently selected track
   function indTrackBackground () {
     if (isSelected) {
-      return 'flex ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r from-gray-200 hover:from-blue-50'
+      return 'flex items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r from-gray-200 hover:from-blue-50'
     } else {
-      return 'flex ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r hover:from-blue-50'
+      return 'flex items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r hover:from-blue-50'
     }
   }
 
   // returns CSS for conditionally rendered div on currently selected track
   function indTrackDiv () {
     if (isSelected) {
-      return 'visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
+      return 'relative visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
     } else {
-      return 'invisible h-12 rounded-l-md mr-1 w-1'
+      return 'relative invisible h-12 rounded-l-md mr-1 w-1'
     }
   }
 
@@ -60,7 +63,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
           <li className="" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
-        <button className="w-10 h-10 bg-red-400" onClick={() => deleteHandler()}>XX</button>
+        <button className="absolute right-5" onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
       </div>
     </>
   )
