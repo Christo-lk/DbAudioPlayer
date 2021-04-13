@@ -55,8 +55,10 @@ router.post('/addsong', (req, res) => {
 })
 
 // DELETE SONG BY ID
-router.delete('/deletesong', (req, res) => {
-  db.deleteSong(4)
+router.delete('/deletesong/:id', (req, res) => {
+  const id = Number(req.params.id)
+  console.log('id:', id)
+  db.deleteSong(id)
     .then(result => {
       res.json({ result: 'song was deleted!' })
       return null

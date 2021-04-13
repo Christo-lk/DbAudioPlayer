@@ -23,6 +23,6 @@ export function uploadFile (song) {
 }
 
 export function deleteSong (id) {
-  return request.delete('/api/v1/deletesong')
+  return request.delete(`/api/v1/deletesong/${id}`)
     .then(res => res.body)
 }

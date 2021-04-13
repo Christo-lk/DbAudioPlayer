@@ -27,8 +27,8 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
   function deleteHandler () {
     deleteSong(id)
       .then(res => {
-        console.log(res)
-        store.dispatch(setSelectedTrack(true))
+        console.log(res, 'clicked')
+        store.dispatch(setRefreshTracks(true))
         return null
       })
       .catch(err => console.log(err))
