@@ -9,6 +9,10 @@ import { connect } from 'react-redux'
 import { setShowForm } from '../redux/actions/showForm'
 import { setShowCatPic } from '../redux/actions/setShowCatPic'
 
+// SVG
+import CatOn from '../icons/catOn.svg'
+import CatOff from '../icons/catOff.svg'
+
 function RightPanel ({ showForm, showCatPic }) {
   function catPicClick () {
     if (showCatPic) {
@@ -28,8 +32,7 @@ function RightPanel ({ showForm, showCatPic }) {
         { showForm ? <AddSongForm/> : <TrackList2 />}
       </div>
       <div className="px-3 my-2">
-        <label htmlFor="catPicButton">cat pic album art?</label>
-        <button name="catPicbutton" className="button" onClick={() => catPicClick()}> {showCatPic ? 'Change it back!' : 'Yes Please!'}</button>
+        <button name="catPicbutton" className="" onClick={() => catPicClick()}> <img className="w-10 opacity-20 hover:opacity-90"src={showCatPic ? CatOn : CatOff}/></button>
       </div>
     </div>
   )
