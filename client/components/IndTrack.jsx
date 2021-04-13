@@ -4,6 +4,10 @@ import store from '../redux/store'
 
 // redux actions:
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
+import { setRefreshTracks } from '../redux/actions/refreshTracks'
+
+// Api Calls
+import { deleteSong } from '../api/songsApi'
 
 function IndTrack ({ track, title, artist, id, selectedTrack }) {
   const [isSelected, setIsSelected] = useState(false)
@@ -18,6 +22,16 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
 
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
+  }
+
+  function deleteHandler () {
+    deleteSong(id)
+      .then(res => {
+        console.log(res)
+        store.dispatch(setSelectedTrack(true))
+        return null
+      })
+      .catch(err => console.log(err))
   }
 
   // returns CSS for the background of the currently selected track
@@ -46,6 +60,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
           <li className="" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
+        <button className="w-10 h-10 bg-red-400" onClick={() => deleteHandler()}>XX</button>
       </div>
     </>
   )

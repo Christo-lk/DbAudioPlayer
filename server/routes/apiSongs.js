@@ -54,6 +54,16 @@ router.post('/addsong', (req, res) => {
     })
 })
 
+// DELETE SONG BY ID
+router.delete('/deletesong', (req, res) => {
+  db.deleteSong(4)
+    .then(result => {
+      res.json({ result: 'song was deleted!' })
+      return null
+    })
+    .catch(err => console.log(err))
+})
+
 router.post('/uploadfile', upload.single('file'), (req, res) => {
   // const file = req.file
 

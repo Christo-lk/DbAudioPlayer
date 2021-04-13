@@ -21,3 +21,8 @@ export function uploadFile (song) {
     .send(song)
     .then(() => console.log('i tried'))
 }
+
+export function deleteSong (id) {
+  return request.delete('/api/v1/deletesong')
+    .then(res => res.body)
+}

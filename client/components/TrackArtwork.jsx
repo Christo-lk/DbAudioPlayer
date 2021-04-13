@@ -13,7 +13,6 @@ function TrackArtwork (props) {
   useEffect(() => {
     request.get('https://aws.random.cat/meow')
       .then(res => {
-        console.log(res.body)
         const { file } = res.body
         setCatPic(file)
         setCatPicLoaded(true)
@@ -22,7 +21,6 @@ function TrackArtwork (props) {
       .catch(err => console.log(err))
   }, [title])
 
-  console.log(catPic)
 
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
