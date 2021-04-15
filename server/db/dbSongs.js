@@ -29,9 +29,8 @@ function deleteSong (id) {
     .delete()
 }
 
-function updateIsLiked ({ id, isLiked }) {
-  console.log(id, isLiked)
+function updateIsLiked ({id, boolean}) {
   return db('songs')
     .where('id', id)
-    .update({ isLiked: isLiked })
+    .update({ isLiked: boolean })
 }

@@ -7,7 +7,7 @@ import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 
 // Api Calls
-import { deleteSong } from '../api/songsApi'
+import { deleteSong, updateIsLiked } from '../api/songsApi'
 
 // SVG ICON
 import Delete from '../icons/delete.svg'
@@ -48,6 +48,19 @@ function IndTrack ({ track, selectedTrack }) {
   // handles like / unliking song
   function isLikedHandler (e) {
     console.log('clicked')
+
+    // const song ={id: id, boolean: }
+
+    const unlike ={
+      "id": `${id}`,
+      "boolean": "0"
+    }
+    const like ={
+      "id": `${id}`,
+      "boolean": "1"
+    }
+
+    isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
   }
 
   // returns CSS for the background of the currently selected track

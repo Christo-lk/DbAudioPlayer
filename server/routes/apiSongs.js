@@ -60,12 +60,9 @@ router.delete('/deletesong/:id', (req, res) => {
 // UPDATE ISLIKED 
 router.patch('/updateIsLiked', (req,res) =>{
 
-  const song= {
-    id: 1,
-    isLiked: 0
-  }
+  console.log('req.body', req.body)
   
-  db.updateIsLiked(song)
+  db.updateIsLiked(req.body)
     .then(result => {
       res.json({result: 'isLiked was updated'})
       return null  
