@@ -5,6 +5,7 @@ exports.up = function (knex) {
     table.string('artist')
     table.string('audioSrc')
     table.string('image')
+    table.boolean('isLiked')
   })
 }
 

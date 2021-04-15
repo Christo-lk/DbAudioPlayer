@@ -11,6 +11,8 @@ import { deleteSong } from '../api/songsApi'
 
 // SVG ICON
 import Delete from '../icons/delete.svg'
+import heartEmpty from '../components/heartEmpty.svg'
+import heartFull from '../components/heartFull.svg'
 
 function IndTrack ({ track, title, artist, id, selectedTrack }) {
   const [isSelected, setIsSelected] = useState(false)
@@ -64,6 +66,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
         <button className="absolute right-5" onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
+        <button></button>
       </div>
     </>
   )
