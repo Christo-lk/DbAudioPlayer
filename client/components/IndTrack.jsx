@@ -94,7 +94,7 @@ function IndTrack ({ track, selectedTrack }) {
         </div>
 
         <div className="flex items-center absolute right-5">
-          <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img src={heartFull}/> : <img src={heartEmpty}/>}</button>
+          <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
           <button onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
         </div>
       </div>
