@@ -21,6 +21,8 @@ function IndTrack ({ track, selectedTrack }) {
   // state that selects selected track
   const [isSelected, setIsSelected] = useState(false)
 
+ 
+
   // changes the currently selected track on selectedTrack change
   useEffect(() => {
     if (id === selectedTrack.id) {
@@ -47,9 +49,9 @@ function IndTrack ({ track, selectedTrack }) {
 
   // handles like / unliking song
   function isLikedHandler (e) {
-    console.log('clicked')
-
-    // const song ={id: id, boolean: }
+  
+    store.dispatch(setRefreshTracks(true))
+  
 
     const unlike ={
       "id": `${id}`,
