@@ -5,11 +5,10 @@ import AllTracks from './AllTracks'
 import IndTrack from './IndTrack'
 import LikedTracks from './LikedTracks'
 
-
-function TrackList2 ({ tracks, selectedTrackId }) {
+function TrackList2 ({ tracks, selectedTrackId, showLikedTracks }) {
   return (
     <>
-      <AllTracks/>
+      {showLikedTracks ? <LikedTracks/> : <AllTracks/>}
     </>
   )
 }
@@ -17,7 +16,8 @@ function TrackList2 ({ tracks, selectedTrackId }) {
 function mapStateToProps (state) {
   return {
     tracks: state.tracks,
-    selectedTrackId: state.selectedTrack.id
+    selectedTrackId: state.selectedTrack.id,
+    showLikedTracks: state.showLikedTracks
   }
 }
 
