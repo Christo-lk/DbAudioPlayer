@@ -36,6 +36,10 @@ button{
 
 button:focus { outline: none; }
 
+.flex-center{
+  @apply flex justify-center items-center
+}
+
 .box{
   @apply w-72 h-72 bg-blue-500
 }
