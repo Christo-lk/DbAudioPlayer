@@ -57,6 +57,22 @@ router.delete('/deletesong/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// UPDATE ISLIKED 
+router.patch('/updateIsLiked', (req,res) =>{
+
+  const song= {
+    id: 1,
+    isLiked: 0
+  }
+  
+  db.updateIsLiked(song)
+    .then(result => {
+      res.json({result: 'isLiked was updated'})
+      return null  
+  })
+  .catch(err => console.log(err))
+})
+
 router.post('/uploadfile', (req, res) => {
   if (req.file === null) {
     return res.status(400).json({ msg: 'no file uploaded' })

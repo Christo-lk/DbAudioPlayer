@@ -26,3 +26,9 @@ export function deleteSong (id) {
   return request.delete(`/api/v1/deletesong/${id}`)
     .then(res => res.body)
 }
+
+export function updateIsLiked (song) {
+  return request.put('/updateIsLiked')
+    .send(song)
+    .then(res => res.body)
+}

@@ -5,7 +5,8 @@ module.exports = {
   getSongs,
   getIndSong,
   addSong,
-  deleteSong
+  deleteSong,
+  updateIsLiked
 }
 
 function getSongs () {
@@ -26,4 +27,11 @@ function deleteSong (id) {
   return db('songs')
     .where('id', id)
     .delete()
+}
+
+function updateIsLiked ({ id, isLiked }) {
+  console.log(id, isLiked)
+  return db('songs')
+    .where('id', id)
+    .update({ isLiked: isLiked })
 }
