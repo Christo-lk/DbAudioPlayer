@@ -7,7 +7,7 @@ function TrackList2 ({ tracks, selectedTrackId }) {
   return (
     <>
       {tracks.map(track =>
-        <IndTrack track={track} key={track.id} title={track.title} artist={track.artist} id={track.id}/>
+        <IndTrack track={track} key={track.id} />
       )}
     </>
   )

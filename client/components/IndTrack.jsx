@@ -11,12 +11,17 @@ import { deleteSong } from '../api/songsApi'
 
 // SVG ICON
 import Delete from '../icons/delete.svg'
-import heartEmpty from '../components/heartEmpty.svg'
-import heartFull from '../components/heartFull.svg'
+import heartEmpty from '../icons/heartEmpty.svg'
+import heartFull from '../icons/heartFull.svg'
 
-function IndTrack ({ track, title, artist, id, selectedTrack }) {
+function IndTrack ({ track, selectedTrack }) {
+  // de structure props out of
+  const { title, artist, id, isLiked } = track
+
+  // state that selects selected track
   const [isSelected, setIsSelected] = useState(false)
 
+  // changes the currently selected track on selectedTrack change
   useEffect(() => {
     if (id === selectedTrack.id) {
       setIsSelected(true)
@@ -25,6 +30,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
     }
   }, [selectedTrack])
 
+  // sets selected track on click
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
   }
@@ -39,17 +45,22 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
       .catch(err => console.log(err))
   }
 
+  // handles like / unliking song
+  function isLikedHandler (e) {
+    console.log('clicked')
+  }
+
   // returns CSS for the background of the currently selected track
   function indTrackBackground () {
     if (isSelected) {
-      return 'flex items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r from-gray-200 hover:from-blue-50'
+      return 'flex relative items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r from-gray-200 hover:from-blue-50'
     } else {
-      return 'flex items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r hover:from-blue-50'
+      return 'flex relative items-center ml-3 mb-1 h-12 my-1 rounded-md bg-gradient-to-r hover:from-blue-50'
     }
   }
 
   // returns CSS for conditionally rendered div on currently selected track
-  function indTrackDiv () {
+  function selectedTrackDiv () {
     if (isSelected) {
       return 'relative visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
     } else {
@@ -60,13 +71,17 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
   return (
     <>
       <div onClick={() => clickHandler(track)} className={indTrackBackground()} >
-        <div className={indTrackDiv()}></div>
+
+        <div className={selectedTrackDiv()}></div>
         <div>
           <li className="" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
-        <button className="absolute right-5" onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
-        <button></button>
+
+        <div className="flex items-center absolute right-5">
+          <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img src={heartFull}/> : <img src={heartEmpty}/>}</button>
+          <button onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
+        </div>
       </div>
     </>
   )
@@ -75,10 +90,7 @@ function IndTrack ({ track, title, artist, id, selectedTrack }) {
 function mapStateToProps (state, ownProps) {
   return {
     selectedTrack: state.selectedTrack,
-    track: ownProps.track,
-    title: ownProps.title,
-    artist: ownProps.artist,
-    id: ownProps.id
+    track: ownProps.track
   }
 }
 
