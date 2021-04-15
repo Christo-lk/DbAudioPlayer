@@ -28,6 +28,13 @@ html{
   font-family: 'Poppins', sans-serif;
 }
 
+button{
+  border: none;
+  outline: none
+}
+
+button:focus { outline: none; }
+
 .box{
   @apply w-72 h-72 bg-blue-500
 }

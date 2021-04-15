@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { connect } from 'react-redux'
+import AllTracks from './AllTracks'
 import IndTrack from './IndTrack'
+import LikedTracks from './LikedTracks'
+
 
 function TrackList2 ({ tracks, selectedTrackId }) {
   return (
     <>
-      {tracks.map(track =>
-        <IndTrack track={track} key={track.id} />
-      )}
+      <AllTracks/>
     </>
   )
 }
