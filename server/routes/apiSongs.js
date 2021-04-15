@@ -3,20 +3,11 @@ const express = require('express')
 const db = require('../db/dbSongs')
 
 const router = express.Router()
+const path = require('path')
 
-const multer = require('multer')
-const upload = multer({ dest: '../public' })
-
-// const storage = multer.diskStorage({
-//   destination: '../server/public/tracks'
-// },
-// {
-//   filename: function (req, file, cb) {
-//     cb(null, file.fieldname + '-' + Date.now())
-//   }
-// })
-
-// const upload = multer({ storage: storage })
+// Express file-upload
+const fileUpload = require('express-fileupload')
+router.use(fileUpload())
 
 module.exports = router
 
@@ -66,10 +57,20 @@ router.delete('/deletesong/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
-router.post('/uploadfile', upload.single('file'), (req, res) => {
-  // const file = req.file
+router.post('/uploadfile', (req, res) => {
+  if (req.file === null) {
+    return res.status(400).json({ msg: 'no file uploaded' })
+  }
 
-  console.log(req.file)
+  const file = req.file.file
 
-  res.send(req.file)
+  file.mv(`../public/${file.name}`, err => {
+    if (err) {
+      console.log(err)
+      return res.status(500).send(err)
+    }
+  })
+
+  res.json({fileName: file.name, filePatch:  `../public/${file.name}`})
+
 })
