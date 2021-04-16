@@ -56,9 +56,9 @@ ul, li{
   list-style-type: none;
 }
 
-h1{
+/* h1{
   @apply text-4xl font-bold
-}
+} */
 
 .rotate {
   animation: rotation 10s infinite linear;

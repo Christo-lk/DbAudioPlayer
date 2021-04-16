@@ -1,4 +1,4 @@
-export default function trackListSource (state = 'LIKED_SONGS', action) {
+export default function trackListSource (state = 'ALL_TRACKS', action) {
   switch (action.type) {
     case 'SET_TRACKLIST_SOURCE':
       return action.source

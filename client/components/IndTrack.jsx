@@ -89,7 +89,7 @@ function IndTrack ({ track, selectedTrack }) {
 
         <div className={selectedTrackDiv()}></div>
         <div>
-          <li className="" key={id}>{title}</li>
+          <li className="font-semibold" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
 
