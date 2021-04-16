@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+
+// COMPONENTS
 import AddSongForm from './AddSongForm'
 import TrackList2 from './TrackList2'
+import TrackListSource from './TrackListSource'
 
 import store from '../redux/store'
 import { connect } from 'react-redux'
@@ -39,7 +42,8 @@ function RightPanel ({ showForm, showCatPic }) {
         </div>
       </div>
       <div className="h-80 rounded-md overflow-auto relative">
-        { showForm ? <AddSongForm/> : <TrackList2 />}
+        {/* { showForm ? <AddSongForm/> : <TrackList2 />} */}
+        <TrackListSource/>
       </div>
       <div className="px-3 my-2">
         <button name="catPicbutton" className="" onClick={() => catPicClick()}> <img className="w-10 opacity-20 hover:opacity-90"src={showCatPic ? CatOn : CatOff}/></button>
