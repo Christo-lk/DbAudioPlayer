@@ -37,8 +37,8 @@ function TrackArtwork (props) {
     <>
       <img src={imageSrc} className={imgClassSelector()}/>
       <div className="flex flex-col justify-center my-1 truncate">
-        <h2 className="mx-auto truncate text-lg font-semibold">{title}</h2>
-        <h2 className="mx-auto italic">{artist}</h2>
+        <h2 className="mx-auto truncate text-2xl font-semibold">{title}</h2>
+        <h2 className="mx-auto text-italic italic">{artist}</h2>
       </div>
     </>
 

@@ -15,13 +15,8 @@ import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 import TrackArtwork from './TrackArtwork'
 
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
-  const [trackIndex, setTrackIndex] = useState(0)
   const [progress, setProgress] = useState(0)
-  const [isReady, setIsReady] = useState(false)
 
-  const [currentTrack, setCurrentTrack] = useState(selectedTrack.title)
-
-  // handles play and stop playing
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
@@ -119,7 +114,10 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   return (
     <>
-      <div className="flex flex-col w-52">
+      <div className="flex flex-col w-auto mr-10">
+        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-red-400">
+          <h1 className="-mr-5 text-4xl font-bold">Db Audio Player</h1>
+        </div>
         <TrackArtwork/>
 
         <div className="flex justify-between px-6">

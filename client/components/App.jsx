@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import AudioPlayer from './AudioPlayer'
 import RightPanel from './RightPanel'
+import store from '../redux/store'
 
 import { getSongs } from '../api/songsApi'
 
-
-import store from '../redux/store'
 // Redux actions
 import { loadTracks } from '../redux/actions/tracks'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
@@ -46,7 +45,8 @@ function App ({ refreshTracks }) {
   return (
     <>
       <div className="w-full  flex flex-col justify-center">
-        <h1 className="mx-auto my-3">DB Audio Player</h1>
+
+        {/* <h1 className="mx-auto my-3">DB Audio Player</h1> */}
 
         <div className="mx-auto p-10 rounded-md bg-gray-50 shadow-2xl wfit flex">
           { isLoaded
@@ -55,7 +55,6 @@ function App ({ refreshTracks }) {
               <RightPanel />
             </>
             : <h1 className= "my-auto">loading...</h1>
-
           }
 
         </div>

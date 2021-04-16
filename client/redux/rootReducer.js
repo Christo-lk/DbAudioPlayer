@@ -8,6 +8,8 @@ import refreshTracks from './reducers/refreshTracks'
 import showCatPic from './reducers/showCatPic'
 import showLikedTracks from './reducers/showLikedTracks'
 
+import trackListSource from './reducers/trackListSource'
+
 const rootReducer = combineReducers({
   // list reducers here
   isPlaying,
@@ -16,7 +18,8 @@ const rootReducer = combineReducers({
   showForm,
   refreshTracks,
   showCatPic,
-  showLikedTracks
+  showLikedTracks,
+  trackListSource
 
 })
 
