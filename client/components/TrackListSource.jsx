@@ -25,7 +25,9 @@ function TrackListSource ({ trackListSource }) {
 
   return (
     <>
-      {componentSource()}
+      <div className="h-80 rounded-md overflow-auto relative">
+        {componentSource()}
+      </div>
     </>
   )
 }
