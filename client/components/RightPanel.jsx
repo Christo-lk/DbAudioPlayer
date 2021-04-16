@@ -9,9 +9,7 @@ import store from '../redux/store'
 import { connect } from 'react-redux'
 
 // redux action
-import { setShowForm } from '../redux/actions/showForm'
 import { setShowCatPic } from '../redux/actions/setShowCatPic'
-import { setShowLikedTracks } from '../redux/actions/setShowLikedTracks'
 import { setTrackListSource } from '../redux/actions/setTrackListSource'
 
 // SVG
