@@ -24,17 +24,17 @@ function RightPanel ({ showForm, showCatPic }) {
   }
 
   return (
-    <div className="flex flex-col w-72 ml-10 shadow-inner bg-gray-100 rounded-md">
-      <div className=" h-auto bg-red-400 flex items-center flex-row sticky p-3  ">
+    <div className="flex flex-col  ml-10 shadow-inner bg-gray-100 rounded-md">
+      <div className="  h-auto bg-blue-400 flex items-center flex-row sticky pt-1 pb-4 pl-1 ">
         <div className="flex flex-row">
-          <div className=" h-12 bg-yellow-400 mx-2">
-            <h2 className="text-2xl font-semibold">All Tracks:</h2>
+          <div className=" h-12 w-28 bg-yellow-400 mr-2">
+            <h2 className="text-2xl leading-tight font-bold hover:text-white">All Tracks:</h2>
           </div>
-          <div className="h-12 w-32 bg-yellow-400 mx-2">
-            <h2 className="text-2xl font-semibold" onClick={() => store.dispatch(setShowLikedTracks(true))}>Liked Tracks:</h2>
+          <div className="h-12 w-28 bg-yellow-400 mr-2">
+            <h2 className="text-2xl leading-tight font-bold hover:text-white" onClick={() => store.dispatch(setShowLikedTracks(true))}>Liked Tracks:</h2>
           </div>
-          <div className="h-12 w-12 flex-center bg-yellow-400 mx-2">
-            <button className="text-4xl" onClick={() => store.dispatch(setShowForm(true))}>+</button>
+          <div className="h-7 w-7 flex-center bg-yellow-400 mx-2 ml-16">
+            <button className="text-4xl hover:text-white" onClick={() => store.dispatch(setShowForm(true))}>+</button>
           </div>
         </div>
       </div>
