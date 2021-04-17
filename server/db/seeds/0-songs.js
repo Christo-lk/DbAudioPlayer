@@ -6,7 +6,7 @@ exports.seed = function (knex) {
       return knex('songs').insert([
         { id: 1, title: 'We Are The People', artist: 'Empire Of The Sun', audioSrc: '/tracks/EmpireOfTheSun.mp3', image: './coverArt/empireOfTheSun.png', isLiked: false },
         { id: 2, title: 'Temper Temper', artist: 'Lime Cordiale', audioSrc: '/tracks/limeCordiale.mp3', image: './coverArt/limeCordiale.jpg', isLiked: false },
-        { id: 3, title: 'When Am I Gonna Lose You', artist: 'Local Natives', audioSrc: '/tracks/localNatives.mp3', image: './coverArt/localNatives.jpg', isLiked: false },
+        // { id: 3, title: 'When Am I Gonna Lose You', artist: 'Local Natives', audioSrc: '/tracks/localNatives.mp3', image: './coverArt/localNatives.jpg', isLiked: false },
         { id: 4, title: 'Night Shift', artist: 'Balu Brigada', audioSrc: '/tracks/baluBrigada.mp3', image: './coverArt/baluBrigada.jpg', isLiked: false },
         { id: 5, title: 'Hot Girl Bummer', artist: 'Blackbear', audioSrc: '/tracks/blackbear.mp3', image: './coverArt/blackbear.jpg', isLiked: false },
         { id: 6, title: 'Cake By The Ocean', artist: 'DNCE', audioSrc: '/tracks/dnce.mp3', image: './coverArt/dnce.jpg', isLiked: false },
