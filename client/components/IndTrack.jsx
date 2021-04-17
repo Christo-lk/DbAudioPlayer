@@ -77,11 +77,21 @@ function IndTrack ({ track, selectedTrack }) {
   // returns CSS for conditionally rendered div on currently selected track
   function selectedTrackDiv () {
     if (isSelected) {
-      return 'relative visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
+      return 'relative visible h-12 mr-1 w-1 bg-blue-500'
     } else {
-      return 'relative invisible h-12 rounded-l-md mr-1 w-1'
+      return 'relative invisible h-12 mr-1 w-1'
     }
   }
+
+
+  // conditionally renders Heart SVG
+  // function HeartSvgConditional(){
+  //   if(selectedTrack.id === id && selectedTrack.isLiked){
+  //     return <img className="opacity-80" src={heartFull}/>
+  //   } else{
+  //     return <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>
+  //   }
+  // }
 
   return (
     <>
@@ -95,12 +105,13 @@ function IndTrack ({ track, selectedTrack }) {
 
         <div className="flex items-center absolute right-5">
           <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
+          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2">{HeartSvgConditional()}</button> */}
           <button onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
         </div>
       </div>
     </>
   )
-}
+} 
 
 function mapStateToProps (state, ownProps) {
   return {
