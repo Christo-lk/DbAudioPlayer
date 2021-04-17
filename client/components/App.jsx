@@ -10,6 +10,7 @@ import { loadTracks } from '../redux/actions/tracks'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { connect } from 'react-redux'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
+import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 
 function App ({ refreshTracks }) {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -20,6 +21,7 @@ function App ({ refreshTracks }) {
       .then(result => {
         store.dispatch(loadTracks(result))
         store.dispatch(setSelectedTrack(result[0]))
+        store.dispatch(setSelectedTrackIsLiked(result[0].id, result[0].isLiked))
         setIsLoaded(true)
         return null
       })

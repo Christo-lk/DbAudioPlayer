@@ -13,6 +13,7 @@ import Next from '../icons/next.svg'
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 import TrackArtwork from './TrackArtwork'
+import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [progress, setProgress] = useState(0)
@@ -58,6 +59,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
             type: 'SET_SELECTED_TRACK',
             track: indSong
           })
+          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
           return null
         })
         .catch(err => console.log(err))
@@ -85,6 +87,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
             type: 'SET_SELECTED_TRACK',
             track: indSong
           })
+          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
           return null
         })
         .catch(err => console.log(err))
