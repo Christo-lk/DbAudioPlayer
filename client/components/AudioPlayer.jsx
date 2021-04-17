@@ -13,10 +13,12 @@ import Next from '../icons/next.svg'
 // action creators
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 import TrackArtwork from './TrackArtwork'
+import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [progress, setProgress] = useState(0)
 
+  // Plays song and starts progress bar
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
@@ -38,7 +40,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
     }
   }, [selectedTrack])
 
-  const { id, title, artist, audioSrc, image } = selectedTrack
+  const { id, audioSrc } = selectedTrack
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))
@@ -57,6 +59,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
             type: 'SET_SELECTED_TRACK',
             track: indSong
           })
+          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
           return null
         })
         .catch(err => console.log(err))
@@ -84,6 +87,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
             type: 'SET_SELECTED_TRACK',
             track: indSong
           })
+          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
           return null
         })
         .catch(err => console.log(err))
@@ -115,7 +119,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   return (
     <>
       <div className="flex flex-col w-auto mr-10">
-        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-red-400">
+        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-blue-400">
           <h1 className="-mr-5 text-4xl font-bold">Db Audio Player</h1>
         </div>
         <TrackArtwork/>

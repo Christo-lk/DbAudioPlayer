@@ -10,8 +10,10 @@ import { loadTracks } from '../redux/actions/tracks'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { connect } from 'react-redux'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
+import { setSelectedTrackIsLiked, updateSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
+import selectedTrack from '../redux/reducers/selectedTrack'
 
-function App ({ refreshTracks }) {
+function App ({ refreshTracks, selectedTrack }) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   // LOADS ALL TRACKS ON COMPONENT MOUNT
@@ -20,14 +22,21 @@ function App ({ refreshTracks }) {
       .then(result => {
         store.dispatch(loadTracks(result))
         store.dispatch(setSelectedTrack(result[0]))
+        store.dispatch(setSelectedTrackIsLiked(result[0].id, result[0].isLiked))
         setIsLoaded(true)
         return null
       })
       .catch(err => console.log(err))
   }, [])
 
-  // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
+  // changes selectedTrackIsLiked redux state on selectedTrack change
+  useEffect(() => {
+    const { id, isLiked } = selectedTrack
 
+    store.dispatch(setSelectedTrackIsLiked(id, isLiked))
+  }, [selectedTrack])
+
+  // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
   useEffect(() => {
     if (refreshTracks) {
       getSongs()
@@ -48,7 +57,7 @@ function App ({ refreshTracks }) {
 
         {/* <h1 className="mx-auto my-3">DB Audio Player</h1> */}
 
-        <div className="mx-auto p-10 rounded-md bg-gray-50 shadow-2xl wfit flex">
+        <div className="mx-auto p-10 bg-gray-50 shadow-2xl wfit flex">
           { isLoaded
             ? <>
               <AudioPlayer />
@@ -65,7 +74,8 @@ function App ({ refreshTracks }) {
 
 function mapStateToProps (state) {
   return {
-    refreshTracks: state.refreshTracks
+    refreshTracks: state.refreshTracks,
+    selectedTrack: state.selectedTrack
   }
 }
 

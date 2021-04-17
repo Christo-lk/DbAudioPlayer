@@ -5,6 +5,8 @@ import store from '../redux/store'
 // redux actions:
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
+import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
+
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -14,7 +16,7 @@ import Delete from '../icons/delete.svg'
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
 
-function IndTrack ({ track, selectedTrack }) {
+function IndTrack ({ track, selectedTrack, selectedTrackIsLiked }) {
   // de structure props out of
   const { title, artist, id, isLiked } = track
 
@@ -35,6 +37,7 @@ function IndTrack ({ track, selectedTrack }) {
   // sets selected track on click
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
+    // store.dispatch(setSelectedTrackIsLiked(track.id, track.isLiked))
   }
 
   function deleteHandler () {
@@ -48,10 +51,8 @@ function IndTrack ({ track, selectedTrack }) {
   }
 
   // handles like / unliking song
-  function isLikedHandler (e) {
-  
-    store.dispatch(setRefreshTracks(true))
-  
+  function isLikedHandler (e) {  
+    store.dispatch(setRefreshTracks(true))  
 
     const unlike ={
       "id": `${id}`,
@@ -77,35 +78,36 @@ function IndTrack ({ track, selectedTrack }) {
   // returns CSS for conditionally rendered div on currently selected track
   function selectedTrackDiv () {
     if (isSelected) {
-      return 'relative visible h-12 rounded-l-md mr-1 w-1 bg-blue-500'
+      return 'relative visible h-12 mr-1 w-1 bg-blue-500'
     } else {
-      return 'relative invisible h-12 rounded-l-md mr-1 w-1'
+      return 'relative invisible h-12 mr-1 w-1'
     }
   }
 
   return (
     <>
-      <div onClick={() => clickHandler(track)} className={indTrackBackground()} >
-
+      <div className={indTrackBackground()} >
         <div className={selectedTrackDiv()}></div>
-        <div>
+        <div onClick={() => clickHandler(track)} className="w-full">
           <li className="font-semibold" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
 
         <div className="flex items-center absolute right-5">
           <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
+          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2">{HeartSvgConditional()}</button> */}
           <button onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
         </div>
       </div>
     </>
   )
-}
+} 
 
 function mapStateToProps (state, ownProps) {
   return {
     selectedTrack: state.selectedTrack,
-    track: ownProps.track
+    track: ownProps.track,
+    selectedTrackIsLiked: state.selectedTrackIsLiked
   }
 }
 

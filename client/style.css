@@ -36,6 +36,10 @@ button{
 
 button:focus { outline: none; }
 
+input{
+@apply w-72
+}
+
 .flex-center{
   @apply flex justify-center items-center
 }
@@ -86,5 +90,5 @@ ul, li{
 }
 
 .formItem{
-  @apply flex flex-col my-1
+  @apply flex flex-col my-1 w-fit
 }

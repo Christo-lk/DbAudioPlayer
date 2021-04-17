@@ -3,10 +3,9 @@ import { combineReducers } from 'redux'
 import isPlaying from './reducers/isPlaying'
 import tracks from './reducers/tracks'
 import selectedTrack from './reducers/selectedTrack'
-import showForm from './reducers/showForm'
 import refreshTracks from './reducers/refreshTracks'
 import showCatPic from './reducers/showCatPic'
-import showLikedTracks from './reducers/showLikedTracks'
+import selectedTrackIsLiked from './reducers/selectedTrackIsLiked'
 
 import trackListSource from './reducers/trackListSource'
 
@@ -15,11 +14,10 @@ const rootReducer = combineReducers({
   isPlaying,
   tracks,
   selectedTrack,
-  showForm,
   refreshTracks,
   showCatPic,
-  showLikedTracks,
-  trackListSource
+  trackListSource,
+  selectedTrackIsLiked
 
 })
 

@@ -28,7 +28,6 @@ export function deleteSong (id) {
 }
 
 export function updateIsLiked (isLiked) {
-  console.log('suepragen', isLiked)
   return request.patch('/api/v1/updateIsLiked')
     .send(isLiked)
     .then(res => res.body)

@@ -25,3 +25,10 @@ export function toNextTrack () {
 
   }
 }
+
+export function updateIsLikedSelectedTrack (isLiked) {
+  return {
+    type: 'UPDATE_ISLIKED_SELECTED_TRACK',
+    isLiked: isLiked
+  }
+}

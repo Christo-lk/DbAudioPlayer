@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import request from 'superagent'
+import store from '../redux/store'
 
 // redux action
-import { setShowForm } from '../redux/actions/showForm'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
-import store from '../redux/store'
+import { setTrackListSource } from '../redux/actions/setTrackListSource'
 
 import { addSong, uploadFile } from '../api/songsApi'
 
@@ -71,7 +71,7 @@ function AddSongForm ({ showForm }) {
         <div className="formItem">
           <label htmlFor="song">Upload Song:</label>
           <input type="file" id="song" />
-          <button className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
+          <button onClick={() => store.dispatch(setTrackListSource('ALL_TRACKS'))}className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
         </div>
 
       </form>
