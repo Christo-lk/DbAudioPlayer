@@ -5,6 +5,13 @@ export default function selectedTrackIsLiked (state = {}, action) {
         trackId: action.trackId,
         isLiked: action.isLiked
       }
+
+    case 'UPDATE_SELECTED_TRACK_ISLIKED':
+      return {
+        ...state,
+        isLiked: action.isLiked
+      }
+
     default:
       return state
   }

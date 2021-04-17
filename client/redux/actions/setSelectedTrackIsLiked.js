@@ -5,3 +5,10 @@ export function setSelectedTrackIsLiked (id, isLiked) {
     isLiked: isLiked
   }
 }
+
+export function updateSelectedTrackIsLiked (isLiked) {
+  return {
+    type: 'UPDATE_SELECTED_TRACK_ISLIKED',
+    isLiked: isLiked
+  }
+}

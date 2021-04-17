@@ -10,12 +10,10 @@ import heartFull from '../icons/heartFull.svg'
 // ACTION
 import {setRefreshTracks} from '../redux/actions/refreshTracks'
 import {updateIsLikedSelectedTrack} from '../redux/actions/selectedTrack'
-
+import {updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
 
 // API
 import {updateIsLiked} from '../api/songsApi'
-
-
 
 function TrackArtwork (props) {
   // destructuring props from redux
@@ -52,7 +50,6 @@ function TrackArtwork (props) {
   // triggered when like heart is clicked
   function isLikedHandler (e) {
       store.dispatch(setRefreshTracks(true))
-      // store.dispatch(setSelectedTrack())
   
     const unlike ={
       "id": `${id}`,
@@ -64,7 +61,7 @@ function TrackArtwork (props) {
     }
 
     isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
-    // isLiked ? store.dispatch(updateIsLikedSelectedTrack(0)) : store.dispatch(updateIsLikedSelectedTrack(1))
+    isLiked ? store.dispatch(updateSelectedTrackIsLiked(0)) : store.dispatch(updateSelectedTrackIsLiked(1))
   }
 
   function heartSvgConditional(){
