@@ -21,24 +21,28 @@ function TrackArtwork (props) {
       .catch(err => console.log(err))
   }, [title])
 
-
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
 
   function imgClassSelector () {
     if (isPlaying) {
-      return 'm-auto h-48 w-48 rounded-full rotate shadow-inner'
+      return 'm-auto h-52 w-52 rounded-full rotate shadow-inner'
     } else {
-      return 'm-auto h-48 w-48 rounded-full'
+      return 'm-auto h-52 w-52 rounded-full z-10'
     }
   }
 
   return (
     <>
-      <img src={imageSrc} className={imgClassSelector()}/>
-      <div className="flex flex-col justify-center my-1 truncate">
-        <h2 className="mx-auto truncate text-2xl font-semibold">{title}</h2>
-        <h2 className="mx-auto text-italic italic">{artist}</h2>
+      <div className="flex flex-col mt-10">
+        <div className="w-auto relative">
+          <img src={imageSrc} className={imgClassSelector()}/>
+          {/* <div className="w-44 h-44 bg-yellow-400 z-0 absolute"></div> */}
+        </div>
+        <div className="flex flex-col justify-center my-1 truncate">
+          <h2 className="mx-auto truncate text-2xl font-semibold">{title}</h2>
+          <h2 className="mx-auto text-italic italic">{artist}</h2>
+        </div>
       </div>
     </>
 

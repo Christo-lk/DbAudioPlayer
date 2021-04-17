@@ -115,7 +115,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   return (
     <>
       <div className="flex flex-col w-auto mr-10">
-        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-red-400">
+        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-blue-400">
           <h1 className="-mr-5 text-4xl font-bold">Db Audio Player</h1>
         </div>
         <TrackArtwork/>
