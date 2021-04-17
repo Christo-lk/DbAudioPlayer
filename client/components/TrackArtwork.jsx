@@ -42,19 +42,19 @@ function TrackArtwork (props) {
 
 
   // useEffect changes heart SVG when user likes track in tracklist
-//   useEffect(()=>{  
+  useEffect(()=>{  
 
-//     getSongs()
-//       .then(result => { 
-//         console.log(result, selectedTrackIsLiked)
-//         if (result.id === selectedTrackIsLiked.trackId){
-//           store.dispatch(updateSelectedTrackIsLiked(result.isLiked))
-//         } else{
-//           return null
-//         }
-//       })
+    getSongs()
+      .then(result => { 
+        result.map( track => {if (track.id === selectedTrackIsLiked.trackId){
+          store.dispatch(updateSelectedTrackIsLiked(track.isLiked))
+        } else{
+          return null
+        }
+})
+      })
 
-// },[refreshTracks])
+},[refreshTracks])
 
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
