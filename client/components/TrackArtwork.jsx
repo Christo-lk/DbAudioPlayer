@@ -19,7 +19,7 @@ import {updateIsLiked} from '../api/songsApi'
 
 function TrackArtwork (props) {
   const { image, title, artist, isLiked, id } = props.selectedTrack
-  const { isPlaying, showCatPic } = props
+  const { isPlaying, showCatPic, tracks } = props
 
   const [catPic, setCatPic] = useState('')
   const [catPicLoaded, setCatPicLoaded] = useState(false)
@@ -62,8 +62,17 @@ function TrackArtwork (props) {
     }
 
     isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
-    isLiked ? store.dispatch(updateIsLikedSelectedTrack(0)) : store.dispatch(updateIsLikedSelectedTrack(1))
+    // isLiked ? store.dispatch(updateIsLikedSelectedTrack(0)) : store.dispatch(updateIsLikedSelectedTrack(1))
+  }
 
+  function heartSvgConditional(){
+    tracks.map(track => {
+      if (track.id === id && track.isLiked === 1){
+        return <img className="opacity-80" src={heartFull}/>
+      } else {
+        return <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>
+      }
+    })
   }
 
 
@@ -80,6 +89,7 @@ function TrackArtwork (props) {
             <h2 className=" text-italic italic">{artist}</h2>
           </div>
           <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
+          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{heartSvgConditional()}</button> */}
         </div>
       </div>
     </>
@@ -91,7 +101,8 @@ function mapStateToProps (state) {
   return {
     selectedTrack: state.selectedTrack,
     isPlaying: state.isPlaying,
-    showCatPic: state.showCatPic
+    showCatPic: state.showCatPic,
+    tracks: state.tracks
   }
 }
 

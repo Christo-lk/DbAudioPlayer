@@ -17,6 +17,7 @@ import TrackArtwork from './TrackArtwork'
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [progress, setProgress] = useState(0)
 
+  // Plays song and starts progress bar
   useEffect(() => {
     if (isPlaying) {
       audio.current.play()
@@ -38,7 +39,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
     }
   }, [selectedTrack])
 
-  const { id, title, artist, audioSrc, image } = selectedTrack
+  const { id, audioSrc } = selectedTrack
 
   // Defines audio source
   const audio = useRef(new Audio(audioSrc))

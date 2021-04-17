@@ -4,7 +4,6 @@ import request from 'superagent'
 import store from '../redux/store'
 
 // redux action
-import { setShowForm } from '../redux/actions/showForm'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { setTrackListSource } from '../redux/actions/setTrackListSource'
 

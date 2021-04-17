@@ -24,7 +24,7 @@ function RightPanel ({ showForm, showCatPic }) {
   }
 
   return (
-    <div className="flex flex-col  ml-10 shadow-inner bg-gray-100 rounded-md">
+    <div className="flex flex-col  ml-10 shadow-inner bg-gray-100">
       <TrackListNav/>
       <TrackListSource/>
       <div className="px-3 my-2">

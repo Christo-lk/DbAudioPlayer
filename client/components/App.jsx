@@ -48,7 +48,7 @@ function App ({ refreshTracks }) {
 
         {/* <h1 className="mx-auto my-3">DB Audio Player</h1> */}
 
-        <div className="mx-auto p-10 rounded-md bg-gray-50 shadow-2xl wfit flex">
+        <div className="mx-auto p-10 bg-gray-50 shadow-2xl wfit flex">
           { isLoaded
             ? <>
               <AudioPlayer />
