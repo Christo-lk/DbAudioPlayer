@@ -21,8 +21,6 @@ function TrackArtwork (props) {
   const { image, title, artist, isLiked, id } = props.selectedTrack
   const { isPlaying, showCatPic } = props
 
-  console.log('isLiked: ', isLiked)
-
   const [catPic, setCatPic] = useState('')
   const [catPicLoaded, setCatPicLoaded] = useState(false)
 

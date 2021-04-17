@@ -48,10 +48,8 @@ function IndTrack ({ track, selectedTrack }) {
   }
 
   // handles like / unliking song
-  function isLikedHandler (e) {
-  
-    store.dispatch(setRefreshTracks(true))
-  
+  function isLikedHandler (e) {  
+    store.dispatch(setRefreshTracks(true))  
 
     const unlike ={
       "id": `${id}`,
@@ -95,10 +93,9 @@ function IndTrack ({ track, selectedTrack }) {
 
   return (
     <>
-      <div onClick={() => clickHandler(track)} className={indTrackBackground()} >
-
+      <div className={indTrackBackground()} >
         <div className={selectedTrackDiv()}></div>
-        <div>
+        <div onClick={() => clickHandler(track)} className="w-full">
           <li className="font-semibold" key={id}>{title}</li>
           <li className="text-sm italic" key={artist}>{artist}</li>
         </div>
