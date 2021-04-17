@@ -18,8 +18,10 @@ import {updateIsLiked} from '../api/songsApi'
 
 
 function TrackArtwork (props) {
-  const { image, title, artist, isLiked, id } = props.selectedTrack
-  const { isPlaying, showCatPic, tracks } = props
+  // destructuring props from redux
+  const { image, title, artist, id } = props.selectedTrack
+  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked } = props
+  const { isLiked } = selectedTrackIsLiked
 
   const [catPic, setCatPic] = useState('')
   const [catPicLoaded, setCatPicLoaded] = useState(false)
@@ -66,13 +68,11 @@ function TrackArtwork (props) {
   }
 
   function heartSvgConditional(){
-    tracks.map(track => {
-      if (track.id === id && track.isLiked === 1){
+      if (isLiked){
         return <img className="opacity-80" src={heartFull}/>
       } else {
         return <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>
       }
-    })
   }
 
 
@@ -88,8 +88,8 @@ function TrackArtwork (props) {
             <h2 className=" truncate text-2xl font-semibold">{title}</h2>
             <h2 className=" text-italic italic">{artist}</h2>
           </div>
-          <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
-          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{heartSvgConditional()}</button> */}
+          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button> */}
+          <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{heartSvgConditional()}</button>
         </div>
       </div>
     </>
@@ -102,7 +102,8 @@ function mapStateToProps (state) {
     selectedTrack: state.selectedTrack,
     isPlaying: state.isPlaying,
     showCatPic: state.showCatPic,
-    tracks: state.tracks
+    tracks: state.tracks,
+    selectedTrackIsLiked: state.selectedTrackIsLiked
   }
 }
 
