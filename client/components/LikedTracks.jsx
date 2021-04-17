@@ -4,7 +4,6 @@ import IndTrack from './IndTrack'
 
 function LikedTracks ({ tracks }) {
   const LikedTracks = tracks.filter(track => track.isLiked === 1)
-  console.log('likedtracks: ', LikedTracks)
 
   return (
     <>
