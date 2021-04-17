@@ -9,6 +9,8 @@ import heartFull from '../icons/heartFull.svg'
 
 // ACTION
 import {setRefreshTracks} from '../redux/actions/refreshTracks'
+import {updateIsLikedSelectedTrack} from '../redux/actions/selectedTrack'
+
 
 // API
 import {updateIsLiked} from '../api/songsApi'
@@ -18,6 +20,8 @@ import {updateIsLiked} from '../api/songsApi'
 function TrackArtwork (props) {
   const { image, title, artist, isLiked, id } = props.selectedTrack
   const { isPlaying, showCatPic } = props
+
+  console.log('isLiked: ', isLiked)
 
   const [catPic, setCatPic] = useState('')
   const [catPicLoaded, setCatPicLoaded] = useState(false)
@@ -36,6 +40,7 @@ function TrackArtwork (props) {
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
 
+  // return CSS class and makes track art spin
   function imgClassSelector () {
     if (isPlaying) {
       return 'm-auto h-52 w-52 rounded-full rotate shadow-inner'
@@ -44,8 +49,10 @@ function TrackArtwork (props) {
     }
   }
 
+  // triggered when like heart is clicked
   function isLikedHandler (e) {
       store.dispatch(setRefreshTracks(true))
+      // store.dispatch(setSelectedTrack())
   
     const unlike ={
       "id": `${id}`,
@@ -57,6 +64,8 @@ function TrackArtwork (props) {
     }
 
     isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
+    isLiked ? store.dispatch(updateIsLikedSelectedTrack(0)) : store.dispatch(updateIsLikedSelectedTrack(1))
+
   }
 
 
