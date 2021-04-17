@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import request from 'superagent'
-import selectedTrack from '../redux/reducers/selectedTrack'
+import store from '../redux/store'
+
+// SVG ICONS
+import heartEmpty from '../icons/heartEmpty.svg'
+import heartFull from '../icons/heartFull.svg'
+
+// ACTION
+import {setRefreshTracks} from '../redux/actions/refreshTracks'
+
+// API
+import {updateIsLiked} from '../api/songsApi'
+
+
 
 function TrackArtwork (props) {
-  const { image, title, artist } = props.selectedTrack
+  const { image, title, artist, isLiked, id } = props.selectedTrack
   const { isPlaying, showCatPic } = props
 
   const [catPic, setCatPic] = useState('')
@@ -32,6 +44,22 @@ function TrackArtwork (props) {
     }
   }
 
+  function isLikedHandler (e) {
+      store.dispatch(setRefreshTracks(true))
+  
+    const unlike ={
+      "id": `${id}`,
+      "boolean": "0"
+    }
+    const like ={
+      "id": `${id}`,
+      "boolean": "1"
+    }
+
+    isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
+  }
+
+
   return (
     <>
       <div className="flex flex-col mt-10">
@@ -39,9 +67,12 @@ function TrackArtwork (props) {
           <img src={imageSrc} className={imgClassSelector()}/>
           {/* <div className="w-44 h-44 bg-yellow-400 z-0 absolute"></div> */}
         </div>
-        <div className="flex flex-col justify-center my-1 truncate">
-          <h2 className="mx-auto truncate text-2xl font-semibold">{title}</h2>
-          <h2 className="mx-auto text-italic italic">{artist}</h2>
+        <div className="flex flex-row">
+          <div className="flex flex-col my-1 truncate">
+            <h2 className=" truncate text-2xl font-semibold">{title}</h2>
+            <h2 className=" text-italic italic">{artist}</h2>
+          </div>
+          <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
         </div>
       </div>
     </>
