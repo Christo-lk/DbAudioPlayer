@@ -5,6 +5,8 @@ import store from '../redux/store'
 // redux actions:
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
+import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
+
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -14,7 +16,7 @@ import Delete from '../icons/delete.svg'
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
 
-function IndTrack ({ track, selectedTrack }) {
+function IndTrack ({ track, selectedTrack, selectedTrackIsLiked }) {
   // de structure props out of
   const { title, artist, id, isLiked } = track
 
@@ -35,6 +37,7 @@ function IndTrack ({ track, selectedTrack }) {
   // sets selected track on click
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
+    // store.dispatch(setSelectedTrackIsLiked(track.id, track.isLiked))
   }
 
   function deleteHandler () {
@@ -81,16 +84,6 @@ function IndTrack ({ track, selectedTrack }) {
     }
   }
 
-
-  // conditionally renders Heart SVG
-  // function HeartSvgConditional(){
-  //   if(selectedTrack.id === id && selectedTrack.isLiked){
-  //     return <img className="opacity-80" src={heartFull}/>
-  //   } else{
-  //     return <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>
-  //   }
-  // }
-
   return (
     <>
       <div className={indTrackBackground()} >
@@ -113,7 +106,8 @@ function IndTrack ({ track, selectedTrack }) {
 function mapStateToProps (state, ownProps) {
   return {
     selectedTrack: state.selectedTrack,
-    track: ownProps.track
+    track: ownProps.track,
+    selectedTrackIsLiked: state.selectedTrackIsLiked
   }
 }
 

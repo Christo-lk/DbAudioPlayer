@@ -10,9 +10,10 @@ import { loadTracks } from '../redux/actions/tracks'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { connect } from 'react-redux'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
-import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
+import { setSelectedTrackIsLiked, updateSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
+import selectedTrack from '../redux/reducers/selectedTrack'
 
-function App ({ refreshTracks }) {
+function App ({ refreshTracks, selectedTrack }) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   // LOADS ALL TRACKS ON COMPONENT MOUNT
@@ -28,8 +29,14 @@ function App ({ refreshTracks }) {
       .catch(err => console.log(err))
   }, [])
 
-  // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
+  // changes selectedTrackIsLiked redux state on selectedTrack change
+  useEffect(() => {
+    const { id, isLiked } = selectedTrack
 
+    store.dispatch(setSelectedTrackIsLiked(id, isLiked))
+  }, [selectedTrack])
+
+  // REFRESHES TRACKS AFTER SONG HAS BEEN ADDED
   useEffect(() => {
     if (refreshTracks) {
       getSongs()
@@ -67,7 +74,8 @@ function App ({ refreshTracks }) {
 
 function mapStateToProps (state) {
   return {
-    refreshTracks: state.refreshTracks
+    refreshTracks: state.refreshTracks,
+    selectedTrack: state.selectedTrack
   }
 }
 

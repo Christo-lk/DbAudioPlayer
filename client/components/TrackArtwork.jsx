@@ -12,18 +12,23 @@ import {setRefreshTracks} from '../redux/actions/refreshTracks'
 import {updateIsLikedSelectedTrack} from '../redux/actions/selectedTrack'
 import {updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
 
+
 // API
 import {updateIsLiked} from '../api/songsApi'
+
+// db function that retrieves all songs
+import { getSongs} from '../api/songsApi'
 
 function TrackArtwork (props) {
   // destructuring props from redux
   const { image, title, artist, id } = props.selectedTrack
-  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked } = props
+  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked, refreshTracks } = props
   const { isLiked } = selectedTrackIsLiked
 
   const [catPic, setCatPic] = useState('')
   const [catPicLoaded, setCatPicLoaded] = useState(false)
 
+  // cat API that retrieves photo of random cat
   useEffect(() => {
     request.get('https://aws.random.cat/meow')
       .then(res => {
@@ -34,6 +39,22 @@ function TrackArtwork (props) {
       })
       .catch(err => console.log(err))
   }, [title])
+
+
+  // useEffect changes heart SVG when user likes track in tracklist
+//   useEffect(()=>{  
+
+//     getSongs()
+//       .then(result => { 
+//         console.log(result, selectedTrackIsLiked)
+//         if (result.id === selectedTrackIsLiked.trackId){
+//           store.dispatch(updateSelectedTrackIsLiked(result.isLiked))
+//         } else{
+//           return null
+//         }
+//       })
+
+// },[refreshTracks])
 
   // turnary operator sets image src for catpic or album art
   const imageSrc = showCatPic ? catPic : image
@@ -100,7 +121,8 @@ function mapStateToProps (state) {
     isPlaying: state.isPlaying,
     showCatPic: state.showCatPic,
     tracks: state.tracks,
-    selectedTrackIsLiked: state.selectedTrackIsLiked
+    selectedTrackIsLiked: state.selectedTrackIsLiked,
+    refreshTracks: state.refreshTracks
   }
 }
 
