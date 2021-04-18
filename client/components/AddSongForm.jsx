@@ -17,8 +17,6 @@ function AddSongForm ({ showForm }) {
     image: null
   })
 
-  const [title, setTitle] = useState('')
-  const [artist, setArtist] = useState('')
 
   // state for uploading File:
 
@@ -27,7 +25,6 @@ function AddSongForm ({ showForm }) {
   function handleChange (e) {
     const { name, value } = e.target
 
-    console.log(name)
     setForm({
       ...form,
       [name]: value
@@ -38,9 +35,10 @@ function AddSongForm ({ showForm }) {
 
   function newOnSubmit (event) {
     event.preventDefault()
-    store.dispatch(setShowForm(false))
+    // store.dispatch(setShowForm(false))
     addSong(form)
     store.dispatch(setRefreshTracks(true))
+    store.dispatch(setTrackListSource('ALL_TRACKS'))
 
     console.log('submitted form: ', form)
   }
@@ -61,17 +59,17 @@ function AddSongForm ({ showForm }) {
     <div className="px-3">
       <form className="flex flex-col" onSubmit={(e) => newOnSubmit(e)}>
         <div className="formItem">
-          <label htmlFor='title'>Title:</label>
+          <label className="text-lg font-semibold" htmlFor='title'>Title:</label>
           <input className="h-7 rounded-sm" type='text' id='title' name="title" value={form.title} onChange={(e) => handleChange(e)}/>
         </div>
         <div className="formItem">
-          <label htmlFor='artist'>Artist:</label>
+          <label className="text-lg font-semibold" htmlFor='artist'>Artist:</label>
           <input className="h-7 rounded-sm" type="text" id='artist' name="artist" value={form.artist} onChange={(e) => handleChange(e)}/>
         </div>
         <div className="formItem">
-          <label htmlFor="song">Upload Song:</label>
+          <label className="text-lg font-semibold" htmlFor="song">Upload Song:</label>
           <input type="file" id="song" />
-          <button onClick={() => store.dispatch(setTrackListSource('ALL_TRACKS'))}className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
+          <button onClick={() => newOnSubmit()}className="bg-blue-300 rounded-sm p-1 w-fit my-5">Add Song!</button>
         </div>
 
       </form>

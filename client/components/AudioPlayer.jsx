@@ -119,12 +119,13 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   return (
     <>
       <div className="flex flex-col w-auto mr-10">
-        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-blue-400">
+        <div className="overflow-visible w-auto pt-1 pl-3 h-7 bg-red-400">
           <h1 className="-mr-5 text-4xl font-bold">Db Audio Player</h1>
         </div>
+
         <TrackArtwork/>
 
-        <div className="flex justify-between px-6">
+        <div className="flex justify-between px-6 mt-1">
           <button onClick={() => toPrev()}> <img className="svg opacity-60 hover:opacity-80" src={Prev}/> </button>
           {isPlaying ? <button onClick={() => store.dispatch(setIsNotPlaying())}> <img className="playButton" src={Pause}/> </button> : <button onClick={() => store.dispatch(setIsPlaying())}> <img className="playButton" src={Play}/> </button>}
           <button onClick={() => toNext()}> <img className="svg opacity-60 hover:opacity-80" src={Next}/> </button>

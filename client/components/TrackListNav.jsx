@@ -10,14 +10,14 @@ function TrackListNav ({ trackListSource }) {
     <>
       <div className="  h-auto bg-blue-400 flex items-center flex-row sticky pt-1 pb-3 pl-1 ">
         <div className="flex flex-row">
-          <div onClick={() => store.dispatch(setTrackListSource('ALL_TRACKS'))} className="h-5 w-20 bg-yellow-400 mr-4">
-            <h2 className=" ml-1 mt-1 mr-2 text-2xl leading-tight font-bold text-white hover:text-white">Library:</h2>
+          <div onClick={() => store.dispatch(setTrackListSource('ALL_TRACKS'))} className={trackListSource === 'ALL_TRACKS' ? 'h-5 w-20 bg-yellow-400 mr-4' : 'h-5 w-20 bg-yellow-400 mr-4'}>
+            <button className={trackListSource === 'ALL_TRACKS' ? 'ml-1 mt-1 text-2xl leading-tight font-bold text-white' : 'ml-1 mt-1 text-2xl leading-tight font-bold  text-black hover:text-white'}>Library:</button>
           </div>
           <div onClick={() => store.dispatch(setTrackListSource('LIKED_TRACKS'))} className="ml-5 h-5 w-14 bg-yellow-400 mr-4">
-            <h2 className="ml-1 mt-1 text-2xl leading-tight font-bold  text-white hover:text-white" >Liked:</h2>
+            <button className={trackListSource === 'LIKED_TRACKS' ? 'ml-1 mt-1 text-2xl leading-tight font-bold text-white' : 'ml-1 mt-1 text-2xl leading-tight font-bold  text-black hover:text-white'}>Liked:</button>
           </div>
           <div onClick={() => store.dispatch(setTrackListSource('ADD_SONG_FORM'))} className="h-7 w-7 flex-center bg-yellow-400 mx-2 ml-28">
-            <button className="text-4xl text-white hover:text-white">+</button>
+            <button className={trackListSource === 'ADD_SONG_FORM' ? 'text-4xl text-white' : 'text-4xl text-black hover:text-white' }>+</button>
           </div>
         </div>
       </div>
