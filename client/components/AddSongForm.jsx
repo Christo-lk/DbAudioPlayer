@@ -38,9 +38,10 @@ function AddSongForm ({ showForm }) {
 
   function newOnSubmit (event) {
     event.preventDefault()
-    store.dispatch(setShowForm(false))
+    // store.dispatch(setShowForm(false))
     addSong(form)
     store.dispatch(setRefreshTracks(true))
+    store.dispatch(setTrackListSource('ALL_TRACKS'))
 
     console.log('submitted form: ', form)
   }
@@ -71,7 +72,7 @@ function AddSongForm ({ showForm }) {
         <div className="formItem">
           <label htmlFor="song">Upload Song:</label>
           <input type="file" id="song" />
-          <button onClick={() => store.dispatch(setTrackListSource('ALL_TRACKS'))}className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
+          <button onClick={() => newOnSubmit()}className="bg-blue-300 rounded-sm p-1 w-fit my-3">Add Song!</button>
         </div>
 
       </form>
