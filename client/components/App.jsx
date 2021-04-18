@@ -11,13 +11,12 @@ import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { connect } from 'react-redux'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { setSelectedTrackIsLiked, updateSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
-import selectedTrack from '../redux/reducers/selectedTrack'
 
 function App ({ refreshTracks, selectedTrack }) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   // LOADS ALL TRACKS ON COMPONENT MOUNT
-  useState(() => {
+  useEffect(() => {
     getSongs()
       .then(result => {
         store.dispatch(loadTracks(result))
@@ -55,17 +54,13 @@ function App ({ refreshTracks, selectedTrack }) {
     <>
       <div className="w-full  flex flex-col justify-center">
 
-        {/* <h1 className="mx-auto my-3">DB Audio Player</h1> */}
-
         <div className="mx-auto p-10 bg-gray-50 shadow-2xl wfit flex">
-          { isLoaded
-            ? <>
-              <AudioPlayer />
-              <RightPanel />
-            </>
+          { isLoaded ? <>
+            <AudioPlayer />
+            <RightPanel />
+          </>
             : <h1 className= "my-auto">loading...</h1>
           }
-
         </div>
       </div>
     </>
