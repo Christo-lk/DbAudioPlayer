@@ -17,8 +17,6 @@ function AddSongForm ({ showForm }) {
     image: null
   })
 
-  const [title, setTitle] = useState('')
-  const [artist, setArtist] = useState('')
 
   // state for uploading File:
 
@@ -27,7 +25,6 @@ function AddSongForm ({ showForm }) {
   function handleChange (e) {
     const { name, value } = e.target
 
-    console.log(name)
     setForm({
       ...form,
       [name]: value
