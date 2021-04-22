@@ -23,7 +23,7 @@ describe('getSongs()', () => {
 })
 
 describe('GetIndSong()', () => {
-  it('returns individual songby id', () => {
+  it('returns individual song by id', () => {
     return db.getIndSong(1, testDb)
       .then(result => {
         expect(result.id).toBe(1)
@@ -33,3 +33,35 @@ describe('GetIndSong()', () => {
       })
   })
 })
+
+// TEST DOESNT WORK YET
+// describe('deleteSong()', () => {
+//   it('deletes song by id', () => {
+//     return db.deleteSong(2, testDb)
+//       .then(db.getSongs())
+//       .then(result => {
+//         console.log('rr', result)
+//         expect(result).toHaveLength(8)
+//         return null
+//       })
+//   })
+// })
+
+// describe('addSong()', () => {
+//   it('correctly inserts new song to database', () => {
+//     const song = {
+//       title: 'testSong',
+//       artist: 'testArtist',
+//       audioSrc: 'testAudioSrc',
+//       image: 'testImageSrc',
+//       isLiked: 1
+
+//     }
+//     return db.addSong(song, testDb)
+//       .then(result => {
+//         console.log(result)
+//         expect(result.title).toBe('testSong')
+//         return null
+//       })
+//   })
+// })

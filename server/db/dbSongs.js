@@ -16,11 +16,26 @@ function getSongs (db = connection) {
 function getIndSong (id, db = connection) {
   return db('songs')
     .where('id', id).first()
+    .then(result => {
+      return {
+        id: result.id,
+        title: result.title,
+        artist: result.artist,
+        audioSrc: result.audioSrc,
+        image: result.image,
+        isLiked: result.isLiked
+      }
+    })
 }
 
 function addSong (song, db = connection) {
   return db('songs')
     .insert(song)
+    .then(result => {
+      return {
+        title: song.title
+      }
+    })
 }
 
 function deleteSong (id, db = connection) {
