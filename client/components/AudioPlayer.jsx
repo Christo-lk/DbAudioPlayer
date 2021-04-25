@@ -18,6 +18,10 @@ import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLike
 function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
   const [progress, setProgress] = useState(0)
 
+  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
+
+  console.log('trackindex: ', trackIndex)
+
   // Plays song and starts progress bar
   useEffect(() => {
     if (isPlaying) {
@@ -50,30 +54,39 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    const songId = id + 1
+    if (trackIndex < tracks.length - 1) {
+      const nextTrack = tracks[trackIndex + 1]
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: nextTrack
 
-    if (id < tracks.length) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
-    } else {
-      getIndSong(1)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      })
     }
+
+    // const songId = id + 1
+
+    // if (id < tracks.length) {
+    //   getIndSong(songId)
+    //     .then(indSong => {
+    //       store.dispatch({
+    //         type: 'SET_SELECTED_TRACK',
+    //         track: indSong
+    //       })
+    //       store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
+    //       return null
+    //     })
+    //     .catch(err => console.log(err))
+    // } else {
+    //   getIndSong(1)
+    //     .then(indSong => {
+    //       store.dispatch({
+    //         type: 'SET_SELECTED_TRACK',
+    //         track: indSong
+    //       })
+    //       return null
+    //     })
+    //     .catch(err => console.log(err))
+    // }
   }
 
   // changes to previous track
