@@ -59,8 +59,13 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
       store.dispatch({
         type: 'SET_SELECTED_TRACK',
         track: nextTrack
-
       })
+    } else {
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: tracks[0]
+      }
+      )
     }
 
     // const songId = id + 1
