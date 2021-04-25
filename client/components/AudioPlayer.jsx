@@ -20,8 +20,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
-  console.log('trackindex: ', trackIndex)
-
   // Plays song and starts progress bar
   useEffect(() => {
     if (isPlaying) {
@@ -60,6 +58,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
         type: 'SET_SELECTED_TRACK',
         track: nextTrack
       })
+      store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
     } else {
       store.dispatch({
         type: 'SET_SELECTED_TRACK',
@@ -67,58 +66,22 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
       }
       )
     }
-
-    // const songId = id + 1
-
-    // if (id < tracks.length) {
-    //   getIndSong(songId)
-    //     .then(indSong => {
-    //       store.dispatch({
-    //         type: 'SET_SELECTED_TRACK',
-    //         track: indSong
-    //       })
-    //       store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-    //       return null
-    //     })
-    //     .catch(err => console.log(err))
-    // } else {
-    //   getIndSong(1)
-    //     .then(indSong => {
-    //       store.dispatch({
-    //         type: 'SET_SELECTED_TRACK',
-    //         track: indSong
-    //       })
-    //       return null
-    //     })
-    //     .catch(err => console.log(err))
-    // }
   }
 
   // changes to previous track
   function toPrev () {
-    const songId = id - 1
-
-    if (id > 1) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
+    if (trackIndex > 0) {
+      const prevTrack = tracks[trackIndex - 1]
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: prevTrack
+      })
+      store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
     } else {
-      getIndSong(selectedTrack.id)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: tracks[tracks.length - 1]
+      })
     }
   }
 
