@@ -62,57 +62,36 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    const songId = id + 1
-
-    if (id < tracks.length) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
+    if (trackIndex < tracks.length - 1) {
+      const nextTrack = tracks[trackIndex + 1]
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: nextTrack
+      })
+      store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
     } else {
-      getIndSong(1)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: tracks[0]
+      }
+      )
     }
   }
 
   // changes to previous track
   function toPrev () {
-    const songId = id - 1
-
-    if (id > 1) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
+    if (trackIndex > 0) {
+      const prevTrack = tracks[trackIndex - 1]
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: prevTrack
+      })
+      store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
     } else {
-      getIndSong(selectedTrack.id)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: tracks[tracks.length - 1]
+      })
     }
   }
 
