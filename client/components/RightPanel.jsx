@@ -40,11 +40,22 @@ function RightPanel ({ showForm, showCatPic, trackOrder }) {
     }
   }
 
+  function azStyling () {
+    switch (trackOrder) {
+      case 'DEFAULT':
+        return 'ml-5 opacity-50'
+
+      case 'ALPHABETIC':
+      case 'REVERSE_ALPHABETIC':
+        return 'ml-5 opacity-100'
+    }
+  }
+
   return (
     <div className="flex flex-col  ml-10 shadow-inner bg-gray-100">
       <TrackListNav/>
-      <div className="h-auto w-full bg-red-400">
-        <button onClick={() => trackOrderHandler()}>a-z</button>
+      <div className="h-auto w-full bg-gray-100">
+        <button className={azStyling()} onClick={() => trackOrderHandler()}>{trackOrder === 'DEFAULT' || trackOrder === 'ALPHABETIC' ? 'a-z' : 'z-a' }</button>
       </div>
       <TrackListSource/>
       <div className="px-3 my-2">
