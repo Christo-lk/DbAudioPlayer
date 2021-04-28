@@ -20,15 +20,15 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
-  console.log('alphabetical: ', tracks.sort((a, b) => {
-    if (a.title < b.title) {
-      return -1
-    } if (a.title > b.title) {
-      return 1
-    }
-    return 0
-  }
-  ))
+  // console.log('alphabetical: ', tracks.sort((a, b) => {
+  //   if (a.title < b.title) {
+  //     return -1
+  //   } if (a.title > b.title) {
+  //     return 1
+  //   }
+  //   return 0
+  // }
+  // ))
 
   // Plays song and starts progress bar
   useEffect(() => {
