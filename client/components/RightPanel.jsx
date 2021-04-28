@@ -9,12 +9,13 @@ import { connect } from 'react-redux'
 
 // redux action
 import { setShowCatPic } from '../redux/actions/setShowCatPic'
+import { setTrackOrder } from '../redux/actions/setTrackOrder'
 
 // SVG
 import CatOn from '../icons/catOn.svg'
 import CatOff from '../icons/catOff.svg'
 
-function RightPanel ({ showForm, showCatPic }) {
+function RightPanel ({ showForm, showCatPic, trackOrder }) {
   function catPicClick () {
     if (showCatPic) {
       store.dispatch(setShowCatPic(false))
@@ -24,15 +25,26 @@ function RightPanel ({ showForm, showCatPic }) {
   }
 
   // Handles a-z button click and sets tracks in alphabetic order
-  function alphabeticClickHandler () {
-    console.log('clicked')
+  function trackOrderHandler () {
+    switch (trackOrder) {
+      case 'DEFAULT':
+        store.dispatch(setTrackOrder('ALPHABETIC'))
+        break
+
+      case 'ALPHABETIC':
+        store.dispatch(setTrackOrder('REVERSE_ALPHABETIC'))
+        break
+
+      case 'REVERSE_ALPHABETIC':
+        store.dispatch(setTrackOrder('DEFAULT'))
+    }
   }
 
   return (
     <div className="flex flex-col  ml-10 shadow-inner bg-gray-100">
       <TrackListNav/>
       <div className="h-auto w-full bg-red-400">
-        <button onClick={() => alphabeticClickHandler()}>a-z</button>
+        <button onClick={() => trackOrderHandler()}>a-z</button>
       </div>
       <TrackListSource/>
       <div className="px-3 my-2">
@@ -45,7 +57,8 @@ function RightPanel ({ showForm, showCatPic }) {
 function mapStateToProps (state) {
   return {
     showForm: state.showForm,
-    showCatPic: state.showCatPic
+    showCatPic: state.showCatPic,
+    trackOrder: state.trackOrder
   }
 }
 
