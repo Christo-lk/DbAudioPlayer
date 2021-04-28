@@ -6,6 +6,7 @@ import selectedTrack from './reducers/selectedTrack'
 import refreshTracks from './reducers/refreshTracks'
 import showCatPic from './reducers/showCatPic'
 import selectedTrackIsLiked from './reducers/selectedTrackIsLiked'
+import trackOrder from './reducers/trackOrder'
 
 import trackListSource from './reducers/trackListSource'
 
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   refreshTracks,
   showCatPic,
   trackListSource,
-  selectedTrackIsLiked
+  selectedTrackIsLiked,
+  trackOrder
 
 })
 

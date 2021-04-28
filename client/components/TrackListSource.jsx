@@ -7,7 +7,6 @@ import LikedTracks from './LikedTracks'
 import AllTracks from './AllTracks'
 
 function TrackListSource ({ trackListSource }) {
-  
   function componentSource () {
     switch (trackListSource) {
       case 'ALL_TRACKS':

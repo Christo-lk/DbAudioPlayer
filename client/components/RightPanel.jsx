@@ -23,9 +23,17 @@ function RightPanel ({ showForm, showCatPic }) {
     }
   }
 
+  // Handles a-z button click and sets tracks in alphabetic order
+  function alphabeticClickHandler () {
+    console.log('clicked')
+  }
+
   return (
     <div className="flex flex-col  ml-10 shadow-inner bg-gray-100">
       <TrackListNav/>
+      <div className="h-auto w-full bg-red-400">
+        <button onClick={() => alphabeticClickHandler()}>a-z</button>
+      </div>
       <TrackListSource/>
       <div className="px-3 my-2">
         <button name="catPicbutton" className="" onClick={() => catPicClick()}> <img className="w-10 opacity-20 hover:opacity-90"src={showCatPic ? CatOn : CatOff}/></button>
