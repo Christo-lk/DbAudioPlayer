@@ -7,6 +7,7 @@ import refreshTracks from './reducers/refreshTracks'
 import showCatPic from './reducers/showCatPic'
 import selectedTrackIsLiked from './reducers/selectedTrackIsLiked'
 import trackOrder from './reducers/trackOrder'
+import queuedTracks from './reducers/queuedTracks'
 
 import trackListSource from './reducers/trackListSource'
 
