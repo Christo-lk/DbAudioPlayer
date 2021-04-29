@@ -16,6 +16,11 @@ import CatOn from '../icons/catOn.svg'
 import CatOff from '../icons/catOff.svg'
 
 function RightPanel ({ showForm, showCatPic, trackOrder }) {
+  // state to toggle whether delete buttons are shown
+  const [showDeleteButton, setShowDeleteButton] = useState(false)
+
+  console.log('delte', showDeleteButton)
+
   function catPicClick () {
     if (showCatPic) {
       store.dispatch(setShowCatPic(false))
@@ -54,10 +59,11 @@ function RightPanel ({ showForm, showCatPic, trackOrder }) {
   return (
     <div className="flex flex-col  ml-10 shadow-inner bg-gray-100">
       <TrackListNav/>
-      <div className="h-auto w-full bg-gray-100">
+      <div className="h-auto w-full flex items-center relative bg-gray-100">
         <button className={azStyling()} onClick={() => trackOrderHandler()}>{trackOrder === 'DEFAULT' || trackOrder === 'ALPHABETIC' ? 'a-z' : 'z-a' }</button>
+        <buton onClick={showDeleteButton ? () => setShowDeleteButton(false) : () => setShowDeleteButton(true)} className="text-2xl absolute right-9 pb-2">...</buton>
       </div>
-      <TrackListSource/>
+      <TrackListSource showDeleteButton={showDeleteButton}/>
       <div className="px-3 my-2">
         <button name="catPicbutton" className="" onClick={() => catPicClick()}> <img className="w-10 opacity-20 hover:opacity-90"src={showCatPic ? CatOn : CatOff}/></button>
       </div>

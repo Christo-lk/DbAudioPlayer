@@ -6,20 +6,20 @@ import AddSongForm from './AddSongForm'
 import LikedTracks from './LikedTracks'
 import AllTracks from './AllTracks'
 
-function TrackListSource ({ trackListSource }) {
+function TrackListSource ({ trackListSource, showDeleteButton }) {
   function componentSource () {
     switch (trackListSource) {
       case 'ALL_TRACKS':
-        return <AllTracks/>
+        return <AllTracks showDeleteButton={showDeleteButton}/>
 
       case 'LIKED_TRACKS':
-        return <LikedTracks/>
+        return <LikedTracks showDeleteButton={showDeleteButton}/>
 
       case 'ADD_SONG_FORM':
-        return <AddSongForm/>
+        return <AddSongForm showDeleteButton={showDeleteButton}/>
 
       default:
-        return <AllTracks/>
+        return <AllTracks showDeleteButton={showDeleteButton}/>
     }
   }
 
