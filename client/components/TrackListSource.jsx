@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import AddSongForm from './AddSongForm'
 import LikedTracks from './LikedTracks'
 import AllTracks from './AllTracks'
+import QueuedTracks from './QueuedTracks'
 
 function TrackListSource ({ trackListSource, showDeleteButton }) {
   function componentSource () {
@@ -14,6 +15,9 @@ function TrackListSource ({ trackListSource, showDeleteButton }) {
 
       case 'LIKED_TRACKS':
         return <LikedTracks showDeleteButton={showDeleteButton}/>
+
+      case 'QUEUED_TRACKS':
+        return <QueuedTracks showDeleteButton={showDeleteButton}/>
 
       case 'ADD_SONG_FORM':
         return <AddSongForm showDeleteButton={showDeleteButton}/>
