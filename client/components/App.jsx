@@ -19,7 +19,6 @@ function App ({ refreshTracks, selectedTrack }) {
   useEffect(() => {
     getSongs()
       .then(result => {
-        console.log('tracks in app: ', result)
         // loadTracks(result)
         // store.dispatch(loadTracks(result.sort((a, b) => {
         //   if (a.id < b.id) {

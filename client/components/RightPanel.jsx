@@ -19,8 +19,6 @@ function RightPanel ({ showForm, showCatPic, trackOrder }) {
   // state to toggle whether delete buttons are shown
   const [showDeleteButton, setShowDeleteButton] = useState(false)
 
-  console.log('delte', showDeleteButton)
-
   function catPicClick () {
     if (showCatPic) {
       store.dispatch(setShowCatPic(false))

@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 
 import IndTrack from './IndTrack'
 
-function AllTracks ({ tracks, selectedTrackId, trackOrder }) {
-  const [tracklist, setTrackList] = useState()
-
+function AllTracks ({ tracks, showDeleteButton, trackOrder }) {
   const alphabeticTracks = tracks.sort((a, b) => {
     if (a.title < b.title) {
       return -1
@@ -13,8 +11,6 @@ function AllTracks ({ tracks, selectedTrackId, trackOrder }) {
       return 1
     } else { return 0 }
   })
-
-  console.log('TO: ', trackOrder)
 
   function setTrackOrder () {
     switch (trackOrder) {
@@ -35,7 +31,7 @@ function AllTracks ({ tracks, selectedTrackId, trackOrder }) {
   return (
     <>
       {setTrackOrder().map(track =>
-        <IndTrack track={track} key={track.id} />
+        <IndTrack track={track} key={track.id} showDeleteButton={showDeleteButton} />
       )}
     </>
   )
