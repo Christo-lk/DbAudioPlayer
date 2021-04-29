@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
   showCatPic,
   trackListSource,
   selectedTrackIsLiked,
-  trackOrder
+  trackOrder,
+  queuedTracks
 
 })
 
