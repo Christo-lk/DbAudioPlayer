@@ -6,7 +6,7 @@ import store from '../redux/store'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
-import {setQueuedTrack} from '../redux/actions/setQueuedTrack'
+import {setQueuedTrack, removeQueuedTrack} from '../redux/actions/setQueuedTrack'
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -68,9 +68,9 @@ function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) 
     isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
   }
 
-  // add track to Qued tracks
+  // add track to Queued tracks
   function queuedHandler(){
-    store.dispatch(setQueuedTrack(track))
+    trackListSource === 'QUEUED_TRACKS' ? store.dispatch(removeQueuedTrack(track)) : store.dispatch(setQueuedTrack(track))
   }
 
   // returns CSS for the background of the currently selected track

@@ -4,3 +4,10 @@ export function setQueuedTrack (track) {
     track: track
   }
 }
+
+export function removeQueuedTrack (track) {
+  return {
+    type: 'REMOVE_QUEUED_TRACK',
+    track: track
+  }
+}
