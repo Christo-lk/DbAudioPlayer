@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import IndTrack from './IndTrack'
 
 function AllTracks ({ tracks, selectedTrackId, trackOrder }) {
+  const [tracklist, setTrackList] = useState()
+
   const alphabeticTracks = tracks.sort((a, b) => {
     if (a.title < b.title) {
       return -1
@@ -17,35 +19,24 @@ function AllTracks ({ tracks, selectedTrackId, trackOrder }) {
   function setTrackOrder () {
     switch (trackOrder) {
       case 'DEFAULT':
-        return tracks.map(track =>
-          <IndTrack track={track} key={track.id} />
-        )
+        return tracks
 
       case 'ALPHABETIC':
-        return alphabeticTracks.map(track =>
-          <IndTrack track={track} key={track.id} />
-        )
+        return alphabeticTracks
 
       case 'REVERSE_ALPHABETIC':
-        return alphabeticTracks.reverse().map(track =>
-          <IndTrack track={track} key={track.id} />
-        )
+        return alphabeticTracks.reverse()
 
       default:
-        return tracks.map(track =>
-          <IndTrack track={track} key={track.id} />
-        )
+        return tracks
     }
   }
 
   return (
     <>
-
-      {/* {tracks.map(track =>
+      {setTrackOrder().map(track =>
         <IndTrack track={track} key={track.id} />
-      )} */}
-
-      {setTrackOrder()}
+      )}
     </>
   )
 }

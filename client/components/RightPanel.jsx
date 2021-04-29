@@ -61,7 +61,7 @@ function RightPanel ({ showForm, showCatPic, trackOrder }) {
       <TrackListNav/>
       <div className="h-auto w-full flex items-center relative bg-gray-100">
         <button className={azStyling()} onClick={() => trackOrderHandler()}>{trackOrder === 'DEFAULT' || trackOrder === 'ALPHABETIC' ? 'a-z' : 'z-a' }</button>
-        <buton onClick={showDeleteButton ? () => setShowDeleteButton(false) : () => setShowDeleteButton(true)} className="text-2xl absolute right-9 pb-2">...</buton>
+        <button onClick={showDeleteButton ? () => setShowDeleteButton(false) : () => setShowDeleteButton(true)} className="text-2xl absolute right-9 pb-2">...</button>
       </div>
       <TrackListSource showDeleteButton={showDeleteButton}/>
       <div className="px-3 my-2">
