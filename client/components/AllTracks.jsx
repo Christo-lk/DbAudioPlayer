@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import IndTrack from './IndTrack'
 
 function AllTracks ({ tracks, showDeleteButton, trackOrder }) {
-  console.log('filter test: ', tracks.filter(result => result.id !== 2))
-
   const alphabeticTracks = tracks.sort((a, b) => {
     if (a.title < b.title) {
       return -1
