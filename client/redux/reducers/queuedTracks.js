@@ -6,6 +6,9 @@ export default function queuedTracks (state = [], action) {
         action.track
       ]
 
+    case 'REMOVE_QUEUED_TRACK':
+      return state.filter(result => result.id !== action.track.id)
+
     default:
       return state
   }
