@@ -103,7 +103,7 @@ function IndTrack ({ track, selectedTrack,  trackListSource }) {
 
   // CSS: Add to Queue Button
   function QueueButtonCss(){
-    if(showOptions && trackListSource === 'QUEUED_TRACKS' ){
+    if(trackListSource === 'QUEUED_TRACKS' ){
       return Remove
     } else if (showOptions){
       return Add
@@ -130,7 +130,7 @@ function IndTrack ({ track, selectedTrack,  trackListSource }) {
 
         <div className="flex items-center absolute right-5">
           <button onClick={() => isLikedHandler()} className="w-5">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
-          <button onClick={()=> queuedHandler()}><img className={`${conditionallyRender(showOptions)} w-5 ml-1 opacity-40 hover:opacity-80`} src={QueueButtonCss()}/></button>
+          <button onClick={()=> queuedHandler()}><img className={`${trackListSource === "QUEUED_TRACKS" ? 'block' : conditionallyRender(showOptions) } w-5 ml-1 opacity-40 hover:opacity-80`} src={QueueButtonCss()}/></button>
           <button onClick={() => deleteHandler()}><img className={`${conditionallyRender(showOptions)} w-4 ml-1 opacity-20 hover:opacity-60`}src={Delete}/></button>
           <button onClick={()=> optionsHandler()}><img className ={`w-5 opacity-40 ml-1 hover:opacity-80`} src={VerticalHollow}/></button>
         </div>
