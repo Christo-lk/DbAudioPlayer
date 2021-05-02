@@ -19,16 +19,7 @@ function App ({ refreshTracks, selectedTrack }) {
   useEffect(() => {
     getSongs()
       .then(result => {
-        // loadTracks(result)
-        // store.dispatch(loadTracks(result.sort((a, b) => {
-        //   if (a.id < b.id) {
-        //     return -1
-        //   } if (a.id > b.id) {
-        //     return 1
-        //   } else { return 0 }
-        // }))
-        // )
-        store.dispatch(loadTracks(result.sort((a, b) => a.id - b.id)))
+        store.dispatch(loadTracks(result))
         store.dispatch(setSelectedTrack(result[0]))
         store.dispatch(setSelectedTrackIsLiked(result[0].id, result[0].isLiked))
         setIsLoaded(true)

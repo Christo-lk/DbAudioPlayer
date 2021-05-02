@@ -17,15 +17,18 @@ import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
 import Add from '../icons/add.svg'
 import Remove from '../icons/remove.svg'
+import VerticalOptions from '../icons/verticalOptions.svg'
+import VerticalHollow from '../icons/verticalHollow.svg'
 
-function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) {
+function IndTrack ({ track, selectedTrack,  trackListSource }) {
   // de structure props out of
   const { title, artist, id, isLiked } = track
 
   // state that selects selected track
   const [isSelected, setIsSelected] = useState(false)
 
- 
+  // hook to show add to queue/delete buttons
+  const [showOptions, setShowOptions] = useState(false)
 
   // changes the currently selected track on selectedTrack change
   useEffect(() => {
@@ -45,7 +48,6 @@ function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) 
   function deleteHandler () {
     deleteSong(id)
       .then(res => {
-        console.log(res, 'clicked')
         store.dispatch(setRefreshTracks(true))
         return null
       })
@@ -71,6 +73,14 @@ function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) 
   // add track to Queued tracks
   function queuedHandler(){
     trackListSource === 'QUEUED_TRACKS' ? store.dispatch(removeQueuedTrack(track)) : store.dispatch(setQueuedTrack(track))
+    showOptions && setShowOptions(false)
+
+  }
+
+  // handles option button click
+  function optionsHandler(){
+    setShowOptions(true)
+    showOptions && setShowOptions(false)
   }
 
   // returns CSS for the background of the currently selected track
@@ -91,6 +101,24 @@ function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) 
     }
   }
 
+  // CSS: Add to Queue Button
+  function QueueButtonCss(){
+    if(showOptions && trackListSource === 'QUEUED_TRACKS' ){
+      return Remove
+    } else if (showOptions){
+      return Add
+    }
+  }
+
+  // Conditionally render CSS display Hidden or Block
+  function conditionallyRender(test){
+    if(test){
+      return 'block'
+    }else{
+      return 'hidden'
+    }
+  }
+
   return (
     <>
       <div className={indTrackBackground()} >
@@ -101,9 +129,10 @@ function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) 
         </div>
 
         <div className="flex items-center absolute right-5">
-          <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
-          <button onClick={()=> queuedHandler()}><img className="w-5 opacity-40 hover:opacity-80" src={trackListSource === 'QUEUED_TRACKS' ? Remove : Add}/></button>
-          <button onClick={() => deleteHandler()}><img className={`${showDeleteButton ? 'block' : 'hidden'} w-4 opacity-20 hover:opacity-60`}src={Delete}/></button>
+          <button onClick={() => isLikedHandler()} className="w-5">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
+          <button onClick={()=> queuedHandler()}><img className={`${conditionallyRender(showOptions)} w-5 ml-1 opacity-40 hover:opacity-80`} src={QueueButtonCss()}/></button>
+          <button onClick={() => deleteHandler()}><img className={`${conditionallyRender(showOptions)} w-4 ml-1 opacity-20 hover:opacity-60`}src={Delete}/></button>
+          <button onClick={()=> optionsHandler()}><img className ={`w-5 opacity-40 ml-1 hover:opacity-80`} src={VerticalHollow}/></button>
         </div>
       </div>
     </>
