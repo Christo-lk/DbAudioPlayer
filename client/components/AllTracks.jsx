@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 import IndTrack from './IndTrack'
 
 function AllTracks ({ tracks, showDeleteButton, trackOrder }) {
-  const alphabeticTracks = tracks.sort((a, b) => {
-    if (a.title < b.title) {
-      return -1
-    } if (a.title > b.title) {
-      return 1
-    } else { return 0 }
-  })
+  // const alphabeticTracks = tracks.sort((a, b) => {
+  //   if (a.title < b.title) {
+  //     return -1
+  //   } if (a.title > b.title) {
+  //     return 1
+  //   } else { return 0 }
+  // })
 
   function setTrackOrder () {
     switch (trackOrder) {
@@ -18,10 +18,22 @@ function AllTracks ({ tracks, showDeleteButton, trackOrder }) {
         return tracks
 
       case 'ALPHABETIC':
-        return alphabeticTracks
+        return tracks.sort((a, b) => {
+          if (a.title < b.title) {
+            return -1
+          } if (a.title > b.title) {
+            return 1
+          } else { return 0 }
+        })
 
       case 'REVERSE_ALPHABETIC':
-        return alphabeticTracks.reverse()
+        return tracks.sort((a, b) => {
+          if (a.title < b.title) {
+            return -1
+          } if (a.title > b.title) {
+            return 1
+          } else { return 0 }
+        }).reverse()
 
       default:
         return tracks
