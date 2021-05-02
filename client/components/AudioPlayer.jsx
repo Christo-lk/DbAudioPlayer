@@ -14,9 +14,14 @@ import Next from '../icons/next.svg'
 import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 import TrackArtwork from './TrackArtwork'
 import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
-
-function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
+import { setSelectedTrack } from '../redux/actions/selectedTrack'
+function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   const [progress, setProgress] = useState(0)
+
+  // returns true or false if there are queued tracks.
+  const [tracksInQueue, setTracksInQueue] = useState(false)
+
+  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
   // Plays song and starts progress bar
   useEffect(() => {
@@ -27,6 +32,11 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
       audio.current.pause()
     }
   }, [isPlaying])
+
+  // Use Effect to check whether there are any queued Tracks
+  useEffect(() => {
+    queuedTracks.length >= 1 ? setTracksInQueue(true) : setTracksInQueue(false)
+  }, [queuedTracks])
 
   // REDUX ON TRACK CHANGE
   useEffect(() => {
@@ -50,57 +60,47 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying }) {
 
   // changes to next track
   function toNext () {
-    const songId = id + 1
-
-    if (id < tracks.length) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
+    if (tracksInQueue) {
+      queuedTrackToNext()
     } else {
-      getIndSong(1)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      if (trackIndex < tracks.length - 1) {
+        const nextTrack = tracks[trackIndex + 1]
+        store.dispatch(setSelectedTrack(nextTrack))
+        store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
+      } else {
+        store.dispatch(setSelectedTrack(tracks[0]))
+      }
+    }
+  }
+
+  function queuedTrackToNext () {
+    console.log('inQueuedTracks')
+    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
+    store.dispatch(setSelectedTrack(queuedTracks[0]))
+
+    if (queuedTrackIndex < queuedTracks.length - 1) {
+      const nextQueuedTrack = tracks[queuedTrackIndex + 1]
+      store.dispatch(setSelectedTrack(nextQueuedTrack))
+    } else {
+      setTracksInQueue(false)
+      toNext()
     }
   }
 
   // changes to previous track
   function toPrev () {
-    const songId = id - 1
-
-    if (id > 1) {
-      getIndSong(songId)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          store.dispatch(setSelectedTrackIsLiked(indSong.id, indSong.isLiked))
-          return null
-        })
-        .catch(err => console.log(err))
+    if (trackIndex > 0) {
+      const prevTrack = tracks[trackIndex - 1]
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: prevTrack
+      })
+      store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
     } else {
-      getIndSong(selectedTrack.id)
-        .then(indSong => {
-          store.dispatch({
-            type: 'SET_SELECTED_TRACK',
-            track: indSong
-          })
-          return null
-        })
-        .catch(err => console.log(err))
+      store.dispatch({
+        type: 'SET_SELECTED_TRACK',
+        track: tracks[tracks.length - 1]
+      })
     }
   }
 
@@ -149,7 +149,8 @@ function mapStateToProps (state) {
   return {
     tracks: state.tracks,
     isPlaying: state.isPlaying,
-    selectedTrack: state.selectedTrack
+    selectedTrack: state.selectedTrack,
+    queuedTracks: state.queuedTracks
   }
 }
 

@@ -6,7 +6,7 @@ import store from '../redux/store'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
-
+import {setQueuedTrack, removeQueuedTrack} from '../redux/actions/setQueuedTrack'
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -15,8 +15,10 @@ import { deleteSong, updateIsLiked } from '../api/songsApi'
 import Delete from '../icons/delete.svg'
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
+import Add from '../icons/add.svg'
+import Remove from '../icons/remove.svg'
 
-function IndTrack ({ track, selectedTrack, selectedTrackIsLiked, trackListSource }) {
+function IndTrack ({ track, selectedTrack, showDeleteButton, trackListSource }) {
   // de structure props out of
   const { title, artist, id, isLiked } = track
 
@@ -66,6 +68,11 @@ function IndTrack ({ track, selectedTrack, selectedTrackIsLiked, trackListSource
     isLiked ? updateIsLiked(unlike) : updateIsLiked(like)
   }
 
+  // add track to Queued tracks
+  function queuedHandler(){
+    trackListSource === 'QUEUED_TRACKS' ? store.dispatch(removeQueuedTrack(track)) : store.dispatch(setQueuedTrack(track))
+  }
+
   // returns CSS for the background of the currently selected track
   function indTrackBackground () {
     if (isSelected) {
@@ -95,7 +102,8 @@ function IndTrack ({ track, selectedTrack, selectedTrackIsLiked, trackListSource
 
         <div className="flex items-center absolute right-5">
           <button onClick={() => isLikedHandler()} className="w-5 mr-2">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
-          <button onClick={() => deleteHandler()}><img className="w-4 opacity-20 hover:opacity-60"src={Delete}/></button>
+          <button onClick={()=> queuedHandler()}><img className="w-5 opacity-40 hover:opacity-80" src={trackListSource === 'QUEUED_TRACKS' ? Remove : Add}/></button>
+          <button onClick={() => deleteHandler()}><img className={`${showDeleteButton ? 'block' : 'hidden'} w-4 opacity-20 hover:opacity-60`}src={Delete}/></button>
         </div>
       </div>
     </>
