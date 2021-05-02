@@ -13,13 +13,6 @@ export function setSelectedTrack (track) {
   }
 }
 
-export function toNextTrack () {
-  return {
-    action: 'TO_NEXT_TRACK'
-
-  }
-}
-
 export function updateIsLikedSelectedTrack (isLiked) {
   return {
     type: 'UPDATE_ISLIKED_SELECTED_TRACK',

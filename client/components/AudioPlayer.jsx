@@ -21,9 +21,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   // returns true or false if there are queued tracks.
   const [tracksInQueue, setTracksInQueue] = useState(false)
 
-  console.log('queuedTracksLength: ', queuedTracks.length)
-  console.log('queuedTracks: ', tracksInQueue)
-
   const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
   // Plays song and starts progress bar
@@ -77,8 +74,17 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   }
 
   function queuedTrackToNext () {
-    // const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf()
+    console.log('inQueuedTracks')
+    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
     store.dispatch(setSelectedTrack(queuedTracks[0]))
+
+    if (queuedTrackIndex < queuedTracks.length - 1) {
+      const nextQueuedTrack = tracks[queuedTrackIndex + 1]
+      store.dispatch(setSelectedTrack(nextQueuedTrack))
+    } else {
+      setTracksInQueue(false)
+      toNext()
+    }
   }
 
   // changes to previous track

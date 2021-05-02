@@ -19,6 +19,10 @@ NEW FEATURES:
 
 THINGS TO REFACTOR/ IMPROVE: 
 
+*- sorting tracks alphabetically/ vertically should change them in the redux store. The tracklist and sorting need to be centralized all in one place so that all my toNext / queued track functions can use the same source. 
+
+
+
 -Test all Db functions
 -Test all Routes
 
