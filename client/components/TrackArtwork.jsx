@@ -7,7 +7,6 @@ import store from '../redux/store'
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
 import Shuffle from '../icons/shuffle.svg'
-import Shuffle2 from '../icons/shuffle2.svg'
 
 
 // ACTION
@@ -45,7 +44,7 @@ function TrackArtwork (props) {
       })
       .catch(err => console.log(err))
     }
-  }, [title])
+  },[showCatPic, title])
 
 
   // useEffect changes heart SVG when user likes track in tracklist
@@ -69,9 +68,9 @@ function TrackArtwork (props) {
   // return CSS class and makes track art spin
   function imgClassSelector () {
     if (isPlaying) {
-      return 'm-auto h-52 w-52 rounded-full rotate shadow-inner'
+      return 'm-auto object-cover h-52 w-52 rounded-full rotate shadow-inner'
     } else {
-      return 'm-auto h-52 w-52 rounded-full z-10'
+      return 'm-auto object-cover h-52 w-52 rounded-full z-10'
     }
   }
 
@@ -119,7 +118,7 @@ function TrackArtwork (props) {
           </div>
           <div className="flex flex-col mt-2 mr-7 ml-auto">
           <button onClick={() => isLikedHandler()} className="w-5">{heartSvgConditional()}</button>
-          <button onClick={()=> shuffleHandler()}><img className={`${shuffle ? 'opacity-80' : 'opacity-40' } w-5 mt-1 hover:opacity-80`} src={Shuffle2}/></button>
+          <button onClick={()=> shuffleHandler()}><img className={`${shuffle ? 'opacity-80' : 'opacity-40' } w-5 mt-1 hover:opacity-80`} src={Shuffle}/></button>
           </div>
         </div>
       </div>
