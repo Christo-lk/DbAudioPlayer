@@ -14,6 +14,7 @@ import Shuffle2 from '../icons/shuffle2.svg'
 import {setRefreshTracks} from '../redux/actions/refreshTracks'
 import {updateIsLikedSelectedTrack} from '../redux/actions/selectedTrack'
 import {updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
+import {setShuffle } from '../redux/actions/shuffle'
 
 
 // API
@@ -25,7 +26,7 @@ import { getSongs} from '../api/songsApi'
 function TrackArtwork (props) {
   // destructuring props from redux
   const { image, title, artist, id } = props.selectedTrack
-  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked, refreshTracks } = props
+  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked, refreshTracks, shuffle } = props
   const { isLiked } = selectedTrackIsLiked
 
   const [catPic, setCatPic] = useState('')
@@ -91,6 +92,10 @@ function TrackArtwork (props) {
     isLiked ? store.dispatch(updateSelectedTrackIsLiked(0)) : store.dispatch(updateSelectedTrackIsLiked(1))
   }
 
+  function shuffleHandler(){
+    shuffle ? store.dispatch(setShuffle(false)) : store.dispatch(setShuffle(true))
+  }
+
   function heartSvgConditional(){
       if (isLiked){
         return <img className="opacity-80" src={heartFull}/>
@@ -114,7 +119,7 @@ function TrackArtwork (props) {
           </div>
           <div className="flex flex-col mt-2 mr-7 ml-auto">
           <button onClick={() => isLikedHandler()} className="w-5">{heartSvgConditional()}</button>
-          <button><img className="w-5 mt-1 opacity-40 hover:opacity-80" src={Shuffle2}/></button>
+          <button onClick={()=> shuffleHandler()}><img className="w-5 mt-1 opacity-40 hover:opacity-80" src={Shuffle2}/></button>
           </div>
         </div>
       </div>
@@ -130,7 +135,8 @@ function mapStateToProps (state) {
     showCatPic: state.showCatPic,
     tracks: state.tracks,
     selectedTrackIsLiked: state.selectedTrackIsLiked,
-    refreshTracks: state.refreshTracks
+    refreshTracks: state.refreshTracks,
+    shuffle: state.shuffle
   }
 }
 
