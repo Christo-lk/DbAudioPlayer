@@ -80,15 +80,20 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   function queuedTrackToNext () {
     console.log('inQueuedTracks')
 
-    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
     // sets selected track as the first item in the queuedTracks Array
     store.dispatch(setSelectedTrack(queuedTracks[0]))
+    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
 
     if (queuedTrackIndex < queuedTracks.length - 1) {
+
       const nextQueuedTrack = queuedTracks[queuedTrackIndex + 1]
+      // dispatch next selected track and remove previous queued track from redux
       store.dispatch(setSelectedTrack(nextQueuedTrack))
       store.dispatch(removeQueuedTrack(queuedTracks[queuedTrackIndex]))
     } else if (queuedTracks.length === 1) {
+      store.dispatch(removeQueuedTrack(queuedTracks[0]))
+    } else if (queuedTracks.length === 0) {
+      setTracksInQueue(false)
       store.dispatch(removeQueuedTrack(queuedTracks[0]))
       toNext()
     }
