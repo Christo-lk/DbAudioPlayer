@@ -6,6 +6,9 @@ import store from '../redux/store'
 // SVG ICONS
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
+import Shuffle from '../icons/shuffle.svg'
+import Shuffle2 from '../icons/shuffle2.svg'
+
 
 // ACTION
 import {setRefreshTracks} from '../redux/actions/refreshTracks'
@@ -109,8 +112,10 @@ function TrackArtwork (props) {
             <h2 className=" truncate text-2xl font-semibold">{title}</h2>
             <h2 className=" text-italic italic">{artist}</h2>
           </div>
-          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button> */}
-          <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{heartSvgConditional()}</button>
+          <div className="flex flex-col mt-2 mr-7 ml-auto">
+          <button onClick={() => isLikedHandler()} className="w-5">{heartSvgConditional()}</button>
+          <button><img className="w-5 mt-1 opacity-40 hover:opacity-80" src={Shuffle2}/></button>
+          </div>
         </div>
       </div>
     </>

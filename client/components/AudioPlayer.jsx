@@ -22,7 +22,6 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
 
   // returns true or false if there are queued tracks.
   const [tracksInQueue, setTracksInQueue] = useState(false)
-  console.log('tracksInQueue: ', tracksInQueue)
 
   // Plays song and starts progress bar
   useEffect(() => {
@@ -85,14 +84,13 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
     const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
 
     if (queuedTrackIndex < queuedTracks.length - 1) {
-
       const nextQueuedTrack = queuedTracks[queuedTrackIndex + 1]
       // dispatch next selected track and remove previous queued track from redux
       store.dispatch(setSelectedTrack(nextQueuedTrack))
       store.dispatch(removeQueuedTrack(queuedTracks[queuedTrackIndex]))
     } else if (queuedTracks.length === 1) {
       store.dispatch(removeQueuedTrack(queuedTracks[0]))
-    } else if (queuedTracks.length === 0) {
+    } else {
       setTracksInQueue(false)
       store.dispatch(removeQueuedTrack(queuedTracks[0]))
       toNext()
