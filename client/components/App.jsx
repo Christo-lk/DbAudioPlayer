@@ -49,6 +49,12 @@ function App ({ refreshTracks, selectedTrack }) {
     }
   }, [refreshTracks])
 
+  // function that refreshes the queued tracks to show updates in like/unlike
+  function updateQueuedTrackIsLiked()
+
+
+
+
   return (
     <>
       <div className="w-full  flex flex-col justify-center">

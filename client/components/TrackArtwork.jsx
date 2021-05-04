@@ -41,7 +41,7 @@ function TrackArtwork (props) {
       })
       .catch(err => console.log(err))
     }
-  }, [title])
+  },[showCatPic, id])
 
 
   // useEffect changes heart SVG when user likes track in tracklist
