@@ -8,6 +8,7 @@ import showCatPic from './reducers/showCatPic'
 import selectedTrackIsLiked from './reducers/selectedTrackIsLiked'
 import trackOrder from './reducers/trackOrder'
 import queuedTracks from './reducers/queuedTracks'
+import shuffle from './reducers/shuffle'
 
 import trackListSource from './reducers/trackListSource'
 
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   trackListSource,
   selectedTrackIsLiked,
   trackOrder,
-  queuedTracks
+  queuedTracks,
+  shuffle
 
 })
 
