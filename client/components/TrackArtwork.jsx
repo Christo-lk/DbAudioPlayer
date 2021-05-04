@@ -30,7 +30,9 @@ function TrackArtwork (props) {
 
   // cat API that retrieves photo of random cat
   useEffect(() => {
-    request.get('https://aws.random.cat/meow')
+
+    if(showCatPic){
+      request.get('https://aws.random.cat/meow')
       .then(res => {
         const { file } = res.body
         setCatPic(file)
@@ -38,7 +40,8 @@ function TrackArtwork (props) {
         return null
       })
       .catch(err => console.log(err))
-  }, [title])
+    }
+  },[showCatPic, id])
 
 
   // useEffect changes heart SVG when user likes track in tracklist

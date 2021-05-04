@@ -15,13 +15,14 @@ import { setIsPlaying, setIsNotPlaying } from '../redux/actions/isPlaying'
 import TrackArtwork from './TrackArtwork'
 import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
+import { removeQueuedTrack } from '../redux/actions/setQueuedTrack'
+
 function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   const [progress, setProgress] = useState(0)
 
   // returns true or false if there are queued tracks.
   const [tracksInQueue, setTracksInQueue] = useState(false)
-
-  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
+  console.log('tracksInQueue: ', tracksInQueue)
 
   // Plays song and starts progress bar
   useEffect(() => {
@@ -58,6 +59,9 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
+  // returns position of current track for toNext and toPrev functions
+  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
+
   // changes to next track
   function toNext () {
     if (tracksInQueue) {
@@ -75,14 +79,22 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks }) {
 
   function queuedTrackToNext () {
     console.log('inQueuedTracks')
-    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
+
+    // sets selected track as the first item in the queuedTracks Array
     store.dispatch(setSelectedTrack(queuedTracks[0]))
+    const queuedTrackIndex = queuedTracks.map(result => result.id).indexOf(selectedTrack.id)
 
     if (queuedTrackIndex < queuedTracks.length - 1) {
-      const nextQueuedTrack = tracks[queuedTrackIndex + 1]
+
+      const nextQueuedTrack = queuedTracks[queuedTrackIndex + 1]
+      // dispatch next selected track and remove previous queued track from redux
       store.dispatch(setSelectedTrack(nextQueuedTrack))
-    } else {
+      store.dispatch(removeQueuedTrack(queuedTracks[queuedTrackIndex]))
+    } else if (queuedTracks.length === 1) {
+      store.dispatch(removeQueuedTrack(queuedTracks[0]))
+    } else if (queuedTracks.length === 0) {
       setTracksInQueue(false)
+      store.dispatch(removeQueuedTrack(queuedTracks[0]))
       toNext()
     }
   }
