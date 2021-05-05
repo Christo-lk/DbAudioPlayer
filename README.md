@@ -7,6 +7,7 @@ setup:
 
 1) npm install
 2) npm run db:reset
+3) npm run dev
 
 You're good to go!
 
