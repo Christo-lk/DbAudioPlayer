@@ -112,7 +112,7 @@ function TrackArtwork (props) {
           {/* <div className="w-44 h-44 bg-yellow-400 z-0 absolute"></div> */}
         </div>
         <div className="flex flex-row relative py-1 mt-3">
-          <div className="flex flex-col truncate">
+          <div className="flex flex-col w-64 mr-3 truncate">
             <h2 className=" truncate text-2xl font-semibold">{title}</h2>
             <h2 className=" text-italic italic">{artist}</h2>
           </div>
