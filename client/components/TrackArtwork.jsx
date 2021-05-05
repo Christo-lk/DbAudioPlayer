@@ -6,11 +6,14 @@ import store from '../redux/store'
 // SVG ICONS
 import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
+import Shuffle from '../icons/shuffle.svg'
+
 
 // ACTION
 import {setRefreshTracks} from '../redux/actions/refreshTracks'
 import {updateIsLikedSelectedTrack} from '../redux/actions/selectedTrack'
 import {updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
+import {setShuffle } from '../redux/actions/shuffle'
 
 
 // API
@@ -22,7 +25,7 @@ import { getSongs} from '../api/songsApi'
 function TrackArtwork (props) {
   // destructuring props from redux
   const { image, title, artist, id } = props.selectedTrack
-  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked, refreshTracks } = props
+  const { isPlaying, showCatPic, tracks, selectedTrackIsLiked, refreshTracks, shuffle } = props
   const { isLiked } = selectedTrackIsLiked
 
   const [catPic, setCatPic] = useState('')
@@ -30,7 +33,9 @@ function TrackArtwork (props) {
 
   // cat API that retrieves photo of random cat
   useEffect(() => {
-    request.get('https://aws.random.cat/meow')
+
+    if(showCatPic){
+      request.get('https://aws.random.cat/meow')
       .then(res => {
         const { file } = res.body
         setCatPic(file)
@@ -38,7 +43,8 @@ function TrackArtwork (props) {
         return null
       })
       .catch(err => console.log(err))
-  }, [title])
+    }
+  },[showCatPic, id])
 
 
   // useEffect changes heart SVG when user likes track in tracklist
@@ -62,9 +68,9 @@ function TrackArtwork (props) {
   // return CSS class and makes track art spin
   function imgClassSelector () {
     if (isPlaying) {
-      return 'm-auto h-52 w-52 rounded-full rotate shadow-inner'
+      return 'm-auto object-cover h-52 w-52 rounded-full rotate shadow-inner'
     } else {
-      return 'm-auto h-52 w-52 rounded-full z-10'
+      return 'm-auto object-cover h-52 w-52 rounded-full z-10'
     }
   }
 
@@ -85,6 +91,10 @@ function TrackArtwork (props) {
     isLiked ? store.dispatch(updateSelectedTrackIsLiked(0)) : store.dispatch(updateSelectedTrackIsLiked(1))
   }
 
+  function shuffleHandler(){
+    shuffle ? store.dispatch(setShuffle(false)) : store.dispatch(setShuffle(true))
+  }
+
   function heartSvgConditional(){
       if (isLiked){
         return <img className="opacity-80" src={heartFull}/>
@@ -102,12 +112,14 @@ function TrackArtwork (props) {
           {/* <div className="w-44 h-44 bg-yellow-400 z-0 absolute"></div> */}
         </div>
         <div className="flex flex-row relative py-1 mt-3">
-          <div className="flex flex-col truncate">
+          <div className="flex flex-col w-64 mr-3 truncate">
             <h2 className=" truncate text-2xl font-semibold">{title}</h2>
             <h2 className=" text-italic italic">{artist}</h2>
           </div>
-          {/* <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{isLiked ? <img className="opacity-80" src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button> */}
-          <button onClick={() => isLikedHandler()} className="w-5 mr-2 mt-2 absolute right-5 ">{heartSvgConditional()}</button>
+          <div className="flex flex-col mt-2 mr-7 ml-auto">
+          <button onClick={() => isLikedHandler()} className="w-5">{heartSvgConditional()}</button>
+          <button onClick={()=> shuffleHandler()}><img className={`${shuffle ? 'opacity-80' : 'opacity-40' } w-5 mt-1 hover:opacity-80`} src={Shuffle}/></button>
+          </div>
         </div>
       </div>
     </>
@@ -122,7 +134,8 @@ function mapStateToProps (state) {
     showCatPic: state.showCatPic,
     tracks: state.tracks,
     selectedTrackIsLiked: state.selectedTrackIsLiked,
-    refreshTracks: state.refreshTracks
+    refreshTracks: state.refreshTracks,
+    shuffle: state.shuffle
   }
 }
 

@@ -1,5 +1,5 @@
 const connection = require('./connection')
-const db = connection
+// const db = connection
 
 module.exports = {
   getSongs,
@@ -9,27 +9,42 @@ module.exports = {
   updateIsLiked
 }
 
-function getSongs () {
+function getSongs (db = connection) {
   return db('songs')
 }
 
-function getIndSong (id) {
+function getIndSong (id, db = connection) {
   return db('songs')
     .where('id', id).first()
+    .then(result => {
+      return {
+        id: result.id,
+        title: result.title,
+        artist: result.artist,
+        audioSrc: result.audioSrc,
+        image: result.image,
+        isLiked: result.isLiked
+      }
+    })
 }
 
-function addSong (song) {
+function addSong (song, db = connection) {
   return db('songs')
     .insert(song)
+    .then(result => {
+      return {
+        title: song.title
+      }
+    })
 }
 
-function deleteSong (id) {
+function deleteSong (id, db = connection) {
   return db('songs')
     .where('id', id)
     .delete()
 }
 
-function updateIsLiked ({id, boolean}) {
+function updateIsLiked ({ id, boolean }, db = connection) {
   return db('songs')
     .where('id', id)
     .update({ isLiked: boolean })

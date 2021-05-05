@@ -22,6 +22,10 @@ module.exports = {
     connection: {
       filename: ':memory:'
     },
+    seeds: { directory: './server/db/testSeeds' },
+    migrations: {
+      directory: './server/db/migrations'
+    },
     useNullAsDefault: true
   },
 
