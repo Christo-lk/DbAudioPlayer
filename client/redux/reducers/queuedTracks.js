@@ -11,6 +11,9 @@ export default function queuedTracks (state = [], action) {
         return result.id !== action.track.id
       })
 
+    case 'UPDATE_QUEUED_TRACK_ISLIKED':
+      return state.splice(1, 1, action.track)
+
     case 'CLEAR_QUEUED_TRACKS':
       return []
 

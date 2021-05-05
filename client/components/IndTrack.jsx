@@ -6,7 +6,7 @@ import store from '../redux/store'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
-import {setQueuedTrack, removeQueuedTrack} from '../redux/actions/setQueuedTrack'
+import {setQueuedTrack, removeQueuedTrack, updateQueuedTrackIsLiked} from '../redux/actions/setQueuedTrack'
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -20,7 +20,7 @@ import Remove from '../icons/remove.svg'
 import VerticalOptions from '../icons/verticalOptions.svg'
 import VerticalHollow from '../icons/verticalHollow.svg'
 
-function IndTrack ({ track, selectedTrack,  trackListSource }) {
+function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
   // de structure props out of
   const { title, artist, id, isLiked } = track
 
@@ -57,6 +57,19 @@ function IndTrack ({ track, selectedTrack,  trackListSource }) {
   // handles like / unliking song
   function isLikedHandler (e) {  
     store.dispatch(setRefreshTracks(true))  
+
+    const index = queuedTracks.map(result => result.id).indexOf(track.id)
+
+    const queuedTrackUpate = {
+      id: id,
+      track: track,
+      index: index,
+      isLiked: isLiked ? 0 : 1
+    }
+
+    console.log('track.track: ', queuedTrackUpate.track)
+
+    store.dispatch(updateQueuedTrackIsLiked(queuedTrackUpate))
 
     const unlike ={
       "id": `${id}`,
@@ -144,7 +157,8 @@ function mapStateToProps (state, ownProps) {
     selectedTrack: state.selectedTrack,
     track: ownProps.track,
     selectedTrackIsLiked: state.selectedTrackIsLiked,
-    trackListSource: state.trackListSource
+    trackListSource: state.trackListSource,
+    queuedTracks: state.queuedTracks
   }
 }
 

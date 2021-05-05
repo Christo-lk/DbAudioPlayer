@@ -21,3 +21,13 @@ export function clearQueuedTracks () {
     type: 'CLEAR_QUEUED_TRACKS'
   }
 }
+
+export function updateQueuedTrackIsLiked (track) {
+  return {
+    type: 'UPDATE_QUEUED_TRACK_ISLIKED',
+    id: track.id,
+    track: track,
+    index: track.index
+    // isLiked: track.isLiked
+  }
+}
