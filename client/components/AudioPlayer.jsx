@@ -16,12 +16,20 @@ import TrackArtwork from './TrackArtwork'
 import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { removeQueuedTrack } from '../redux/actions/setQueuedTrack'
+import { addToTrackHistory } from '../redux/actions/trackHistory'
 
-function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle }) {
+function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle, trackHistory }) {
   const [progress, setProgress] = useState(0)
 
   // returns true or false if there are queued tracks.
   const [tracksInQueue, setTracksInQueue] = useState(false)
+
+  // state to track previous Random no.
+
+  const [randomNo, setRandomNo] = useState({
+    prev: null,
+    current: Math.floor(Math.random() * tracks.length)
+  })
 
   // Plays song and starts progress bar
   useEffect(() => {
@@ -58,16 +66,40 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
+  // Generates Random Number for Shuffle mode
+  function ShuffleGenerator () {
+    setRandomNo({
+      prev: randomNo.current,
+      current: Math.floor(Math.random() * tracks.length)
+    })
+
+    // if statement to prevent same random no. being generated twice in a row
+    // if (randomNo.current === randomNo.prev) {
+    //   console.log('infied')
+    //   setRandomNo({
+    //     ...randomNo,
+    //     current: Math.floor(Math.random() * tracks.length)
+    //   })
+    // }
+  }
+
   // returns position of current track for toNext and toPrev functions
   const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
   // changes to next track
   function toNext () {
+    shuffle && ShuffleGenerator()
+
+    console.log('shuffle: ', randomNo)
+
+    const indexSelector = shuffle ? randomNo.current : trackIndex + 1
+
     if (tracksInQueue) {
       queuedTrackToNext()
     } else {
       if (trackIndex < tracks.length - 1) {
-        const nextTrack = tracks[trackIndex + 1]
+        store.dispatch(addToTrackHistory(selectedTrack))
+        const nextTrack = tracks[indexSelector]
         store.dispatch(setSelectedTrack(nextTrack))
         store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
       } else {
@@ -76,8 +108,10 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
     }
   }
 
+  // cycles through queued tracks
   function queuedTrackToNext () {
     console.log('inQueuedTracks')
+    store.dispatch(addToTrackHistory(selectedTrack))
 
     // sets selected track as the first item in the queuedTracks Array
     store.dispatch(setSelectedTrack(queuedTracks[0]))
@@ -100,19 +134,34 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
 
   // changes to previous track
   function toPrev () {
-    if (trackIndex > 0) {
-      const prevTrack = tracks[trackIndex - 1]
-      store.dispatch({
-        type: 'SET_SELECTED_TRACK',
-        track: prevTrack
-      })
-      store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
+    if (shuffle) {
+      trackHistoryToPrev()
     } else {
-      store.dispatch({
-        type: 'SET_SELECTED_TRACK',
-        track: tracks[tracks.length - 1]
-      })
+      if (trackIndex > 0) {
+        const prevTrack = tracks[trackIndex - 1]
+        store.dispatch({
+          type: 'SET_SELECTED_TRACK',
+          track: prevTrack
+        })
+        store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
+      } else {
+        store.dispatch({
+          type: 'SET_SELECTED_TRACK',
+          track: tracks[tracks.length - 1]
+        })
+      }
     }
+  }
+
+  // to prev to cycle through track history
+  function trackHistoryToPrev () {
+    const revTrackHistory = trackHistory.reverse()
+
+    // trackHistoryIndex = revTrackHistory.map(track => track.id).indexOf(se)
+
+    // console.log('revTrackHistory: ', revTrackHistory)
+    // store.dispatch(setSelectedTrack(nextQueuedTrack))
+    // store.dispatch(setSelectedTrackIsLiked(nextQueuedTrack.id, nextQueuedTrack.isLiked))
   }
 
   // moves song progressbar
@@ -162,7 +211,8 @@ function mapStateToProps (state) {
     isPlaying: state.isPlaying,
     selectedTrack: state.selectedTrack,
     queuedTracks: state.queuedTracks,
-    shuffle: state.shuffle
+    shuffle: state.shuffle,
+    trackHistory: state.trackHistory
   }
 }
 

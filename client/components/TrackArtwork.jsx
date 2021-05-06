@@ -118,7 +118,7 @@ function TrackArtwork (props) {
           </div>
           <div className="flex flex-col mt-2 mr-7 ml-auto">
           <button onClick={() => isLikedHandler()} className="w-5">{heartSvgConditional()}</button>
-          <button onClick={()=> shuffleHandler()}><img className={`${shuffle ? 'opacity-80' : 'opacity-40' } w-5 mt-1 hover:opacity-80`} src={Shuffle}/></button>
+          <button onClick={()=> shuffleHandler()}><img className={`${shuffle ? 'opacity-90' : 'opacity-40' } w-5 mt-1 hover:opacity-60`} src={Shuffle}/></button>
           </div>
         </div>
       </div>
