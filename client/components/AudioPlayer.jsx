@@ -63,11 +63,19 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
 
   // changes to next track
   function toNext () {
+    function randomNo () {
+      return Math.floor(Math.random() * tracks.length)
+    }
+
+    console.log('randomNo: ', randomNo())
+
+    const indexSelector = shuffle ? randomNo() : trackIndex + 1
+
     if (tracksInQueue) {
       queuedTrackToNext()
     } else {
       if (trackIndex < tracks.length - 1) {
-        const nextTrack = tracks[trackIndex + 1]
+        const nextTrack = tracks[indexSelector]
         store.dispatch(setSelectedTrack(nextTrack))
         store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
       } else {
