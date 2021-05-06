@@ -16,6 +16,7 @@ import TrackArtwork from './TrackArtwork'
 import { setSelectedTrackIsLiked } from '../redux/actions/setSelectedTrackIsLiked'
 import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { removeQueuedTrack } from '../redux/actions/setQueuedTrack'
+import { addToTrackHistory } from '../redux/actions/trackHistory'
 
 function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle }) {
   const [progress, setProgress] = useState(0)
@@ -97,6 +98,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
       queuedTrackToNext()
     } else {
       if (trackIndex < tracks.length - 1) {
+        store.dispatch(addToTrackHistory(selectedTrack))
         const nextTrack = tracks[indexSelector]
         store.dispatch(setSelectedTrack(nextTrack))
         store.dispatch(setSelectedTrackIsLiked(nextTrack.id, nextTrack.isLiked))
@@ -109,6 +111,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   // cycles through queued tracks
   function queuedTrackToNext () {
     console.log('inQueuedTracks')
+    store.dispatch(addToTrackHistory(selectedTrack))
 
     // sets selected track as the first item in the queuedTracks Array
     store.dispatch(setSelectedTrack(queuedTracks[0]))

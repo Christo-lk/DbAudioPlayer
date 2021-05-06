@@ -7,6 +7,7 @@ import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { setRefreshTracks } from '../redux/actions/refreshTracks'
 import { updateSelectedTrackIsLiked} from '../redux/actions/setSelectedTrackIsLiked'
 import {setQueuedTrack, removeQueuedTrack, updateQueuedTrackIsLiked} from '../redux/actions/setQueuedTrack'
+import {addToTrackHistory} from '../redux/actions/trackHistory'
 
 // Api Calls
 import { deleteSong, updateIsLiked } from '../api/songsApi'
@@ -42,7 +43,7 @@ function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
   // sets selected track on click
   function clickHandler (track) {
     store.dispatch(setSelectedTrack(track))
-    // store.dispatch(setSelectedTrackIsLiked(track.id, track.isLiked))
+    store.dispatch(addToTrackHistory(track))
   }
 
   function deleteHandler () {
