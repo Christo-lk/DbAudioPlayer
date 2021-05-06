@@ -134,7 +134,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle,
 
   // changes to previous track
   function toPrev () {
-    if (trackHistory.length >= 1) {
+    if (shuffle) {
       trackHistoryToPrev()
     } else {
       if (trackIndex > 0) {
