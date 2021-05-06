@@ -146,7 +146,7 @@ function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
           <button onClick={() => isLikedHandler()} className="w-5">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
           <button onClick={()=> queuedHandler()}><img className={`${trackListSource === "QUEUED_TRACKS" ? 'block' : conditionallyRender(showOptions) } w-5 ml-1 opacity-40 hover:opacity-80`} src={QueueButtonCss()}/></button>
           <button onClick={() => deleteHandler()}><img className={`${conditionallyRender(showOptions)} w-4 ml-1 opacity-20 hover:opacity-60`}src={Delete}/></button>
-          <button onClick={()=> optionsHandler()}><img className ={`w-5 opacity-40 ml-1 hover:opacity-80`} src={VerticalHollow}/></button>
+          <button onClick={()=> optionsHandler()}><img className ={`${showOptions ? 'opacity-90' : 'opacity-40'} w-5 ml-1 hover:opacity-60`} src={VerticalHollow}/></button>
         </div>
       </div>
     </>
