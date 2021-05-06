@@ -18,8 +18,9 @@ import heartEmpty from '../icons/heartEmpty.svg'
 import heartFull from '../icons/heartFull.svg'
 import Add from '../icons/add.svg'
 import Remove from '../icons/remove.svg'
-import VerticalOptions from '../icons/verticalOptions.svg'
 import VerticalHollow from '../icons/verticalHollow.svg'
+import RubbishBin1 from '../icons/rubbishBin1.svg'
+import RubbishBin2 from '../icons/rubbishBin2.svg'
 
 function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
   // de structure props out of
@@ -145,7 +146,7 @@ function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
         <div className="flex items-center absolute right-5">
           <button onClick={() => isLikedHandler()} className="w-5">{isLiked ? <img className={isLiked && trackListSource === 'LIKED_TRACKS' ? `opacity-80 hover:opacity-40` : 'opacity-80'} src={heartFull}/> : <img className="opacity-50 hover:opacity-80" src={heartEmpty}/>}</button>
           <button onClick={()=> queuedHandler()}><img className={`${trackListSource === "QUEUED_TRACKS" ? 'block' : conditionallyRender(showOptions) } w-5 ml-1 opacity-40 hover:opacity-80`} src={QueueButtonCss()}/></button>
-          <button onClick={() => deleteHandler()}><img className={`${conditionallyRender(showOptions)} w-4 ml-1 opacity-20 hover:opacity-60`}src={Delete}/></button>
+          <button onClick={() => deleteHandler()}><img className={`${conditionallyRender(showOptions)} w-5 ml-1 opacity-20 hover:opacity-60`}src={RubbishBin2}/></button>
           <button onClick={()=> optionsHandler()}><img className ={`${showOptions ? 'opacity-90' : 'opacity-40'} w-5 ml-1 hover:opacity-60`} src={VerticalHollow}/></button>
         </div>
       </div>
