@@ -18,7 +18,7 @@ import { setSelectedTrack } from '../redux/actions/selectedTrack'
 import { removeQueuedTrack } from '../redux/actions/setQueuedTrack'
 import { addToTrackHistory } from '../redux/actions/trackHistory'
 
-function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle }) {
+function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle, trackHistory }) {
   const [progress, setProgress] = useState(0)
 
   // returns true or false if there are queued tracks.
@@ -134,19 +134,34 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
 
   // changes to previous track
   function toPrev () {
-    if (trackIndex > 0) {
-      const prevTrack = tracks[trackIndex - 1]
-      store.dispatch({
-        type: 'SET_SELECTED_TRACK',
-        track: prevTrack
-      })
-      store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
+    if (trackHistory.length >= 1) {
+      trackHistoryToPrev()
     } else {
-      store.dispatch({
-        type: 'SET_SELECTED_TRACK',
-        track: tracks[tracks.length - 1]
-      })
+      if (trackIndex > 0) {
+        const prevTrack = tracks[trackIndex - 1]
+        store.dispatch({
+          type: 'SET_SELECTED_TRACK',
+          track: prevTrack
+        })
+        store.dispatch(setSelectedTrackIsLiked(prevTrack.id, prevTrack.isLiked))
+      } else {
+        store.dispatch({
+          type: 'SET_SELECTED_TRACK',
+          track: tracks[tracks.length - 1]
+        })
+      }
     }
+  }
+
+  // to prev to cycle through track history
+  function trackHistoryToPrev () {
+    const revTrackHistory = trackHistory.reverse()
+
+    // trackHistoryIndex = revTrackHistory.map(track => track.id).indexOf(se)
+
+    // console.log('revTrackHistory: ', revTrackHistory)
+    // store.dispatch(setSelectedTrack(nextQueuedTrack))
+    // store.dispatch(setSelectedTrackIsLiked(nextQueuedTrack.id, nextQueuedTrack.isLiked))
   }
 
   // moves song progressbar
@@ -196,7 +211,8 @@ function mapStateToProps (state) {
     isPlaying: state.isPlaying,
     selectedTrack: state.selectedTrack,
     queuedTracks: state.queuedTracks,
-    shuffle: state.shuffle
+    shuffle: state.shuffle,
+    trackHistory: state.trackHistory
   }
 }
 
