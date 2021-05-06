@@ -27,7 +27,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
 
   const [randomNo, setRandomNo] = useState({
     prev: null,
-    current: null
+    current: Math.floor(Math.random() * tracks.length)
   })
 
   // Plays song and starts progress bar
@@ -65,11 +65,9 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   // destructure song duration out of the 'current' property
   const { duration } = audio.current
 
-  // returns position of current track for toNext and toPrev functions
-  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
-
   // Generates Random Number for Shuffle mode
   function ShuffleGenerator () {
+    // if statement to prevent same random no. being generated twice in a row
     if (randomNo.current === randomNo.prev) {
       setRandomNo({
         ...randomNo,
@@ -83,10 +81,14 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
     }
   }
 
+  // returns position of current track for toNext and toPrev functions
+  const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
+
   // changes to next track
   function toNext () {
-    ShuffleGenerator()
-    console.log('randomNo: ', randomNo)
+    shuffle && ShuffleGenerator()
+
+    console.log('shuffle: ', randomNo.current)
 
     const indexSelector = shuffle ? randomNo.current : trackIndex + 1
 
@@ -103,6 +105,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
     }
   }
 
+  // cycles through queued tracks
   function queuedTrackToNext () {
     console.log('inQueuedTracks')
 
