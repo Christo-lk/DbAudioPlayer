@@ -23,6 +23,13 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   // returns true or false if there are queued tracks.
   const [tracksInQueue, setTracksInQueue] = useState(false)
 
+  // state to track previous Random no.
+
+  const [randomNo, setRandomNo] = useState({
+    prev: null,
+    current: null
+  })
+
   // Plays song and starts progress bar
   useEffect(() => {
     if (isPlaying) {
@@ -61,15 +68,27 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   // returns position of current track for toNext and toPrev functions
   const trackIndex = tracks.map(result => result.title).indexOf(selectedTrack.title)
 
+  // Generates Random Number for Shuffle mode
+  function ShuffleGenerator () {
+    if (randomNo.current === randomNo.prev) {
+      setRandomNo({
+        ...randomNo,
+        current: Math.floor(Math.random() * tracks.length)
+      })
+    } else {
+      setRandomNo({
+        prev: randomNo.current,
+        current: Math.floor(Math.random() * tracks.length)
+      })
+    }
+  }
+
   // changes to next track
   function toNext () {
-    function randomNo () {
-      return Math.floor(Math.random() * tracks.length)
-    }
+    ShuffleGenerator()
+    console.log('randomNo: ', randomNo)
 
-    console.log('randomNo: ', randomNo())
-
-    const indexSelector = shuffle ? randomNo() : trackIndex + 1
+    const indexSelector = shuffle ? randomNo.current : trackIndex + 1
 
     if (tracksInQueue) {
       queuedTrackToNext()
