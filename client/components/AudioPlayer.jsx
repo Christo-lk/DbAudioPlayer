@@ -67,18 +67,19 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
 
   // Generates Random Number for Shuffle mode
   function ShuffleGenerator () {
+    setRandomNo({
+      prev: randomNo.current,
+      current: Math.floor(Math.random() * tracks.length)
+    })
+
     // if statement to prevent same random no. being generated twice in a row
-    if (randomNo.current === randomNo.prev) {
-      setRandomNo({
-        ...randomNo,
-        current: Math.floor(Math.random() * tracks.length)
-      })
-    } else {
-      setRandomNo({
-        prev: randomNo.current,
-        current: Math.floor(Math.random() * tracks.length)
-      })
-    }
+    // if (randomNo.current === randomNo.prev) {
+    //   console.log('infied')
+    //   setRandomNo({
+    //     ...randomNo,
+    //     current: Math.floor(Math.random() * tracks.length)
+    //   })
+    // }
   }
 
   // returns position of current track for toNext and toPrev functions
@@ -88,7 +89,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle 
   function toNext () {
     shuffle && ShuffleGenerator()
 
-    console.log('shuffle: ', randomNo.current)
+    console.log('shuffle: ', randomNo)
 
     const indexSelector = shuffle ? randomNo.current : trackIndex + 1
 
