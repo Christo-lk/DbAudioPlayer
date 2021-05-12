@@ -25,11 +25,15 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle,
   const [tracksInQueue, setTracksInQueue] = useState(false)
 
   // state to track previous Random no.
-
   const [randomNo, setRandomNo] = useState({
     prev: null,
     current: Math.floor(Math.random() * tracks.length)
   })
+
+  // state to track where in the track history array you are
+  const [trackHistoryindex, setTrackHistoryIndex] = useState(0)
+
+
 
   // Plays song and starts progress bar
   useEffect(() => {
@@ -156,6 +160,7 @@ function AudioPlayer ({ selectedTrack, tracks, isPlaying, queuedTracks, shuffle,
   // to prev to cycle through track history
   function trackHistoryToPrev () {
     const revTrackHistory = trackHistory.reverse()
+    console.log('in prev trackHist')
 
     // trackHistoryIndex = revTrackHistory.map(track => track.id).indexOf(se)
 

@@ -19,7 +19,6 @@ import heartFull from '../icons/heartFull.svg'
 import Add from '../icons/add.svg'
 import Remove from '../icons/remove.svg'
 import VerticalHollow from '../icons/verticalHollow.svg'
-import RubbishBin1 from '../icons/rubbishBin1.svg'
 import RubbishBin2 from '../icons/rubbishBin2.svg'
 
 function IndTrack ({ track, selectedTrack,  trackListSource, queuedTracks }) {
